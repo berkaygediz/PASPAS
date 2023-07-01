@@ -51,6 +51,8 @@ namespace PASPAS
     { "OldWindows", "/$Windows.old" }
 };
 
+        readonly string[] temporaryextensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
+
         int SelectedThread;
         readonly string SystemDirectory = Path.GetPathRoot(Environment.SystemDirectory);
 
@@ -428,10 +430,10 @@ namespace PASPAS
             {
                 ProcessBox.Items.Add("");
                 ProcessBox.Items.Add("--->cmd.exe");
-                System.Diagnostics.Process cmd = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo
+                Process cmd = new Process();
+                ProcessStartInfo startinfo = new ProcessStartInfo
                 {
-                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                    WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "cmd.exe",
                     Arguments = "cmd /c echo off | clip"
                 };
@@ -449,10 +451,10 @@ namespace PASPAS
             {
                 ProcessBox.Items.Add("");
                 ProcessBox.Items.Add("--->cmd.exe");
-                System.Diagnostics.Process cmd = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo
+                Process cmd = new Process();
+                ProcessStartInfo startinfo = new ProcessStartInfo
                 {
-                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                    WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "cmd.exe",
                     Arguments = "/C ipconfig /flushdns"
                 };
@@ -579,55 +581,15 @@ namespace PASPAS
 
             ClipboardClear();
 
-            DeleteFiles(folders["WinTemp"], ".tmp");
-            DeleteFiles(folders["WinTemp"], ".log");
-            DeleteFiles(folders["WinTemp"], ".txt");
-            DeleteFiles(folders["WinTemp"], ".dat");
-            DeleteFiles(folders["WinTemp"], ".iss");
-            DeleteFiles(folders["WinTemp"], ".exe");
-            DeleteFiles(folders["WinTemp"], ".ini");
-            DeleteFiles(folders["WinTemp"], ".vbs");
-            DeleteFiles(folders["WinTemp"], ".cvr");
-            DeleteFiles(folders["WinTemp"], ".od");
-            DeleteFiles(folders["WinTemp"], ".lnk");
-            DeleteFiles(folders["WinTemp"], ".js");
-            DeleteFiles(folders["WinTemp"], ".5f2");
-            DeleteFiles(folders["WinTemp"], ".jro");
-            DeleteFiles(folders["WinTemp"], ".41u");
-            DeleteFiles(folders["WinTemp"], ".w0y");
-            DeleteFiles(folders["WinTemp"], ".vmo");
-            DeleteFiles(folders["WinTemp2"], ".tmp");
-            DeleteFiles(folders["WinTemp2"], ".log");
-            DeleteFiles(folders["WinTemp2"], ".txt");
-            DeleteFiles(folders["WinTemp2"], ".dat");
-            DeleteFiles(folders["WinTemp2"], ".iss");
-            DeleteFiles(folders["WinTemp2"], ".exe");
-            DeleteFiles(folders["WinTemp2"], ".ini");
-            DeleteFiles(folders["WinTemp2"], ".vbs");
-            DeleteFiles(folders["WinTemp2"], ".cvr");
-            DeleteFiles(folders["WinTemp2"], ".od");
-            DeleteFiles(folders["WinTemp2"], ".lnk");
-            DeleteFiles(folders["WinTemp2"], ".js");
-            DeleteFiles(folders["WinTemp2"], ".5f2");
-            DeleteFiles(folders["WinTemp2"], ".jro");
-            DeleteFiles(folders["WinTemp2"], ".41u");
-            DeleteFiles(folders["WinTemp2"], ".w0y");
-            DeleteFiles(folders["WinTemp2"], ".diagsession");
-            DeleteFiles(folders["WinTemp2"], ".png");
-            DeleteFiles(folders["WinTemp2"], ".jpg");
-            DeleteFiles(folders["WinTemp2"], ".jpeg");
-            DeleteFiles(folders["WinTemp2"], ".q13");
-            DeleteFiles(folders["WinTemp2"], ".2im");
-            DeleteFiles(folders["WinTemp2"], ".html");
-            DeleteFiles(folders["WinTemp2"], ".rcl");
-            DeleteFiles(folders["WinTemp2"], ".5ar");
-            DeleteFiles(folders["WinTemp2"], ".xml");
-            DeleteFiles(folders["WinTemp2"], ".dll");
-            DeleteFiles(folders["WinTemp2"], ".Mtx");
-            DeleteFiles(folders["WinTemp2"], ".5f2");
-            DeleteFiles(folders["WinTemp2"], ".jro");
-            DeleteFiles(folders["WinTemp2"], ".41u");
-            DeleteFiles(folders["WinTemp2"], ".w0y");
+            foreach (string extensions in temporaryextensions)
+            {
+                DeleteFiles(folders["WinTemp"], extensions.ToString());
+            }
+            foreach (string extensions in temporaryextensions)
+            {
+                DeleteFiles(folders["WinTemp2"], extensions.ToString());
+            }
+
             Process_count.Text = FileCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadedInstallations"]);
@@ -661,59 +623,17 @@ namespace PASPAS
             Clipboard_Count = 0;
             DNSCache_Count = 0;
 
-            //Pano
             ClipboardClear();
 
-            //Geçici Dosyalar
-            DeleteFiles(folders["WinTemp"], ".tmp");
-            DeleteFiles(folders["WinTemp"], ".log");
-            DeleteFiles(folders["WinTemp"], ".txt");
-            DeleteFiles(folders["WinTemp"], ".dat");
-            DeleteFiles(folders["WinTemp"], ".iss");
-            DeleteFiles(folders["WinTemp"], ".exe");
-            DeleteFiles(folders["WinTemp"], ".ini");
-            DeleteFiles(folders["WinTemp"], ".vbs");
-            DeleteFiles(folders["WinTemp"], ".cvr");
-            DeleteFiles(folders["WinTemp"], ".od");
-            DeleteFiles(folders["WinTemp"], ".lnk");
-            DeleteFiles(folders["WinTemp"], ".js");
-            DeleteFiles(folders["WinTemp"], ".5f2");
-            DeleteFiles(folders["WinTemp"], ".jro");
-            DeleteFiles(folders["WinTemp"], ".41u");
-            DeleteFiles(folders["WinTemp"], ".w0y");
-            DeleteFiles(folders["WinTemp"], ".vmo");
-            DeleteFiles(folders["WinTemp2"], ".tmp");
-            DeleteFiles(folders["WinTemp2"], ".log");
-            DeleteFiles(folders["WinTemp2"], ".txt");
-            DeleteFiles(folders["WinTemp2"], ".dat");
-            DeleteFiles(folders["WinTemp2"], ".iss");
-            DeleteFiles(folders["WinTemp2"], ".exe");
-            DeleteFiles(folders["WinTemp2"], ".ini");
-            DeleteFiles(folders["WinTemp2"], ".vbs");
-            DeleteFiles(folders["WinTemp2"], ".cvr");
-            DeleteFiles(folders["WinTemp2"], ".od");
-            DeleteFiles(folders["WinTemp2"], ".lnk");
-            DeleteFiles(folders["WinTemp2"], ".js");
-            DeleteFiles(folders["WinTemp2"], ".5f2");
-            DeleteFiles(folders["WinTemp2"], ".jro");
-            DeleteFiles(folders["WinTemp2"], ".41u");
-            DeleteFiles(folders["WinTemp2"], ".w0y");
-            DeleteFiles(folders["WinTemp2"], ".diagsession");
-            DeleteFiles(folders["WinTemp2"], ".png");
-            DeleteFiles(folders["WinTemp2"], ".jpg");
-            DeleteFiles(folders["WinTemp2"], ".jpeg");
-            DeleteFiles(folders["WinTemp2"], ".q13");
-            DeleteFiles(folders["WinTemp2"], ".2im");
-            DeleteFiles(folders["WinTemp2"], ".html");
-            DeleteFiles(folders["WinTemp2"], ".rcl");
-            DeleteFiles(folders["WinTemp2"], ".5ar");
-            DeleteFiles(folders["WinTemp2"], ".xml");
-            DeleteFiles(folders["WinTemp2"], ".dll");
-            DeleteFiles(folders["WinTemp2"], ".Mtx");
-            DeleteFiles(folders["WinTemp2"], ".5f2");
-            DeleteFiles(folders["WinTemp2"], ".jro");
-            DeleteFiles(folders["WinTemp2"], ".41u");
-            DeleteFiles(folders["WinTemp2"], ".w0y");
+            foreach (string extensions in temporaryextensions)
+            {
+                DeleteFiles(folders["WinTemp"], extensions.ToString());
+            }
+            foreach (string extensions in temporaryextensions)
+            {
+                DeleteFiles(folders["WinTemp2"], extensions.ToString());
+            }
+
             Process_count.Text = FileCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadedInstallations"]);
@@ -769,69 +689,26 @@ namespace PASPAS
             {
                 ClipboardClear();
             }
-            else { }
 
             if (Properties.Settings.Default.TemporaryFiles == true)
             {
-                DeleteFiles(folders["WinTemp"], ".tmp");
-                DeleteFiles(folders["WinTemp"], ".log");
-                DeleteFiles(folders["WinTemp"], ".txt");
-                DeleteFiles(folders["WinTemp"], ".dat");
-                DeleteFiles(folders["WinTemp"], ".iss");
-                DeleteFiles(folders["WinTemp"], ".exe");
-                DeleteFiles(folders["WinTemp"], ".ini");
-                DeleteFiles(folders["WinTemp"], ".vbs");
-                DeleteFiles(folders["WinTemp"], ".cvr");
-                DeleteFiles(folders["WinTemp"], ".od");
-                DeleteFiles(folders["WinTemp"], ".lnk");
-                DeleteFiles(folders["WinTemp"], ".js");
-                DeleteFiles(folders["WinTemp"], ".5f2");
-                DeleteFiles(folders["WinTemp"], ".jro");
-                DeleteFiles(folders["WinTemp"], ".41u");
-                DeleteFiles(folders["WinTemp"], ".w0y");
-                DeleteFiles(folders["WinTemp"], ".vmo");
-                DeleteFiles(folders["WinTemp2"], ".tmp");
-                DeleteFiles(folders["WinTemp2"], ".log");
-                DeleteFiles(folders["WinTemp2"], ".txt");
-                DeleteFiles(folders["WinTemp2"], ".dat");
-                DeleteFiles(folders["WinTemp2"], ".iss");
-                DeleteFiles(folders["WinTemp2"], ".exe");
-                DeleteFiles(folders["WinTemp2"], ".ini");
-                DeleteFiles(folders["WinTemp2"], ".vbs");
-                DeleteFiles(folders["WinTemp2"], ".cvr");
-                DeleteFiles(folders["WinTemp2"], ".od");
-                DeleteFiles(folders["WinTemp2"], ".lnk");
-                DeleteFiles(folders["WinTemp2"], ".js");
-                DeleteFiles(folders["WinTemp2"], ".5f2");
-                DeleteFiles(folders["WinTemp2"], ".jro");
-                DeleteFiles(folders["WinTemp2"], ".41u");
-                DeleteFiles(folders["WinTemp2"], ".w0y");
-                DeleteFiles(folders["WinTemp2"], ".diagsession");
-                DeleteFiles(folders["WinTemp2"], ".png");
-                DeleteFiles(folders["WinTemp2"], ".jpg");
-                DeleteFiles(folders["WinTemp2"], ".jpeg");
-                DeleteFiles(folders["WinTemp2"], ".q13");
-                DeleteFiles(folders["WinTemp2"], ".2im");
-                DeleteFiles(folders["WinTemp2"], ".html");
-                DeleteFiles(folders["WinTemp2"], ".rcl");
-                DeleteFiles(folders["WinTemp2"], ".5ar");
-                DeleteFiles(folders["WinTemp2"], ".xml");
-                DeleteFiles(folders["WinTemp2"], ".dll");
-                DeleteFiles(folders["WinTemp2"], ".Mtx");
-                DeleteFiles(folders["WinTemp2"], ".5f2");
-                DeleteFiles(folders["WinTemp2"], ".jro");
-                DeleteFiles(folders["WinTemp2"], ".41u");
-                DeleteFiles(folders["WinTemp2"], ".w0y");
+                foreach (string extensions in temporaryextensions)
+                {
+                    DeleteFiles(folders["WinTemp"], extensions.ToString());
+                }
+                foreach (string extensions in temporaryextensions)
+                {
+                    DeleteFiles(folders["WinTemp2"], extensions.ToString());
+                }
+
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.DownloadedInstallations == true)
             {
                 SingleDirectoryDeletion(folders["DownloadedInstallations"]);
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.RecentlyUsed == true)
             {
@@ -840,20 +717,17 @@ namespace PASPAS
                 DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.PreviewCache == true)
             {
                 DeleteFiles(folders["PreviewCache"], ".db");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.DNSCache == true)
             {
                 DNSCacheRefresh();
             }
-            else { }
 
             if (Properties.Settings.Default.Logs == true)
             {
@@ -863,14 +737,12 @@ namespace PASPAS
                 SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.SystemCache == true)
             {
                 DeleteFiles(folders["SystemCache"], ".db");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.MemoryDumps == true)
             {
@@ -880,34 +752,29 @@ namespace PASPAS
                 DeleteFiles(folders["MiniDumps"], ".dmp");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.Prefetch == true)
             {
                 DeleteFiles(folders["Prefetch"], ".pf");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.FontCache == true)
             {
                 SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.DownloadCache == true)
             {
                 SingleDirectoryDeletion(folders["DownloadCache"]);
                 Process_count.Text = FileCount.ToString();
             }
-            else { }
 
             if (Properties.Settings.Default.OldWindows == true)
             {
                 SingleDirectoryDeletion(folders["OldWindows"]);
             }
-            else { }
 
             Process_count.Text = FileCount.ToString();
             process_img.Visible = false;
@@ -920,90 +787,82 @@ namespace PASPAS
             FileCount = 0;
             if (SelectedThread == 1 || SelectedThread == 2 || SelectedThread == 3)
             {
-                AnalyzeFiles(folders["WinTemp"], ".tmp");
-                AnalyzeFiles(folders["WinTemp"], ".log");
-                AnalyzeFiles(folders["WinTemp"], ".txt");
-                AnalyzeFiles(folders["WinTemp"], ".dat");
-                AnalyzeFiles(folders["WinTemp"], ".iss");
-                AnalyzeFiles(folders["WinTemp"], ".exe");
-                AnalyzeFiles(folders["WinTemp"], ".ini");
-                AnalyzeFiles(folders["WinTemp"], ".vbs");
-                AnalyzeFiles(folders["WinTemp"], ".cvr");
-                AnalyzeFiles(folders["WinTemp"], ".od");
-                AnalyzeFiles(folders["WinTemp"], ".lnk");
-                AnalyzeFiles(folders["WinTemp"], ".js");
-                AnalyzeFiles(folders["WinTemp"], ".5f2");
-                AnalyzeFiles(folders["WinTemp"], ".jro");
-                AnalyzeFiles(folders["WinTemp"], ".41u");
-                AnalyzeFiles(folders["WinTemp"], ".w0y");
-                AnalyzeFiles(folders["WinTemp"], ".vmo");
-                AnalyzeFiles(folders["WinTemp2"], ".tmp");
-                AnalyzeFiles(folders["WinTemp2"], ".log");
-                AnalyzeFiles(folders["WinTemp2"], ".txt");
-                AnalyzeFiles(folders["WinTemp2"], ".dat");
-                AnalyzeFiles(folders["WinTemp2"], ".iss");
-                AnalyzeFiles(folders["WinTemp2"], ".exe");
-                AnalyzeFiles(folders["WinTemp2"], ".ini");
-                AnalyzeFiles(folders["WinTemp2"], ".vbs");
-                AnalyzeFiles(folders["WinTemp2"], ".cvr");
-                AnalyzeFiles(folders["WinTemp2"], ".od");
-                AnalyzeFiles(folders["WinTemp2"], ".lnk");
-                AnalyzeFiles(folders["WinTemp2"], ".js");
-                AnalyzeFiles(folders["WinTemp2"], ".5f2");
-                AnalyzeFiles(folders["WinTemp2"], ".jro");
-                AnalyzeFiles(folders["WinTemp2"], ".41u");
-                AnalyzeFiles(folders["WinTemp2"], ".w0y");
-                AnalyzeFiles(folders["WinTemp2"], ".diagsession");
-                AnalyzeFiles(folders["WinTemp2"], ".png");
-                AnalyzeFiles(folders["WinTemp2"], ".jpg");
-                AnalyzeFiles(folders["WinTemp2"], ".jpeg");
-                AnalyzeFiles(folders["WinTemp2"], ".q13");
-                AnalyzeFiles(folders["WinTemp2"], ".2im");
-                AnalyzeFiles(folders["WinTemp2"], ".html");
-                AnalyzeFiles(folders["WinTemp2"], ".rcl");
-                AnalyzeFiles(folders["WinTemp2"], ".5ar");
-                AnalyzeFiles(folders["WinTemp2"], ".xml");
-                AnalyzeFiles(folders["WinTemp2"], ".dll");
-                AnalyzeFiles(folders["WinTemp2"], ".Mtx");
-                AnalyzeFiles(folders["WinTemp2"], ".5f2");
-                AnalyzeFiles(folders["WinTemp2"], ".jro");
-                AnalyzeFiles(folders["WinTemp2"], ".41u");
-                AnalyzeFiles(folders["WinTemp2"], ".w0y");
+                if (Properties.Settings.Default.TemporaryFiles == true || SelectedThread == 1 || SelectedThread == 2)
+                {
+                    foreach (string extensions in temporaryextensions)
+                    {
+                        AnalyzeFiles(folders["WinTemp"], extensions.ToString());
+                    }
+                    foreach (string extensions in temporaryextensions)
+                    {
+                        AnalyzeFiles(folders["WinTemp2"], extensions.ToString());
+                    }
+                }
 
-                SingleDirectoryAnalyze(folders["DownloadCache"]);
+                Process_count.Text = FileCount.ToString();
+                if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 1 || SelectedThread == 2)
+                {
+                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                }
 
-                AnalyzeFiles(folders["RecentFiles"], ".lnk");
-                AnalyzeFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-                AnalyzeFiles(folders["RecentFiles3"], ".customDestinations-ms");
+                if (Properties.Settings.Default.RecentlyUsed == true || SelectedThread == 1 || SelectedThread == 2)
+                {
+                    AnalyzeFiles(folders["RecentFiles"], ".lnk");
+                    AnalyzeFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
+                    AnalyzeFiles(folders["RecentFiles3"], ".customDestinations-ms");
+                }
 
-                AnalyzeFiles(folders["PreviewCache"], ".db");
+                if (Properties.Settings.Default.PreviewCache == true || SelectedThread == 1 || SelectedThread == 2)
+                {
+                    AnalyzeFiles(folders["PreviewCache"], ".db");
+                }
 
-                SingleDirectoryAnalyze(folders["Logs"]);
-                SingleDirectoryAnalyze(folders["Logs2"]);
-
-                SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
+                if (Properties.Settings.Default.Logs == true || SelectedThread == 1 || SelectedThread == 2)
+                {
+                    SingleDirectoryAnalyze(folders["Logs"]);
+                    SingleDirectoryAnalyze(folders["Logs2"]);
+                    SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
+                }
 
                 Process_count.Text = FileCount.ToString();
             }
             if (SelectedThread == 2 || SelectedThread == 3)
             {
-                AnalyzeFiles(folders["SystemCache"], ".db");
+                if (Properties.Settings.Default.SystemCache == true || SelectedThread == 2)
+                {
+                    AnalyzeFiles(folders["SystemCache"], ".db");
+                }
 
-                AnalyzeFiles(folders["LiveKernelReports"], ".dmp");
-                AnalyzeFiles(folders["LiveKernelNDIS"], ".dmp");
-                AnalyzeFiles(folders["CrashDumps"], ".dmp");
-                AnalyzeFiles(folders["MiniDumps"], ".dmp");
+                if (Properties.Settings.Default.MemoryDumps == true || SelectedThread == 2)
+                {
+                    AnalyzeFiles(folders["LiveKernelReports"], ".dmp");
+                    AnalyzeFiles(folders["LiveKernelNDIS"], ".dmp");
+                    AnalyzeFiles(folders["CrashDumps"], ".dmp");
+                    AnalyzeFiles(folders["MiniDumps"], ".dmp");
+                }
 
-                AnalyzeFiles(folders["Prefetch"], ".pf");
+                if (Properties.Settings.Default.Prefetch == true || SelectedThread == 2)
+                {
+                    AnalyzeFiles(folders["Prefetch"], ".pf");
+                }
 
-                SingleFileAnalyze(folders["FontCache"], "FNTCACHE.DAT");
+                if (Properties.Settings.Default.FontCache == true || SelectedThread == 2)
+                {
+                    SingleFileAnalyze(folders["FontCache"], "FNTCACHE.DAT");
+                }
 
-                SingleDirectoryAnalyze(folders["DownloadCache"]);
+                if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 2)
+                {
+                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                }
             }
 
             if (SelectedThread == 3)
             {
-                SingleDirectoryAnalyze(folders["OldWindows"]);
+                if (Properties.Settings.Default.OldWindows == true)
+                {
+                    SingleDirectoryAnalyze(folders["OldWindows"]);
+                }
             }
             Process_count.Text = FileCount.ToString();
             process_img.Visible = false;
@@ -1072,7 +931,6 @@ namespace PASPAS
         private void Github_label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/berkaygediz");
-
         }
     }
 }

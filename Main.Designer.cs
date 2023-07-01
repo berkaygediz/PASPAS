@@ -824,7 +824,7 @@
             this.Finish.Name = "Finish";
             this.Finish.Size = new System.Drawing.Size(580, 44);
             this.Finish.TabIndex = 7;
-            this.Finish.Text = "Bitir";
+            this.Finish.Text = "Finish";
             this.Finish.UseVisualStyleBackColor = false;
             this.Finish.Click += new System.EventHandler(this.Finish_Click);
             // 
@@ -848,7 +848,7 @@
             this.Process_count_subtext.Name = "Process_count_subtext";
             this.Process_count_subtext.Size = new System.Drawing.Size(29, 13);
             this.Process_count_subtext.TabIndex = 5;
-            this.Process_count_subtext.Text = "Öğe";
+            this.Process_count_subtext.Text = "Item";
             // 
             // Process_count
             // 
