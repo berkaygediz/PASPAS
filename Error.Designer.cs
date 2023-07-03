@@ -31,14 +31,14 @@
             this.Exit.BackColor = System.Drawing.Color.Red;
             this.Exit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Exit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Exit.FlatAppearance.BorderSize = 0;
             this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Exit.ForeColor = System.Drawing.Color.Transparent;
-            this.Exit.Image = global::PASPAS.Properties.Resources.exit;
+            this.Exit.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Exit.ForeColor = System.Drawing.Color.White;
             this.Exit.Location = new System.Drawing.Point(314, 55);
             this.Exit.Name = "Exit";
             this.Exit.Size = new System.Drawing.Size(42, 42);
             this.Exit.TabIndex = 14;
+            this.Exit.Text = "X";
             this.Exit.UseVisualStyleBackColor = false;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 

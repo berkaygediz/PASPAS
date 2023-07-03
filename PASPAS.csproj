@@ -132,7 +132,6 @@
     <Content Include="paspas.ico" />
     <None Include="Resources\finish.png" />
     <None Include="Resources\process.gif" />
-    <None Include="Resources\exit.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
