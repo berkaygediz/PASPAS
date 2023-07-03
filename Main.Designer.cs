@@ -28,25 +28,27 @@
             this.SidePanel = new System.Windows.Forms.Panel();
             this.Splitter = new System.Windows.Forms.Splitter();
             this.ControlPanel = new System.Windows.Forms.Panel();
-            this.Logo_panel = new System.Windows.Forms.Panel();
+            this.LogoPanel = new System.Windows.Forms.Panel();
             this.Logo = new System.Windows.Forms.PictureBox();
             this.Title = new System.Windows.Forms.Label();
             this.Home_panel = new System.Windows.Forms.Panel();
             this.Analysis = new System.Windows.Forms.Button();
-            this.Basic_panel = new System.Windows.Forms.Panel();
-            this.Basic_description = new System.Windows.Forms.Label();
+            this.BasicPanel = new System.Windows.Forms.Panel();
+            this.BasicDesc = new System.Windows.Forms.Label();
             this.Basic = new System.Windows.Forms.Label();
-            this.Advanced_panel = new System.Windows.Forms.Panel();
-            this.Advanced_description = new System.Windows.Forms.Label();
+            this.AdvancedPanel = new System.Windows.Forms.Panel();
+            this.AdvancedDesc = new System.Windows.Forms.Label();
             this.Advanced = new System.Windows.Forms.Label();
             this.Start = new System.Windows.Forms.Button();
-            this.Special_panel = new System.Windows.Forms.Panel();
-            this.Special_description = new System.Windows.Forms.Label();
+            this.SpecialPanel = new System.Windows.Forms.Panel();
+            this.SpecialDesc = new System.Windows.Forms.Label();
             this.Special = new System.Windows.Forms.Label();
             this.Advanced_select = new System.Windows.Forms.RadioButton();
             this.Special_select = new System.Windows.Forms.RadioButton();
             this.Basic_select = new System.Windows.Forms.RadioButton();
             this.Options_panel = new System.Windows.Forms.Panel();
+            this.DarkModeButton = new System.Windows.Forms.Button();
+            this.ResetButton = new System.Windows.Forms.Button();
             this.OldWindows_select = new System.Windows.Forms.CheckBox();
             this.OldWindows_title = new System.Windows.Forms.Label();
             this.DownloadCache_select = new System.Windows.Forms.CheckBox();
@@ -77,28 +79,28 @@
             this.Github_label = new System.Windows.Forms.LinkLabel();
             this.Author_subtext = new System.Windows.Forms.Label();
             this.Author = new System.Windows.Forms.Label();
-            this.Process_panel = new System.Windows.Forms.Panel();
+            this.ProcessPanel = new System.Windows.Forms.Panel();
             this.Finish = new System.Windows.Forms.Button();
-            this.process_title = new System.Windows.Forms.Panel();
+            this.ProcessTitlePanel = new System.Windows.Forms.Panel();
             this.Process_count_subtext = new System.Windows.Forms.Label();
             this.Process_count = new System.Windows.Forms.Label();
-            this.finish_img = new System.Windows.Forms.PictureBox();
             this.process_img = new System.Windows.Forms.PictureBox();
+            this.finish_img = new System.Windows.Forms.PictureBox();
             this.ProcessBox = new System.Windows.Forms.ListBox();
             this.Exit = new System.Windows.Forms.Button();
             this.Minimize = new System.Windows.Forms.Button();
-            this.Logo_panel.SuspendLayout();
+            this.LogoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             this.Home_panel.SuspendLayout();
-            this.Basic_panel.SuspendLayout();
-            this.Advanced_panel.SuspendLayout();
-            this.Special_panel.SuspendLayout();
+            this.BasicPanel.SuspendLayout();
+            this.AdvancedPanel.SuspendLayout();
+            this.SpecialPanel.SuspendLayout();
             this.Options_panel.SuspendLayout();
             this.About_panel.SuspendLayout();
-            this.Process_panel.SuspendLayout();
-            this.process_title.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.finish_img)).BeginInit();
+            this.ProcessPanel.SuspendLayout();
+            this.ProcessTitlePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.process_img)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finish_img)).BeginInit();
             this.SuspendLayout();
             // 
             // About_btn
@@ -173,16 +175,16 @@
             this.ControlPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ControlPanel_MouseMove);
             this.ControlPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlPanel_MouseUp);
             // 
-            // Logo_panel
+            // LogoPanel
             // 
-            this.Logo_panel.BackColor = System.Drawing.Color.Yellow;
-            this.Logo_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Logo_panel.Controls.Add(this.Logo);
-            this.Logo_panel.Controls.Add(this.Title);
-            this.Logo_panel.Location = new System.Drawing.Point(220, 15);
-            this.Logo_panel.Name = "Logo_panel";
-            this.Logo_panel.Size = new System.Drawing.Size(140, 150);
-            this.Logo_panel.TabIndex = 17;
+            this.LogoPanel.BackColor = System.Drawing.Color.Yellow;
+            this.LogoPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LogoPanel.Controls.Add(this.Logo);
+            this.LogoPanel.Controls.Add(this.Title);
+            this.LogoPanel.Location = new System.Drawing.Point(220, 15);
+            this.LogoPanel.Name = "LogoPanel";
+            this.LogoPanel.Size = new System.Drawing.Size(140, 150);
+            this.LogoPanel.TabIndex = 17;
             // 
             // Logo
             // 
@@ -208,10 +210,10 @@
             // 
             this.Home_panel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Home_panel.Controls.Add(this.Analysis);
-            this.Home_panel.Controls.Add(this.Basic_panel);
-            this.Home_panel.Controls.Add(this.Advanced_panel);
+            this.Home_panel.Controls.Add(this.BasicPanel);
+            this.Home_panel.Controls.Add(this.AdvancedPanel);
             this.Home_panel.Controls.Add(this.Start);
-            this.Home_panel.Controls.Add(this.Special_panel);
+            this.Home_panel.Controls.Add(this.SpecialPanel);
             this.Home_panel.Controls.Add(this.Advanced_select);
             this.Home_panel.Controls.Add(this.Special_select);
             this.Home_panel.Controls.Add(this.Basic_select);
@@ -235,26 +237,26 @@
             this.Analysis.UseVisualStyleBackColor = false;
             this.Analysis.Click += new System.EventHandler(this.Analysis_Click);
             // 
-            // Basic_panel
+            // BasicPanel
             // 
-            this.Basic_panel.BackColor = System.Drawing.Color.White;
-            this.Basic_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Basic_panel.Controls.Add(this.Basic_description);
-            this.Basic_panel.Controls.Add(this.Basic);
-            this.Basic_panel.Location = new System.Drawing.Point(15, 58);
-            this.Basic_panel.Name = "Basic_panel";
-            this.Basic_panel.Size = new System.Drawing.Size(180, 130);
-            this.Basic_panel.TabIndex = 13;
+            this.BasicPanel.BackColor = System.Drawing.Color.MediumPurple;
+            this.BasicPanel.Controls.Add(this.BasicDesc);
+            this.BasicPanel.Controls.Add(this.Basic);
+            this.BasicPanel.Location = new System.Drawing.Point(15, 58);
+            this.BasicPanel.Name = "BasicPanel";
+            this.BasicPanel.Size = new System.Drawing.Size(180, 130);
+            this.BasicPanel.TabIndex = 13;
             // 
-            // Basic_description
+            // BasicDesc
             // 
-            this.Basic_description.AutoSize = true;
-            this.Basic_description.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Basic_description.Location = new System.Drawing.Point(3, 41);
-            this.Basic_description.Name = "Basic_description";
-            this.Basic_description.Size = new System.Drawing.Size(175, 52);
-            this.Basic_description.TabIndex = 9;
-            this.Basic_description.Text = "Permanently deletes clipboard, \r\ntemporary files, temporary \r\ninstallation files," +
+            this.BasicDesc.AutoSize = true;
+            this.BasicDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.BasicDesc.ForeColor = System.Drawing.Color.White;
+            this.BasicDesc.Location = new System.Drawing.Point(3, 41);
+            this.BasicDesc.Name = "BasicDesc";
+            this.BasicDesc.Size = new System.Drawing.Size(179, 52);
+            this.BasicDesc.TabIndex = 9;
+            this.BasicDesc.Text = "Permanently deletes clipboard, \r\ntemporary files, temporary \r\ninstallation files," +
     " recents, preview\r\ncache, DNS Cache and logs.";
             // 
             // Basic
@@ -268,26 +270,26 @@
             this.Basic.TabIndex = 5;
             this.Basic.Text = "Basic";
             // 
-            // Advanced_panel
+            // AdvancedPanel
             // 
-            this.Advanced_panel.BackColor = System.Drawing.Color.White;
-            this.Advanced_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Advanced_panel.Controls.Add(this.Advanced_description);
-            this.Advanced_panel.Controls.Add(this.Advanced);
-            this.Advanced_panel.Location = new System.Drawing.Point(221, 58);
-            this.Advanced_panel.Name = "Advanced_panel";
-            this.Advanced_panel.Size = new System.Drawing.Size(230, 130);
-            this.Advanced_panel.TabIndex = 14;
+            this.AdvancedPanel.BackColor = System.Drawing.Color.MediumPurple;
+            this.AdvancedPanel.Controls.Add(this.AdvancedDesc);
+            this.AdvancedPanel.Controls.Add(this.Advanced);
+            this.AdvancedPanel.Location = new System.Drawing.Point(221, 58);
+            this.AdvancedPanel.Name = "AdvancedPanel";
+            this.AdvancedPanel.Size = new System.Drawing.Size(230, 130);
+            this.AdvancedPanel.TabIndex = 14;
             // 
-            // Advanced_description
+            // AdvancedDesc
             // 
-            this.Advanced_description.AutoSize = true;
-            this.Advanced_description.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Advanced_description.Location = new System.Drawing.Point(9, 41);
-            this.Advanced_description.Name = "Advanced_description";
-            this.Advanced_description.Size = new System.Drawing.Size(216, 65);
-            this.Advanced_description.TabIndex = 9;
-            this.Advanced_description.Text = "It is a more advanced version of the \r\nbasic option. Permanently deletes the\r\nsys" +
+            this.AdvancedDesc.AutoSize = true;
+            this.AdvancedDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.AdvancedDesc.ForeColor = System.Drawing.Color.White;
+            this.AdvancedDesc.Location = new System.Drawing.Point(9, 41);
+            this.AdvancedDesc.Name = "AdvancedDesc";
+            this.AdvancedDesc.Size = new System.Drawing.Size(222, 65);
+            this.AdvancedDesc.TabIndex = 9;
+            this.AdvancedDesc.Text = "It is a more advanced version of the \r\nbasic option. Permanently deletes the\r\nsys" +
     "tem cache, memory dumps, prefetch\r\n data, cached fonts, and download cache,\r\nin " +
     "addition to the basic option.";
             // 
@@ -317,26 +319,26 @@
             this.Start.UseVisualStyleBackColor = false;
             this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
-            // Special_panel
+            // SpecialPanel
             // 
-            this.Special_panel.BackColor = System.Drawing.Color.White;
-            this.Special_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Special_panel.Controls.Add(this.Special_description);
-            this.Special_panel.Controls.Add(this.Special);
-            this.Special_panel.Location = new System.Drawing.Point(476, 59);
-            this.Special_panel.Name = "Special_panel";
-            this.Special_panel.Size = new System.Drawing.Size(180, 130);
-            this.Special_panel.TabIndex = 15;
+            this.SpecialPanel.BackColor = System.Drawing.Color.MediumPurple;
+            this.SpecialPanel.Controls.Add(this.SpecialDesc);
+            this.SpecialPanel.Controls.Add(this.Special);
+            this.SpecialPanel.Location = new System.Drawing.Point(476, 59);
+            this.SpecialPanel.Name = "SpecialPanel";
+            this.SpecialPanel.Size = new System.Drawing.Size(180, 130);
+            this.SpecialPanel.TabIndex = 15;
             // 
-            // Special_description
+            // SpecialDesc
             // 
-            this.Special_description.AutoSize = true;
-            this.Special_description.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Special_description.Location = new System.Drawing.Point(9, 40);
-            this.Special_description.Name = "Special_description";
-            this.Special_description.Size = new System.Drawing.Size(158, 26);
-            this.Special_description.TabIndex = 10;
-            this.Special_description.Text = "Cleans according to the user\'s\r\nselection.";
+            this.SpecialDesc.AutoSize = true;
+            this.SpecialDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SpecialDesc.ForeColor = System.Drawing.Color.White;
+            this.SpecialDesc.Location = new System.Drawing.Point(9, 40);
+            this.SpecialDesc.Name = "SpecialDesc";
+            this.SpecialDesc.Size = new System.Drawing.Size(161, 26);
+            this.SpecialDesc.TabIndex = 10;
+            this.SpecialDesc.Text = "Cleans according to the user\'s\r\nselection.";
             // 
             // Special
             // 
@@ -390,6 +392,8 @@
             // 
             this.Options_panel.AutoScroll = true;
             this.Options_panel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.Options_panel.Controls.Add(this.DarkModeButton);
+            this.Options_panel.Controls.Add(this.ResetButton);
             this.Options_panel.Controls.Add(this.OldWindows_select);
             this.Options_panel.Controls.Add(this.OldWindows_title);
             this.Options_panel.Controls.Add(this.DownloadCache_select);
@@ -420,6 +424,35 @@
             this.Options_panel.Name = "Options_panel";
             this.Options_panel.Size = new System.Drawing.Size(680, 350);
             this.Options_panel.TabIndex = 24;
+            // 
+            // DarkModeButton
+            // 
+            this.DarkModeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.DarkModeButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DarkModeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DarkModeButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.DarkModeButton.ForeColor = System.Drawing.Color.White;
+            this.DarkModeButton.Location = new System.Drawing.Point(448, 7);
+            this.DarkModeButton.Name = "DarkModeButton";
+            this.DarkModeButton.Size = new System.Drawing.Size(128, 38);
+            this.DarkModeButton.TabIndex = 27;
+            this.DarkModeButton.Text = "Dark Mode";
+            this.DarkModeButton.UseVisualStyleBackColor = false;
+            this.DarkModeButton.Click += new System.EventHandler(this.DarkModeButton_Click);
+            // 
+            // ResetButton
+            // 
+            this.ResetButton.BackColor = System.Drawing.Color.Gold;
+            this.ResetButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ResetButton.Location = new System.Drawing.Point(582, 7);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(74, 38);
+            this.ResetButton.TabIndex = 26;
+            this.ResetButton.Text = "Reset";
+            this.ResetButton.UseVisualStyleBackColor = false;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // OldWindows_select
             // 
@@ -772,21 +805,25 @@
             // 
             // Github_label
             // 
+            this.Github_label.ActiveLinkColor = System.Drawing.Color.Red;
             this.Github_label.AutoSize = true;
-            this.Github_label.Location = new System.Drawing.Point(37, 87);
+            this.Github_label.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Github_label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Github_label.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Github_label.Location = new System.Drawing.Point(36, 78);
             this.Github_label.Name = "Github_label";
-            this.Github_label.Size = new System.Drawing.Size(170, 13);
+            this.Github_label.Size = new System.Drawing.Size(132, 13);
             this.Github_label.TabIndex = 2;
             this.Github_label.TabStop = true;
-            this.Github_label.Text = "https://github.com/berkaygediz";
+            this.Github_label.Text = "github.com/berkaygediz";
             this.Github_label.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Github_label_LinkClicked);
             // 
             // Author_subtext
             // 
             this.Author_subtext.AutoSize = true;
             this.Author_subtext.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Author_subtext.ForeColor = System.Drawing.Color.Red;
-            this.Author_subtext.Location = new System.Drawing.Point(36, 47);
+            this.Author_subtext.ForeColor = System.Drawing.Color.MediumPurple;
+            this.Author_subtext.Location = new System.Drawing.Point(35, 45);
             this.Author_subtext.Name = "Author_subtext";
             this.Author_subtext.Size = new System.Drawing.Size(109, 21);
             this.Author_subtext.TabIndex = 1;
@@ -802,25 +839,27 @@
             this.Author.TabIndex = 0;
             this.Author.Text = "Author:";
             // 
-            // Process_panel
+            // ProcessPanel
             // 
-            this.Process_panel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Process_panel.Controls.Add(this.Finish);
-            this.Process_panel.Controls.Add(this.process_title);
-            this.Process_panel.Controls.Add(this.ProcessBox);
-            this.Process_panel.Location = new System.Drawing.Point(190, 168);
-            this.Process_panel.Name = "Process_panel";
-            this.Process_panel.Size = new System.Drawing.Size(680, 350);
-            this.Process_panel.TabIndex = 24;
+            this.ProcessPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ProcessPanel.Controls.Add(this.Finish);
+            this.ProcessPanel.Controls.Add(this.ProcessTitlePanel);
+            this.ProcessPanel.Controls.Add(this.process_img);
+            this.ProcessPanel.Controls.Add(this.finish_img);
+            this.ProcessPanel.Controls.Add(this.ProcessBox);
+            this.ProcessPanel.Location = new System.Drawing.Point(190, 168);
+            this.ProcessPanel.Name = "ProcessPanel";
+            this.ProcessPanel.Size = new System.Drawing.Size(680, 350);
+            this.ProcessPanel.TabIndex = 24;
             // 
             // Finish
             // 
             this.Finish.BackColor = System.Drawing.Color.Lime;
             this.Finish.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Finish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Finish.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Finish.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Finish.ForeColor = System.Drawing.Color.Black;
-            this.Finish.Location = new System.Drawing.Point(51, 275);
+            this.Finish.Location = new System.Drawing.Point(51, 286);
             this.Finish.Name = "Finish";
             this.Finish.Size = new System.Drawing.Size(580, 44);
             this.Finish.TabIndex = 7;
@@ -828,79 +867,81 @@
             this.Finish.UseVisualStyleBackColor = false;
             this.Finish.Click += new System.EventHandler(this.Finish_Click);
             // 
-            // process_title
+            // ProcessTitlePanel
             // 
-            this.process_title.BackColor = System.Drawing.Color.White;
-            this.process_title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.process_title.Controls.Add(this.Process_count_subtext);
-            this.process_title.Controls.Add(this.Process_count);
-            this.process_title.Controls.Add(this.finish_img);
-            this.process_title.Controls.Add(this.process_img);
-            this.process_title.Location = new System.Drawing.Point(51, 19);
-            this.process_title.Name = "process_title";
-            this.process_title.Size = new System.Drawing.Size(580, 100);
-            this.process_title.TabIndex = 6;
+            this.ProcessTitlePanel.BackColor = System.Drawing.Color.MediumPurple;
+            this.ProcessTitlePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ProcessTitlePanel.Controls.Add(this.Process_count_subtext);
+            this.ProcessTitlePanel.Controls.Add(this.Process_count);
+            this.ProcessTitlePanel.Location = new System.Drawing.Point(164, 28);
+            this.ProcessTitlePanel.Name = "ProcessTitlePanel";
+            this.ProcessTitlePanel.Size = new System.Drawing.Size(467, 81);
+            this.ProcessTitlePanel.TabIndex = 6;
             // 
             // Process_count_subtext
             // 
             this.Process_count_subtext.AutoSize = true;
-            this.Process_count_subtext.Location = new System.Drawing.Point(130, 64);
+            this.Process_count_subtext.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Process_count_subtext.ForeColor = System.Drawing.Color.White;
+            this.Process_count_subtext.Location = new System.Drawing.Point(17, 52);
             this.Process_count_subtext.Name = "Process_count_subtext";
-            this.Process_count_subtext.Size = new System.Drawing.Size(29, 13);
+            this.Process_count_subtext.Size = new System.Drawing.Size(36, 17);
             this.Process_count_subtext.TabIndex = 5;
             this.Process_count_subtext.Text = "Item";
             // 
             // Process_count
             // 
             this.Process_count.AutoSize = true;
-            this.Process_count.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Process_count.Location = new System.Drawing.Point(125, 13);
+            this.Process_count.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Process_count.ForeColor = System.Drawing.Color.White;
+            this.Process_count.Location = new System.Drawing.Point(10, 1);
             this.Process_count.Name = "Process_count";
-            this.Process_count.Size = new System.Drawing.Size(38, 45);
+            this.Process_count.Size = new System.Drawing.Size(40, 47);
             this.Process_count.TabIndex = 4;
             this.Process_count.Text = "0";
-            // 
-            // finish_img
-            // 
-            this.finish_img.BackColor = System.Drawing.Color.Transparent;
-            this.finish_img.Image = global::PASPAS.Properties.Resources.finish;
-            this.finish_img.Location = new System.Drawing.Point(-1, 0);
-            this.finish_img.Name = "finish_img";
-            this.finish_img.Size = new System.Drawing.Size(100, 100);
-            this.finish_img.TabIndex = 3;
-            this.finish_img.TabStop = false;
             // 
             // process_img
             // 
             this.process_img.BackColor = System.Drawing.Color.Transparent;
             this.process_img.Image = global::PASPAS.Properties.Resources.process;
-            this.process_img.Location = new System.Drawing.Point(0, 0);
+            this.process_img.Location = new System.Drawing.Point(51, 19);
             this.process_img.Name = "process_img";
             this.process_img.Size = new System.Drawing.Size(100, 100);
             this.process_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.process_img.TabIndex = 2;
             this.process_img.TabStop = false;
             // 
+            // finish_img
+            // 
+            this.finish_img.BackColor = System.Drawing.Color.Transparent;
+            this.finish_img.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.finish_img.Image = global::PASPAS.Properties.Resources.finish;
+            this.finish_img.Location = new System.Drawing.Point(51, 19);
+            this.finish_img.Name = "finish_img";
+            this.finish_img.Size = new System.Drawing.Size(100, 100);
+            this.finish_img.TabIndex = 3;
+            this.finish_img.TabStop = false;
+            // 
             // ProcessBox
             // 
             this.ProcessBox.FormattingEnabled = true;
             this.ProcessBox.Location = new System.Drawing.Point(51, 125);
             this.ProcessBox.Name = "ProcessBox";
-            this.ProcessBox.Size = new System.Drawing.Size(580, 134);
+            this.ProcessBox.Size = new System.Drawing.Size(580, 147);
             this.ProcessBox.TabIndex = 5;
             // 
             // Exit
             // 
-            this.Exit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Exit.BackColor = System.Drawing.Color.Red;
             this.Exit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Exit.FlatAppearance.BorderSize = 0;
             this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Exit.Image = global::PASPAS.Properties.Resources.exit;
-            this.Exit.Location = new System.Drawing.Point(827, 16);
+            this.Exit.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Exit.Location = new System.Drawing.Point(827, 21);
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(42, 42);
+            this.Exit.Size = new System.Drawing.Size(38, 38);
             this.Exit.TabIndex = 18;
-            this.Exit.UseVisualStyleBackColor = true;
+            this.Exit.Text = "X";
+            this.Exit.UseVisualStyleBackColor = false;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // Minimize
@@ -908,7 +949,8 @@
             this.Minimize.BackColor = System.Drawing.Color.Gold;
             this.Minimize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Minimize.Location = new System.Drawing.Point(783, 18);
+            this.Minimize.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Minimize.Location = new System.Drawing.Point(783, 21);
             this.Minimize.Name = "Minimize";
             this.Minimize.Size = new System.Drawing.Size(38, 38);
             this.Minimize.TabIndex = 25;
@@ -932,10 +974,10 @@
             this.Controls.Add(this.SidePanel);
             this.Controls.Add(this.Splitter);
             this.Controls.Add(this.ControlPanel);
-            this.Controls.Add(this.Logo_panel);
+            this.Controls.Add(this.LogoPanel);
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.Process_panel);
             this.Controls.Add(this.Options_panel);
+            this.Controls.Add(this.ProcessPanel);
             this.Controls.Add(this.About_panel);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -947,25 +989,26 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PASPAS";
             this.Load += new System.EventHandler(this.PASPAS_Main_Load);
-            this.Logo_panel.ResumeLayout(false);
-            this.Logo_panel.PerformLayout();
+            this.Shown += new System.EventHandler(this.PASPAS_Main_Shown);
+            this.LogoPanel.ResumeLayout(false);
+            this.LogoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
             this.Home_panel.ResumeLayout(false);
-            this.Basic_panel.ResumeLayout(false);
-            this.Basic_panel.PerformLayout();
-            this.Advanced_panel.ResumeLayout(false);
-            this.Advanced_panel.PerformLayout();
-            this.Special_panel.ResumeLayout(false);
-            this.Special_panel.PerformLayout();
+            this.BasicPanel.ResumeLayout(false);
+            this.BasicPanel.PerformLayout();
+            this.AdvancedPanel.ResumeLayout(false);
+            this.AdvancedPanel.PerformLayout();
+            this.SpecialPanel.ResumeLayout(false);
+            this.SpecialPanel.PerformLayout();
             this.Options_panel.ResumeLayout(false);
             this.Options_panel.PerformLayout();
             this.About_panel.ResumeLayout(false);
             this.About_panel.PerformLayout();
-            this.Process_panel.ResumeLayout(false);
-            this.process_title.ResumeLayout(false);
-            this.process_title.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.finish_img)).EndInit();
+            this.ProcessPanel.ResumeLayout(false);
+            this.ProcessTitlePanel.ResumeLayout(false);
+            this.ProcessTitlePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.process_img)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.finish_img)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -979,28 +1022,28 @@
         private System.Windows.Forms.Splitter Splitter;
         private System.Windows.Forms.Panel ControlPanel;
         private System.Windows.Forms.PictureBox Logo;
-        private System.Windows.Forms.Panel Logo_panel;
+        private System.Windows.Forms.Panel LogoPanel;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Panel Home_panel;
         private System.Windows.Forms.Panel Options_panel;
         private System.Windows.Forms.Panel About_panel;
-        private System.Windows.Forms.Panel Process_panel;
+        private System.Windows.Forms.Panel ProcessPanel;
         private System.Windows.Forms.RadioButton Special_select;
         private System.Windows.Forms.RadioButton Advanced_select;
         private System.Windows.Forms.RadioButton Basic_select;
-        private System.Windows.Forms.Panel Basic_panel;
-        private System.Windows.Forms.Label Basic_description;
+        private System.Windows.Forms.Panel BasicPanel;
+        private System.Windows.Forms.Label BasicDesc;
         private System.Windows.Forms.Label Basic;
-        private System.Windows.Forms.Panel Advanced_panel;
-        private System.Windows.Forms.Label Advanced_description;
+        private System.Windows.Forms.Panel AdvancedPanel;
+        private System.Windows.Forms.Label AdvancedDesc;
         private System.Windows.Forms.Label Advanced;
         private System.Windows.Forms.Button Start;
-        private System.Windows.Forms.Panel Special_panel;
-        private System.Windows.Forms.Label Special_description;
+        private System.Windows.Forms.Panel SpecialPanel;
+        private System.Windows.Forms.Label SpecialDesc;
         private System.Windows.Forms.Label Special;
         private System.Windows.Forms.Button Finish;
-        private System.Windows.Forms.Panel process_title;
+        private System.Windows.Forms.Panel ProcessTitlePanel;
         private System.Windows.Forms.PictureBox finish_img;
         private System.Windows.Forms.PictureBox process_img;
         private System.Windows.Forms.ListBox ProcessBox;
@@ -1037,6 +1080,8 @@
         private System.Windows.Forms.Label Process_count;
         private System.Windows.Forms.LinkLabel Github_label;
         private System.Windows.Forms.Button Minimize;
+        private System.Windows.Forms.Button ResetButton;
+        private System.Windows.Forms.Button DarkModeButton;
     }
 }
 

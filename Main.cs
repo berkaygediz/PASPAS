@@ -1,12 +1,9 @@
 ﻿/*
-____________________________________________________________
-
     PASPAS   PASPAS   PASPAS   PASPAS   PASPAS   PASPAS
     PA  SP   P    A   P        PA  SP   P    A   P     
     PASPAS   PASPAS   PASPAS   PASPAS   PASPAS   PASPAS
     PA       P    A        P   PA       P    A        P
     PA       P    A   PASPAS   PA       P    A   PASPAS
-____________________________________________________________
 */
 
 using System;
@@ -24,49 +21,47 @@ namespace PASPAS
         int CP_Move;
         int MX;
         int MY;
-
         int FileCount = 0;
         int Clipboard_Count = 0;
         int DNSCache_Count = 0;
-
-        public readonly Dictionary<string, string> folders = new Dictionary<string, string>{
-    { "WinTemp", "/Windows/TEMP" },
-    { "WinTemp2", "/Users/" + Environment.UserName + "/AppData/Local/Temp" },
-    { "DownloadedInstallations", "/Users/" + Environment.UserName + "/AppData/Roaming/Downloaded Installations" },
-    { "RecentFiles", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent" },
-    { "RecentFiles2", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent/AutomaticDestinations" },
-    { "RecentFiles3", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent/CustomDestinations" },
-    { "PreviewCache", "/Users/" + Environment.UserName + "/AppData/Local/Microsoft/Windows/Explorer" },
-    { "Logs", "/Windows/SoftwareDistribution/DataStore/Logs" },
-    { "Logs2", "/Windows/System32/wbem/Logs" },
-    { "UpdateReport", "/Windows/SoftwareDistribution/" },
-    { "SystemCache", "/Users/" + Environment.UserName + "/AppData/Local/Microsoft/Windows/Explorer" },
-    { "LiveKernelReports", "/Windows/LiveKernelReports" },
-    { "LiveKernelNDIS", "/Windows/LiveKernelReports/NDIS" },
-    { "CrashDumps", "/Users/" + Environment.UserName + "/AppData/Local/CrashDumps" },
-    { "MiniDumps", "/Windows/Minidump" },
-    { "Prefetch", "/Windows/Prefetch" },
-    { "DownloadCache", "/Windows/SoftwareDistribution/Download" },
-    { "FontCache", "/Windows/System32" },
-    { "OldWindows", "/$Windows.old" }
-};
-
-        readonly string[] temporaryextensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
-
         int SelectedThread;
         readonly string SystemDirectory = Path.GetPathRoot(Environment.SystemDirectory);
+        private readonly Dictionary<string, string> folders = new Dictionary<string, string>{
+            { "WinTemp", "/Windows/TEMP" },
+            { "WinTemp2", "/Users/" + Environment.UserName + "/AppData/Local/Temp" },
+            { "DownloadedInstallations", "/Users/" + Environment.UserName + "/AppData/Roaming/Downloaded Installations" },
+            { "RecentFiles", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent" },
+            { "RecentFiles2", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent/AutomaticDestinations" },
+            { "RecentFiles3", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent/CustomDestinations" },
+            { "PreviewCache", "/Users/" + Environment.UserName + "/AppData/Local/Microsoft/Windows/Explorer" },
+            { "Logs", "/Windows/SoftwareDistribution/DataStore/Logs" },
+            { "Logs2", "/Windows/System32/wbem/Logs" },
+            { "UpdateReport", "/Windows/SoftwareDistribution/" },
+            { "SystemCache", "/Users/" + Environment.UserName + "/AppData/Local/Microsoft/Windows/Explorer" },
+            { "LiveKernelReports", "/Windows/LiveKernelReports" },
+            { "LiveKernelNDIS", "/Windows/LiveKernelReports/NDIS" },
+            { "CrashDumps", "/Users/" + Environment.UserName + "/AppData/Local/CrashDumps" },
+            { "MiniDumps", "/Windows/Minidump" },
+            { "Prefetch", "/Windows/Prefetch" },
+            { "DownloadCache", "/Windows/SoftwareDistribution/Download" },
+            { "FontCache", "/Windows/System32" },
+            { "OldWindows", "/$Windows.old" }
+        };
+        private readonly string[] temporaryextensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
 
         public PASPAS_Main()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
-
+        private void PASPAS_Main_Shown(object sender, EventArgs e)
+        {
+            DarkModeSwitch();
+        }
         private void PASPAS_Main_Load(object sender, EventArgs e)
         {
             SelectedThread = Properties.Settings.Default.SelectedThread;
-            if (SelectedThread == 0)
-            { }
+            if (SelectedThread == 0) { }
             else if (SelectedThread == 1)
             {
                 Basic_select.Checked = true;
@@ -87,7 +82,6 @@ namespace PASPAS
                 Error error = new Error();
                 error.ShowDialog();
             }
-
             Clipboard_select.Checked = Properties.Settings.Default.Clipboard;
             TemporaryFiles_select.Checked = Properties.Settings.Default.TemporaryFiles;
             DownloadedInstallations_select.Checked = Properties.Settings.Default.DownloadedInstallations;
@@ -101,9 +95,7 @@ namespace PASPAS
             FontCache_select.Checked = Properties.Settings.Default.FontCache;
             DownloadCache_select.Checked = Properties.Settings.Default.DownloadCache;
             OldWindows_select.Checked = Properties.Settings.Default.OldWindows;
-
         }
-
         private void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -126,7 +118,7 @@ namespace PASPAS
         {
             if (CP_Move == 1)
             {
-                this.SetDesktopLocation(MousePosition.X - MX, MousePosition.Y - MY);
+                SetDesktopLocation(MousePosition.X - MX, MousePosition.Y - MY);
             }
         }
         private void Home_btn_Click(object sender, EventArgs e)
@@ -147,255 +139,94 @@ namespace PASPAS
             SidePanel.Height = About_btn.Height;
             About_panel.BringToFront();
         }
+        private void CheckboxPropertySave(CheckBox checkbox, bool status, string property)
+        {
+            try
+            {
+                checkbox.Checked = status;
+                Properties.Settings.Default[property] = status;
+                Properties.Settings.Default.Save();
 
+                if (status)
+                {
+                    checkbox.Text = "✓";
+                    checkbox.BackColor = Color.Lime;
+                    checkbox.ForeColor = Color.Black;
+                }
+                else
+                {
+                    checkbox.Text = "X";
+                    checkbox.BackColor = Color.Red;
+                    checkbox.ForeColor = Color.White;
+                }
+            }
+            catch { }
+        }
         private void Clipboard_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (Clipboard_select.Checked == true)
-            {
-                Properties.Settings.Default.Clipboard = Clipboard_select.Checked;
-                Properties.Settings.Default.Save();
-                Clipboard_select.Text = "✓";
-                Clipboard_select.BackColor = Color.Lime;
-                Clipboard_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.Clipboard = Clipboard_select.Checked;
-                Properties.Settings.Default.Save();
-                Clipboard_select.Text = "X";
-                Clipboard_select.BackColor = Color.Red;
-                Clipboard_select.ForeColor = Color.White;
-            }
+            bool status = Clipboard_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "Clipboard");
         }
         private void TemporaryFiles_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (TemporaryFiles_select.Checked == true)
-            {
-                Properties.Settings.Default.TemporaryFiles = TemporaryFiles_select.Checked;
-                Properties.Settings.Default.Save();
-                TemporaryFiles_select.Text = "✓";
-                TemporaryFiles_select.BackColor = Color.Lime;
-                TemporaryFiles_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.TemporaryFiles = TemporaryFiles_select.Checked;
-                Properties.Settings.Default.Save();
-                TemporaryFiles_select.Text = "X";
-                TemporaryFiles_select.BackColor = Color.Red;
-                TemporaryFiles_select.ForeColor = Color.White;
-            }
+            bool status = TemporaryFiles_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "TemporaryFiles");
         }
         private void DownloadedInstallations_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (DownloadedInstallations_select.Checked == true)
-            {
-                Properties.Settings.Default.DownloadedInstallations = DownloadedInstallations_select.Checked;
-                Properties.Settings.Default.Save();
-                DownloadedInstallations_select.Text = "✓";
-                DownloadedInstallations_select.BackColor = Color.Lime;
-                DownloadedInstallations_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.DownloadedInstallations = DownloadedInstallations_select.Checked;
-                Properties.Settings.Default.Save();
-                DownloadedInstallations_select.Text = "X";
-                DownloadedInstallations_select.BackColor = Color.Red;
-                DownloadedInstallations_select.ForeColor = Color.White;
-            }
+            bool status = DownloadedInstallations_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "DownloadedInstallations");
         }
         private void RecentlyUsed_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (RecentlyUsed_select.Checked == true)
-            {
-                Properties.Settings.Default.RecentlyUsed = RecentlyUsed_select.Checked;
-                Properties.Settings.Default.Save();
-                RecentlyUsed_select.Text = "✓";
-                RecentlyUsed_select.BackColor = Color.Lime;
-                RecentlyUsed_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.RecentlyUsed = RecentlyUsed_select.Checked;
-                Properties.Settings.Default.Save();
-                RecentlyUsed_select.Text = "X";
-                RecentlyUsed_select.BackColor = Color.Red;
-                RecentlyUsed_select.ForeColor = Color.White;
-            }
+            bool status = RecentlyUsed_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "RecentlyUsed");
         }
         private void PreviewCache_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (PreviewCache_select.Checked == true)
-            {
-                Properties.Settings.Default.PreviewCache = PreviewCache_select.Checked;
-                Properties.Settings.Default.Save();
-                PreviewCache_select.Text = "✓";
-                PreviewCache_select.BackColor = Color.Lime;
-                PreviewCache_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.PreviewCache = PreviewCache_select.Checked;
-                Properties.Settings.Default.Save();
-                PreviewCache_select.Text = "X";
-                PreviewCache_select.BackColor = Color.Red;
-                PreviewCache_select.ForeColor = Color.White;
-            }
+            bool status = PreviewCache_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "PreviewCache");
         }
         private void DNSCache_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (DNSCache_select.Checked == true)
-            {
-                Properties.Settings.Default.DNSCache = DNSCache_select.Checked;
-                Properties.Settings.Default.Save();
-                DNSCache_select.Text = "✓";
-                DNSCache_select.BackColor = Color.Lime;
-                DNSCache_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.DNSCache = DNSCache_select.Checked;
-                Properties.Settings.Default.Save();
-                DNSCache_select.Text = "X";
-                DNSCache_select.BackColor = Color.Red;
-                DNSCache_select.ForeColor = Color.White;
-            }
+            bool status = DNSCache_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "DNSCache");
         }
         private void Logs_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (Logs_select.Checked == true)
-            {
-                Properties.Settings.Default.Logs = Logs_select.Checked;
-                Properties.Settings.Default.Save();
-                Logs_select.Text = "✓";
-                Logs_select.BackColor = Color.Lime;
-                Logs_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.Logs = Logs_select.Checked;
-                Properties.Settings.Default.Save();
-                Logs_select.Text = "X";
-                Logs_select.BackColor = Color.Red;
-                Logs_select.ForeColor = Color.White;
-            }
+            bool status = Logs_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "Logs");
         }
         private void SystemCache_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (SystemCache_select.Checked == true)
-            {
-                Properties.Settings.Default.SystemCache = SystemCache_select.Checked;
-                Properties.Settings.Default.Save();
-                SystemCache_select.Text = "✓";
-                SystemCache_select.BackColor = Color.Lime;
-                SystemCache_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.SystemCache = SystemCache_select.Checked;
-                Properties.Settings.Default.Save();
-                SystemCache_select.Text = "X";
-                SystemCache_select.BackColor = Color.Red;
-                SystemCache_select.ForeColor = Color.White;
-            }
+            bool status = SystemCache_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "SystemCache");
         }
         private void MemoryDumps_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (MemoryDumps_select.Checked == true)
-            {
-                Properties.Settings.Default.MemoryDumps = MemoryDumps_select.Checked;
-                Properties.Settings.Default.Save();
-                MemoryDumps_select.Text = "✓";
-                MemoryDumps_select.BackColor = Color.Lime;
-                MemoryDumps_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.MemoryDumps = MemoryDumps_select.Checked;
-                Properties.Settings.Default.Save();
-                MemoryDumps_select.Text = "X";
-                MemoryDumps_select.BackColor = Color.Red;
-                MemoryDumps_select.ForeColor = Color.White;
-            }
+            bool status = MemoryDumps_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "MemoryDumps");
         }
         private void Prefetch_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (Prefetch_select.Checked == true)
-            {
-                Properties.Settings.Default.Prefetch = Prefetch_select.Checked;
-                Properties.Settings.Default.Save();
-                Prefetch_select.Text = "✓";
-                Prefetch_select.BackColor = Color.Lime;
-                Prefetch_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.Prefetch = Prefetch_select.Checked;
-                Properties.Settings.Default.Save();
-                Prefetch_select.Text = "X";
-                Prefetch_select.BackColor = Color.Red;
-                Prefetch_select.ForeColor = Color.White;
-            }
+            bool status = Prefetch_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "Prefetch");
         }
         private void FontCache_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (FontCache_select.Checked == true)
-            {
-                Properties.Settings.Default.FontCache = FontCache_select.Checked;
-                Properties.Settings.Default.Save();
-                FontCache_select.Text = "✓";
-                FontCache_select.BackColor = Color.Lime;
-                FontCache_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.FontCache = FontCache_select.Checked;
-                Properties.Settings.Default.Save();
-                FontCache_select.Text = "X";
-                FontCache_select.BackColor = Color.Red;
-                FontCache_select.ForeColor = Color.White;
-            }
+            bool status = FontCache_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "FontCache");
         }
         private void DownloadCache_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (DownloadCache_select.Checked == true)
-            {
-                Properties.Settings.Default.DownloadCache = DownloadCache_select.Checked;
-                Properties.Settings.Default.Save();
-                DownloadCache_select.Text = "✓";
-                DownloadCache_select.BackColor = Color.Lime;
-                DownloadCache_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.DownloadCache = DownloadCache_select.Checked;
-                Properties.Settings.Default.Save();
-                DownloadCache_select.Text = "X";
-                DownloadCache_select.BackColor = Color.Red;
-                DownloadCache_select.ForeColor = Color.White;
-            }
+            bool status = DownloadCache_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "DownloadCache");
         }
         private void OldWindows_select_CheckedChanged(object sender, EventArgs e)
         {
-            if (OldWindows_select.Checked == true)
-            {
-                Properties.Settings.Default.OldWindows = OldWindows_select.Checked;
-                Properties.Settings.Default.Save();
-                OldWindows_select.Text = "✓";
-                OldWindows_select.BackColor = Color.Lime;
-                OldWindows_select.ForeColor = Color.Black;
-            }
-            else
-            {
-                Properties.Settings.Default.OldWindows = OldWindows_select.Checked;
-                Properties.Settings.Default.Save();
-                OldWindows_select.Text = "X";
-                OldWindows_select.BackColor = Color.Red;
-                OldWindows_select.ForeColor = Color.White;
-            }
+            bool status = OldWindows_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "OldWindows");
         }
-
         private void Basic_select_CheckedChanged(object sender, EventArgs e)
         {
             SelectedThread = 1;
@@ -423,7 +254,6 @@ namespace PASPAS
             SidePanel.Height = Options_btn.Height;
             Options_panel.BringToFront();
         }
-
         private void ClipboardClear()
         {
             try
@@ -572,15 +402,9 @@ namespace PASPAS
             }
             catch { }
         }
-
         private void ThreadBasic()
         {
-            FileCount = 0;
-            Clipboard_Count = 0;
-            DNSCache_Count = 0;
-
             ClipboardClear();
-
             foreach (string extensions in temporaryextensions)
             {
                 DeleteFiles(folders["WinTemp"], extensions.ToString());
@@ -589,7 +413,6 @@ namespace PASPAS
             {
                 DeleteFiles(folders["WinTemp2"], extensions.ToString());
             }
-
             Process_count.Text = FileCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadedInstallations"]);
@@ -619,12 +442,7 @@ namespace PASPAS
         }
         private void ThreadAdvanced()
         {
-            FileCount = 0;
-            Clipboard_Count = 0;
-            DNSCache_Count = 0;
-
             ClipboardClear();
-
             foreach (string extensions in temporaryextensions)
             {
                 DeleteFiles(folders["WinTemp"], extensions.ToString());
@@ -633,7 +451,6 @@ namespace PASPAS
             {
                 DeleteFiles(folders["WinTemp2"], extensions.ToString());
             }
-
             Process_count.Text = FileCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadedInstallations"]);
@@ -681,15 +498,10 @@ namespace PASPAS
         }
         private void ThreadSpecial()
         {
-            FileCount = 0;
-            Clipboard_Count = 0;
-            DNSCache_Count = 0;
-
             if (Properties.Settings.Default.Clipboard == true)
             {
                 ClipboardClear();
             }
-
             if (Properties.Settings.Default.TemporaryFiles == true)
             {
                 foreach (string extensions in temporaryextensions)
@@ -703,13 +515,11 @@ namespace PASPAS
 
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.DownloadedInstallations == true)
             {
                 SingleDirectoryDeletion(folders["DownloadedInstallations"]);
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.RecentlyUsed == true)
             {
                 DeleteFiles(folders["RecentFiles"], ".lnk");
@@ -717,18 +527,15 @@ namespace PASPAS
                 DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.PreviewCache == true)
             {
                 DeleteFiles(folders["PreviewCache"], ".db");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.DNSCache == true)
             {
                 DNSCacheRefresh();
             }
-
             if (Properties.Settings.Default.Logs == true)
             {
                 SingleDirectoryDeletion(folders["Logs"]);
@@ -737,13 +544,11 @@ namespace PASPAS
                 SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.SystemCache == true)
             {
                 DeleteFiles(folders["SystemCache"], ".db");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.MemoryDumps == true)
             {
                 DeleteFiles(folders["LiveKernelReports"], ".dmp");
@@ -752,30 +557,25 @@ namespace PASPAS
                 DeleteFiles(folders["MiniDumps"], ".dmp");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.Prefetch == true)
             {
                 DeleteFiles(folders["Prefetch"], ".pf");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.FontCache == true)
             {
                 SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.DownloadCache == true)
             {
                 SingleDirectoryDeletion(folders["DownloadCache"]);
                 Process_count.Text = FileCount.ToString();
             }
-
             if (Properties.Settings.Default.OldWindows == true)
             {
                 SingleDirectoryDeletion(folders["OldWindows"]);
             }
-
             Process_count.Text = FileCount.ToString();
             process_img.Visible = false;
             Finish.Visible = true;
@@ -798,32 +598,27 @@ namespace PASPAS
                         AnalyzeFiles(folders["WinTemp2"], extensions.ToString());
                     }
                 }
-
                 Process_count.Text = FileCount.ToString();
                 if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 1 || SelectedThread == 2)
                 {
                     SingleDirectoryAnalyze(folders["DownloadCache"]);
                 }
-
                 if (Properties.Settings.Default.RecentlyUsed == true || SelectedThread == 1 || SelectedThread == 2)
                 {
                     AnalyzeFiles(folders["RecentFiles"], ".lnk");
                     AnalyzeFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
                     AnalyzeFiles(folders["RecentFiles3"], ".customDestinations-ms");
                 }
-
                 if (Properties.Settings.Default.PreviewCache == true || SelectedThread == 1 || SelectedThread == 2)
                 {
                     AnalyzeFiles(folders["PreviewCache"], ".db");
                 }
-
                 if (Properties.Settings.Default.Logs == true || SelectedThread == 1 || SelectedThread == 2)
                 {
                     SingleDirectoryAnalyze(folders["Logs"]);
                     SingleDirectoryAnalyze(folders["Logs2"]);
                     SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
                 }
-
                 Process_count.Text = FileCount.ToString();
             }
             if (SelectedThread == 2 || SelectedThread == 3)
@@ -832,7 +627,6 @@ namespace PASPAS
                 {
                     AnalyzeFiles(folders["SystemCache"], ".db");
                 }
-
                 if (Properties.Settings.Default.MemoryDumps == true || SelectedThread == 2)
                 {
                     AnalyzeFiles(folders["LiveKernelReports"], ".dmp");
@@ -840,23 +634,19 @@ namespace PASPAS
                     AnalyzeFiles(folders["CrashDumps"], ".dmp");
                     AnalyzeFiles(folders["MiniDumps"], ".dmp");
                 }
-
                 if (Properties.Settings.Default.Prefetch == true || SelectedThread == 2)
                 {
                     AnalyzeFiles(folders["Prefetch"], ".pf");
                 }
-
                 if (Properties.Settings.Default.FontCache == true || SelectedThread == 2)
                 {
                     SingleFileAnalyze(folders["FontCache"], "FNTCACHE.DAT");
                 }
-
                 if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 2)
                 {
                     SingleDirectoryAnalyze(folders["DownloadCache"]);
                 }
             }
-
             if (SelectedThread == 3)
             {
                 if (Properties.Settings.Default.OldWindows == true)
@@ -871,14 +661,15 @@ namespace PASPAS
             Start.Enabled = true;
             Analysis.Enabled = true;
         }
-
         private void Start_Click(object sender, EventArgs e)
         {
+            FileCount = 0;
+            Clipboard_Count = 0;
+            DNSCache_Count = 0;
             if (SelectedThread == 1)
             {
                 Thread BasicThread = new Thread(ThreadBasic);
                 BasicThread.Start();
-
             }
             else if (SelectedThread == 2)
             {
@@ -895,8 +686,7 @@ namespace PASPAS
                 Error error = new Error();
                 error.ShowDialog();
             }
-
-            Process_panel.BringToFront();
+            ProcessPanel.BringToFront();
             process_img.Visible = true;
             Finish.Visible = false;
             finish_img.Visible = false;
@@ -909,7 +699,7 @@ namespace PASPAS
         {
             Thread analysis = new Thread(ThreadAnalysis);
             analysis.Start();
-            Process_panel.BringToFront();
+            ProcessPanel.BringToFront();
             process_img.Visible = true;
             Finish.Visible = false;
             finish_img.Visible = false;
@@ -927,6 +717,66 @@ namespace PASPAS
             ProcessBox.Items.Clear();
             Process_count.Text = "0";
             Home_panel.BringToFront();
+        }
+        private void DarkModeSwitch()
+        {
+            try
+            {
+                if (Properties.Settings.Default.DarkMode == true)
+                {
+                    foreach (Control c in Controls)
+                    {
+                        if (c is Panel && (c.Name != "ControlPanel" && c.Name != "SidePanel" && c.Name != "LogoPanel" && c.Name != "ProcessTitlePanel" && c.Name != "DarkModeButton"))
+                        {
+                            c.BackColor = ColorTranslator.FromHtml("#444449");
+                            c.ForeColor = Color.White;
+                            BackColor = c.BackColor;
+                        }
+                    }
+                }
+                else if (Properties.Settings.Default.DarkMode == false)
+                {
+                    foreach (Control c in Controls)
+                    {
+                        if (c is Panel && (c.Name != "ControlPanel" && c.Name != "SidePanel" && c.Name != "LogoPanel" && c.Name != "ProcessTitlePanel" && c.Name != "DarkModeButton"))
+                        {
+                            c.BackColor = Color.WhiteSmoke;
+                            c.ForeColor = Color.Black;
+                            BackColor = c.BackColor;
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+        private void DarkModeButton_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.DarkMode == true)
+            {
+                Thread darkmode = new Thread(DarkModeSwitch);
+                darkmode.Start();
+                Properties.Settings.Default.DarkMode = false;
+                Properties.Settings.Default.Save();
+            }
+            else if (Properties.Settings.Default.DarkMode == false)
+            {
+                Thread darkmode = new Thread(DarkModeSwitch);
+                darkmode.Start();
+                Properties.Settings.Default.DarkMode = true;
+                Properties.Settings.Default.Save();
+            }
+        }
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            foreach (Control control in Options_panel.Controls)
+            {
+                if (control is CheckBox checkbox)
+                {
+                    checkbox.Checked = false;
+                }
+            }
+            DarkModeSwitch();
         }
         private void Github_label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
