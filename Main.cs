@@ -16,14 +16,12 @@ using System.Windows.Forms;
 
 namespace PASPAS
 {
-    public partial class PASPAS_Main : Form
+    public partial class Main : Form
     {
-        int CP_Move;
-        int MX;
-        int MY;
+        int MoveCP;
+        int MapX;
+        int MapY;
         int FileCount = 0;
-        int Clipboard_Count = 0;
-        int DNSCache_Count = 0;
         int SelectedThread;
         readonly string SystemDirectory = Path.GetPathRoot(Environment.SystemDirectory);
         private readonly Dictionary<string, string> folders = new Dictionary<string, string>{
@@ -49,7 +47,7 @@ namespace PASPAS
         };
         private readonly string[] temporaryextensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
 
-        public PASPAS_Main()
+        public Main()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -79,8 +77,7 @@ namespace PASPAS
             }
             else
             {
-                Error error = new Error();
-                error.ShowDialog();
+                new Error().ShowDialog();
             }
             Clipboard_select.Checked = Properties.Settings.Default.Clipboard;
             TemporaryFiles_select.Checked = Properties.Settings.Default.TemporaryFiles;
@@ -106,19 +103,19 @@ namespace PASPAS
         }
         private void ControlPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            CP_Move = 1;
-            MX = e.X;
-            MY = e.Y;
+            MoveCP = 1;
+            MapX = e.X;
+            MapY = e.Y;
         }
         private void ControlPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            CP_Move = 0;
+            MoveCP = 0;
         }
         private void ControlPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (CP_Move == 1)
+            if (MoveCP == 1)
             {
-                SetDesktopLocation(MousePosition.X - MX, MousePosition.Y - MY);
+                SetDesktopLocation(MousePosition.X - MapX, MousePosition.Y - MapY);
             }
         }
         private void Home_btn_Click(object sender, EventArgs e)
@@ -260,18 +257,16 @@ namespace PASPAS
             {
                 ProcessBox.Items.Add("");
                 ProcessBox.Items.Add("--->cmd.exe");
-                Process cmd = new Process();
                 ProcessStartInfo startinfo = new ProcessStartInfo
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "cmd.exe",
                     Arguments = "cmd /c echo off | clip"
                 };
-                Clipboard_Count++;
-                ProcessBox.Items.Add(Clipboard_Count + " - " + startinfo.Arguments);
+                ProcessBox.Items.Add("- " + startinfo.Arguments);
                 ProcessBox.Items.Add("");
-                cmd.StartInfo = startinfo;
-                cmd.Start();
+                new Process().StartInfo = startinfo;
+                new Process().Start();
             }
             catch { }
         }
@@ -281,27 +276,16 @@ namespace PASPAS
             {
                 ProcessBox.Items.Add("");
                 ProcessBox.Items.Add("--->cmd.exe");
-                Process cmd = new Process();
                 ProcessStartInfo startinfo = new ProcessStartInfo
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "cmd.exe",
-                    Arguments = "/C ipconfig /flushdns"
+                    Arguments = "/c ipconfig /flushdns && ipconfig /release && ipconfig /renew"
                 };
-                DNSCache_Count++;
-                ProcessBox.Items.Add(DNSCache_Count + " - " + startinfo.Arguments);
-
-                startinfo.Arguments = "/C ipconfig /release";
-                DNSCache_Count++;
-                ProcessBox.Items.Add(DNSCache_Count + " - " + startinfo.Arguments);
-
-                startinfo.Arguments = "/C ipconfig /renew";
-                DNSCache_Count++;
-                ProcessBox.Items.Add(DNSCache_Count + " - " + startinfo.Arguments);
-
-                cmd.StartInfo = startinfo;
-                cmd.Start();
+                ProcessBox.Items.Add("- " + startinfo.Arguments);
                 ProcessBox.Items.Add("");
+                new Process().StartInfo = startinfo;
+                new Process().Start();
             }
             catch { }
         }
@@ -364,15 +348,11 @@ namespace PASPAS
         }
         private void SingleDirectoryAnalyze(string directory)
         {
-            try
+            if (Directory.Exists(directory))
             {
-                if (Directory.Exists(directory))
-                {
-                    FileCount++;
-                    ProcessBox.Items.Add(FileCount + " | " + directory);
-                }
+                FileCount++;
+                ProcessBox.Items.Add(FileCount + " | " + directory);
             }
-            catch { }
         }
         private void SingleFileDeletion(string directory, string file)
         {
@@ -392,15 +372,11 @@ namespace PASPAS
         }
         private void SingleFileAnalyze(string directory, string file)
         {
-            try
+            if (File.Exists(file))
             {
-                if (File.Exists(file))
-                {
-                    FileCount++;
-                    ProcessBox.Items.Add(FileCount + " | " + directory + file);
-                }
+                FileCount++;
+                ProcessBox.Items.Add(FileCount + " | " + directory + file);
             }
-            catch { }
         }
         private void ThreadBasic()
         {
@@ -598,7 +574,6 @@ namespace PASPAS
                         AnalyzeFiles(folders["WinTemp2"], extensions.ToString());
                     }
                 }
-                Process_count.Text = FileCount.ToString();
                 if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 1 || SelectedThread == 2)
                 {
                     SingleDirectoryAnalyze(folders["DownloadCache"]);
@@ -664,104 +639,82 @@ namespace PASPAS
         private void Start_Click(object sender, EventArgs e)
         {
             FileCount = 0;
-            Clipboard_Count = 0;
-            DNSCache_Count = 0;
             if (SelectedThread == 1)
             {
-                Thread BasicThread = new Thread(ThreadBasic);
-                BasicThread.Start();
+                new Thread(ThreadBasic).Start();
             }
             else if (SelectedThread == 2)
             {
-                Thread AdvancedThread = new Thread(ThreadAdvanced);
-                AdvancedThread.Start();
+                new Thread(ThreadAdvanced).Start();
             }
             else if (SelectedThread == 3)
             {
-                Thread SpecialThread = new Thread(ThreadSpecial);
-                SpecialThread.Start();
+                new Thread(ThreadSpecial).Start();
             }
             else
             {
-                Error error = new Error();
-                error.ShowDialog();
+                new Error().ShowDialog();
             }
             ProcessPanel.BringToFront();
             process_img.Visible = true;
             Finish.Visible = false;
             finish_img.Visible = false;
-            Home_btn.Enabled = false;
-            Options_btn.Enabled = false;
-            About_btn.Enabled = false;
             Start.Enabled = false;
         }
         private void Analysis_Click(object sender, EventArgs e)
         {
-            Thread analysis = new Thread(ThreadAnalysis);
-            analysis.Start();
+            new Thread(ThreadAnalysis).Start();
             ProcessPanel.BringToFront();
             process_img.Visible = true;
             Finish.Visible = false;
             finish_img.Visible = false;
-            Home_btn.Enabled = false;
-            Options_btn.Enabled = false;
-            About_btn.Enabled = false;
             Start.Enabled = false;
             Analysis.Enabled = false;
         }
         private void Finish_Click(object sender, EventArgs e)
         {
-            Home_btn.Enabled = true;
-            Options_btn.Enabled = true;
-            About_btn.Enabled = true;
             ProcessBox.Items.Clear();
             Process_count.Text = "0";
             Home_panel.BringToFront();
         }
         private void DarkModeSwitch()
         {
-            try
+            if (Properties.Settings.Default.DarkMode)
             {
-                if (Properties.Settings.Default.DarkMode == true)
+                foreach (Control c in Controls)
                 {
-                    foreach (Control c in Controls)
+                    if (c is Panel && (c.Name != "ControlPanel" && c.Name != "SidePanel" && c.Name != "LogoPanel" && c.Name != "ProcessTitlePanel" && c.Name != "DarkModeButton"))
                     {
-                        if (c is Panel && (c.Name != "ControlPanel" && c.Name != "SidePanel" && c.Name != "LogoPanel" && c.Name != "ProcessTitlePanel" && c.Name != "DarkModeButton"))
-                        {
-                            c.BackColor = ColorTranslator.FromHtml("#444449");
-                            c.ForeColor = Color.White;
-                            BackColor = c.BackColor;
-                        }
-                    }
-                }
-                else if (Properties.Settings.Default.DarkMode == false)
-                {
-                    foreach (Control c in Controls)
-                    {
-                        if (c is Panel && (c.Name != "ControlPanel" && c.Name != "SidePanel" && c.Name != "LogoPanel" && c.Name != "ProcessTitlePanel" && c.Name != "DarkModeButton"))
-                        {
-                            c.BackColor = Color.WhiteSmoke;
-                            c.ForeColor = Color.Black;
-                            BackColor = c.BackColor;
-                        }
+                        c.BackColor = ColorTranslator.FromHtml("#444449");
+                        c.ForeColor = Color.White;
+                        BackColor = c.BackColor;
                     }
                 }
             }
-            catch { }
+            else if (!Properties.Settings.Default.DarkMode)
+            {
+                foreach (Control c in Controls)
+                {
+                    if (c is Panel && (c.Name != "ControlPanel" && c.Name != "SidePanel" && c.Name != "LogoPanel" && c.Name != "ProcessTitlePanel" && c.Name != "DarkModeButton"))
+                    {
+                        c.BackColor = Color.WhiteSmoke;
+                        c.ForeColor = Color.Black;
+                        BackColor = c.BackColor;
+                    }
+                }
+            }
         }
         private void DarkModeButton_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.DarkMode == true)
+            if (Properties.Settings.Default.DarkMode)
             {
-                Thread darkmode = new Thread(DarkModeSwitch);
-                darkmode.Start();
+                new Thread(DarkModeSwitch).Start();
                 Properties.Settings.Default.DarkMode = false;
                 Properties.Settings.Default.Save();
             }
-            else if (Properties.Settings.Default.DarkMode == false)
+            else if (!Properties.Settings.Default.DarkMode)
             {
-                Thread darkmode = new Thread(DarkModeSwitch);
-                darkmode.Start();
+                new Thread(DarkModeSwitch).Start();
                 Properties.Settings.Default.DarkMode = true;
                 Properties.Settings.Default.Save();
             }
