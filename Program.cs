@@ -13,7 +13,7 @@ namespace PASPAS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PASPAS_Main());
+            Application.Run(new Main());
         }
     }
 }
