@@ -1,6 +1,6 @@
 ﻿namespace PASPAS
 {
-    partial class PASPAS_Main
+    partial class Main
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -21,7 +21,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PASPAS_Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.About_btn = new System.Windows.Forms.Button();
             this.Options_btn = new System.Windows.Forms.Button();
             this.Home_btn = new System.Windows.Forms.Button();
