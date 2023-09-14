@@ -1,12 +1,4 @@
-﻿/*
-    PASPAS   PASPAS   PASPAS   PASPAS   PASPAS   PASPAS
-    PA  SP   P    A   P        PA  SP   P    A   P     
-    PASPAS   PASPAS   PASPAS   PASPAS   PASPAS   PASPAS
-    PA       P    A        P   PA       P    A        P
-    PA       P    A   PASPAS   PA       P    A   PASPAS
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -22,6 +14,7 @@ namespace PASPAS
         int MapX;
         int MapY;
         int FileCount = 0;
+        int RejectCount = 0;
         int SelectedThread;
         readonly string SystemDirectory = Path.GetPathRoot(Environment.SystemDirectory);
         private readonly Dictionary<string, string> folders = new Dictionary<string, string>{
@@ -268,7 +261,7 @@ namespace PASPAS
                 new Process().StartInfo = startinfo;
                 new Process().Start();
             }
-            catch { }
+            catch { RejectCount++; }
         }
         private void DNSCacheRefresh()
         {
@@ -287,7 +280,7 @@ namespace PASPAS
                 new Process().StartInfo = startinfo;
                 new Process().Start();
             }
-            catch { }
+            catch { RejectCount++; }
         }
         private void DeleteFiles(string directory, string extension)
         {
@@ -305,6 +298,7 @@ namespace PASPAS
                             FileCount++;
                             ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
                         }
+                        else { RejectCount++; }
                     }
                 }
             }
@@ -325,6 +319,7 @@ namespace PASPAS
                             FileCount++;
                             ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
                         }
+                        else { RejectCount++; }
                     }
                 }
             }
@@ -342,6 +337,7 @@ namespace PASPAS
                         FileCount++;
                         ProcessBox.Items.Add(FileCount + " | " + directory);
                     }
+                    else { RejectCount++; }
                 }
             }
             catch { }
@@ -353,6 +349,7 @@ namespace PASPAS
                 FileCount++;
                 ProcessBox.Items.Add(FileCount + " | " + directory);
             }
+            else { RejectCount++; }
         }
         private void SingleFileDeletion(string directory, string file)
         {
@@ -366,6 +363,7 @@ namespace PASPAS
                         FileCount++;
                         ProcessBox.Items.Add(FileCount + " | " + directory + file);
                     }
+                    else { RejectCount++; }
                 }
             }
             catch { }
@@ -377,6 +375,7 @@ namespace PASPAS
                 FileCount++;
                 ProcessBox.Items.Add(FileCount + " | " + directory + file);
             }
+            else { RejectCount++; }
         }
         private void ThreadBasic()
         {
@@ -389,27 +388,27 @@ namespace PASPAS
             {
                 DeleteFiles(folders["WinTemp2"], extensions.ToString());
             }
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["RecentFiles"], ".lnk");
             DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
             DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["PreviewCache"], ".db");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DNSCacheRefresh();
 
             SingleDirectoryDeletion(folders["Logs"]);
             SingleDirectoryDeletion(folders["Logs2"]);
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             process_img.Visible = false;
             Finish.Visible = true;
@@ -427,45 +426,45 @@ namespace PASPAS
             {
                 DeleteFiles(folders["WinTemp2"], extensions.ToString());
             }
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["RecentFiles"], ".lnk");
             DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
             DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["PreviewCache"], ".db");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DNSCacheRefresh();
 
             SingleDirectoryDeletion(folders["Logs"]);
             SingleDirectoryDeletion(folders["Logs2"]);
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["SystemCache"], ".db");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["LiveKernelReports"], ".dmp");
             DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
             DeleteFiles(folders["CrashDumps"], ".dmp");
             DeleteFiles(folders["MiniDumps"], ".dmp");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             DeleteFiles(folders["Prefetch"], ".pf");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             SingleDirectoryDeletion(folders["DownloadCache"]);
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
             process_img.Visible = false;
             Finish.Visible = true;
@@ -489,24 +488,24 @@ namespace PASPAS
                     DeleteFiles(folders["WinTemp2"], extensions.ToString());
                 }
 
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.DownloadedInstallations == true)
             {
                 SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.RecentlyUsed == true)
             {
                 DeleteFiles(folders["RecentFiles"], ".lnk");
                 DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
                 DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.PreviewCache == true)
             {
                 DeleteFiles(folders["PreviewCache"], ".db");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.DNSCache == true)
             {
@@ -518,12 +517,12 @@ namespace PASPAS
                 SingleDirectoryDeletion(folders["Logs2"]);
 
                 SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.SystemCache == true)
             {
                 DeleteFiles(folders["SystemCache"], ".db");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.MemoryDumps == true)
             {
@@ -531,28 +530,28 @@ namespace PASPAS
                 DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
                 DeleteFiles(folders["CrashDumps"], ".dmp");
                 DeleteFiles(folders["MiniDumps"], ".dmp");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.Prefetch == true)
             {
                 DeleteFiles(folders["Prefetch"], ".pf");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.FontCache == true)
             {
                 SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.DownloadCache == true)
             {
                 SingleDirectoryDeletion(folders["DownloadCache"]);
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.OldWindows == true)
             {
                 SingleDirectoryDeletion(folders["OldWindows"]);
             }
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             process_img.Visible = false;
             Finish.Visible = true;
             finish_img.Visible = true;
@@ -561,6 +560,7 @@ namespace PASPAS
         private void ThreadAnalysis()
         {
             FileCount = 0;
+            RejectCount = 0;
             if (SelectedThread == 1 || SelectedThread == 2 || SelectedThread == 3)
             {
                 if (Properties.Settings.Default.TemporaryFiles == true || SelectedThread == 1 || SelectedThread == 2)
@@ -594,7 +594,7 @@ namespace PASPAS
                     SingleDirectoryAnalyze(folders["Logs2"]);
                     SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
                 }
-                Process_count.Text = FileCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (SelectedThread == 2 || SelectedThread == 3)
             {
@@ -629,7 +629,7 @@ namespace PASPAS
                     SingleDirectoryAnalyze(folders["OldWindows"]);
                 }
             }
-            Process_count.Text = FileCount.ToString();
+            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             process_img.Visible = false;
             Finish.Visible = true;
             finish_img.Visible = true;
@@ -639,6 +639,7 @@ namespace PASPAS
         private void Start_Click(object sender, EventArgs e)
         {
             FileCount = 0;
+            RejectCount = 0;
             if (SelectedThread == 1)
             {
                 new Thread(ThreadBasic).Start();
@@ -674,7 +675,7 @@ namespace PASPAS
         private void Finish_Click(object sender, EventArgs e)
         {
             ProcessBox.Items.Clear();
-            Process_count.Text = "0";
+            Process_count.Text = "0 / 0";
             Home_panel.BringToFront();
         }
         private void DarkModeSwitch()
