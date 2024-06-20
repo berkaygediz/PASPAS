@@ -1,6 +1,6 @@
 # PASPAS
 
-![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner.png)
+![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_3.png)
 
 Welcome to **PASPAS**, your ultimate solution for optimizing your PC's performance and regaining valuable disk space with ease. Experience the speed, efficiency, and power of PASPAS without worrying about memory leaks.
 
