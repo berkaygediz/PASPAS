@@ -21,6 +21,15 @@ namespace PASPAS
             { "WinTemp", "/Windows/TEMP" },
             { "WinTemp2", "/Users/" + Environment.UserName + "/AppData/Local/Temp" },
             { "DownloadedInstallations", "/Users/" + Environment.UserName + "/AppData/Roaming/Downloaded Installations" },
+            { "CryptnetUrlCacheContent", "/Windows/System32/config/systemprofile/AppData/LocalLow/Microsoft/CryptnetUrlCache/Content"},
+            { "CryptnetUrlCacheMetaData", "/Windows/System32/config/systemprofile/AppData/LocalLow/Microsoft/CryptnetUrlCache/MetaData"},
+            { "NetworkServiceTemp", "/Windows/ServiceProfiles/NetworkService/AppData/Local/Temp"},
+            { "TokenBrokerCache", "/Users/" + Environment.UserName + "/AppData/Local/Microsoft/TokenBroker/Cache"},
+            { "waasmedicLog", "/Windows/Logs/waasmedic"},
+            { "NetSetupLog", "/Windows/Logs/NetSetup"},
+            { "ReportArchive", "/ProgramData/Microsoft/Windows/WER/ReportArchive"},
+            { "ReportQueue", "/ProgramData/Microsoft/Windows/WER/ReportQueue"},
+            { "WERTemp", "/ProgramData/Microsoft/Windows/WER/Temp"},
             { "RecentFiles", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent" },
             { "RecentFiles2", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent/AutomaticDestinations" },
             { "RecentFiles3", "/Users/" + Environment.UserName + "/AppData/Roaming/Microsoft/Windows/Recent/CustomDestinations" },
@@ -85,6 +94,7 @@ namespace PASPAS
             FontCache_select.Checked = Properties.Settings.Default.FontCache;
             DownloadCache_select.Checked = Properties.Settings.Default.DownloadCache;
             OldWindows_select.Checked = Properties.Settings.Default.OldWindows;
+            SysLogErrorRep_select.Checked = Properties.Settings.Default.SysLogErrorRep;
         }
         private void Exit_Click(object sender, EventArgs e)
         {
@@ -217,6 +227,11 @@ namespace PASPAS
             bool status = OldWindows_select.Checked;
             CheckboxPropertySave((CheckBox)sender, status, "OldWindows");
         }
+        private void SysLogErrorRep_select_CheckedChanged(object sender, EventArgs e)
+        {
+            bool status = SysLogErrorRep_select.Checked;
+            CheckboxPropertySave((CheckBox)sender, status, "SysLogErrorRep");
+        }
         private void Basic_select_CheckedChanged(object sender, EventArgs e)
         {
             SelectedThread = 1;
@@ -304,6 +319,48 @@ namespace PASPAS
             }
             catch { }
         }
+        private void DeleteAllFiles(string directory)
+        {
+            try
+            {
+                FileInfo fileinfo;
+                foreach (string file in Directory.GetFiles(SystemDirectory + directory))
+                {
+                    fileinfo = new FileInfo(file);
+
+                    fileinfo.Delete();
+                    if (fileinfo.Exists == false)
+                    {
+                        FileCount++;
+                        ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
+                    }
+                    else { RejectCount++; }
+
+                }
+            }
+            catch { }
+        }
+        private void DeleteAllDirectories(string directory)
+        {
+            try
+            {
+                DirectoryInfo dirinfo;
+                foreach (string dir in Directory.GetDirectories(SystemDirectory + directory))
+                {
+                    dirinfo = new DirectoryInfo(dir);
+
+                    dirinfo.Delete();
+                    if (dirinfo.Exists == false)
+                    {
+                        FileCount++;
+                        ProcessBox.Items.Add(FileCount + " | " + dirinfo.ToString());
+                    }
+                    else { RejectCount++; }
+
+                }
+            }
+            catch { }
+        }
         private void AnalyzeFiles(string directory, string extension)
         {
             try
@@ -321,6 +378,45 @@ namespace PASPAS
                         }
                         else { RejectCount++; }
                     }
+                }
+            }
+            catch { }
+        }
+        private void AnalyzeAllFiles(string directory)
+        {
+            try
+            {
+                FileInfo fileinfo;
+                foreach (string file in Directory.GetFiles(SystemDirectory + directory))
+                {
+                    fileinfo = new FileInfo(file);
+
+                    if (fileinfo.Exists)
+                    {
+                        FileCount++;
+                        ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
+                    }
+                    else { RejectCount++; }
+
+                }
+            }
+            catch { }
+        }
+        private void AnalyzeAllDirectories(string directory)
+        {
+            try
+            {
+                DirectoryInfo dirinfo;
+                foreach (string dir in Directory.GetDirectories(SystemDirectory + directory))
+                {
+                    dirinfo = new DirectoryInfo(dir);
+
+                    if (dirinfo.Exists == false)
+                    {
+                        FileCount++;
+                        ProcessBox.Items.Add(FileCount + " | " + dirinfo.ToString());
+                    }
+                    else { RejectCount++; }
                 }
             }
             catch { }
@@ -522,6 +618,7 @@ namespace PASPAS
             if (Properties.Settings.Default.SystemCache == true)
             {
                 DeleteFiles(folders["SystemCache"], ".db");
+                DeleteAllFiles(folders["TokenBrokerCache"]);
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             }
             if (Properties.Settings.Default.MemoryDumps == true)
@@ -551,6 +648,21 @@ namespace PASPAS
             {
                 SingleDirectoryDeletion(folders["OldWindows"]);
             }
+            if (Properties.Settings.Default.SysLogErrorRep == true)
+            {
+                DeleteAllFiles(folders["CryptnetUrlCacheContent"]);
+                DeleteAllFiles(folders["CryptnetUrlCacheMetaData"]);
+                DeleteAllFiles(folders["NetworkServiceTemp"]);
+                DeleteFiles(folders["waasmedicLog"], ".etl");
+                DeleteFiles(folders["NetSetupLog"], ".etl");
+                DeleteAllDirectories(folders["ReportArchive"]);
+                DeleteAllFiles(folders["ReportArchive"]);
+                DeleteAllDirectories(folders["ReportQueue"]);
+                DeleteAllFiles(folders["ReportQueue"]);
+                DeleteAllDirectories(folders["WERTemp"]);
+                DeleteAllFiles(folders["WERTemp"]);
+            }
+
             Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
             process_img.Visible = false;
             Finish.Visible = true;
@@ -601,6 +713,8 @@ namespace PASPAS
                 if (Properties.Settings.Default.SystemCache == true || SelectedThread == 2)
                 {
                     AnalyzeFiles(folders["SystemCache"], ".db");
+                    AnalyzeAllFiles(folders["TokenBrokerCache"]);
+
                 }
                 if (Properties.Settings.Default.MemoryDumps == true || SelectedThread == 2)
                 {
@@ -627,6 +741,20 @@ namespace PASPAS
                 if (Properties.Settings.Default.OldWindows == true)
                 {
                     SingleDirectoryAnalyze(folders["OldWindows"]);
+                }
+                if (Properties.Settings.Default.SysLogErrorRep == true)
+                {
+                    AnalyzeAllFiles(folders["CryptnetUrlCacheContent"]);
+                    AnalyzeAllFiles(folders["CryptnetUrlCacheMetaData"]);
+                    AnalyzeAllFiles(folders["NetworkServiceTemp"]);
+                    AnalyzeFiles(folders["waasmedicLog"], ".etl");
+                    AnalyzeFiles(folders["NetSetupLog"], ".etl");
+                    AnalyzeAllDirectories(folders["ReportArchive"]);
+                    AnalyzeAllFiles(folders["ReportArchive"]);
+                    AnalyzeAllDirectories(folders["ReportQueue"]);
+                    AnalyzeAllFiles(folders["ReportQueue"]);
+                    AnalyzeAllDirectories(folders["WERTemp"]);
+                    AnalyzeAllFiles(folders["WERTemp"]);
                 }
             }
             Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
@@ -735,6 +863,14 @@ namespace PASPAS
         private void Github_label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/berkaygediz");
+        }
+        private void promo_richspan_button_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/berkaygediz/RichSpan");
+        }
+        private void promo_spanrc_button_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/berkaygediz/SpanRC");
         }
     }
 }
