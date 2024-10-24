@@ -28,6 +28,7 @@
             this.SidePanel = new System.Windows.Forms.Panel();
             this.Splitter = new System.Windows.Forms.Splitter();
             this.ControlPanel = new System.Windows.Forms.Panel();
+            this.versionCode = new System.Windows.Forms.Label();
             this.LogoPanel = new System.Windows.Forms.Panel();
             this.Logo = new System.Windows.Forms.PictureBox();
             this.Title = new System.Windows.Forms.Label();
@@ -78,7 +79,7 @@
             this.SystemCache_title = new System.Windows.Forms.Label();
             this.Clipboard_title = new System.Windows.Forms.Label();
             this.About_panel = new System.Windows.Forms.Panel();
-            this.promo_spanrc_button = new System.Windows.Forms.Button();
+            this.promo_solidsheets_button = new System.Windows.Forms.Button();
             this.promo_richspan_button = new System.Windows.Forms.Button();
             this.promo_disclaimer = new System.Windows.Forms.Label();
             this.promo_description = new System.Windows.Forms.Label();
@@ -90,12 +91,11 @@
             this.ProcessTitlePanel = new System.Windows.Forms.Panel();
             this.Process_count_subtext = new System.Windows.Forms.Label();
             this.Process_count = new System.Windows.Forms.Label();
+            this.ProcessBox = new System.Windows.Forms.ListBox();
             this.process_img = new System.Windows.Forms.PictureBox();
             this.finish_img = new System.Windows.Forms.PictureBox();
-            this.ProcessBox = new System.Windows.Forms.ListBox();
             this.Exit = new System.Windows.Forms.Button();
             this.Minimize = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.ControlPanel.SuspendLayout();
             this.LogoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -116,7 +116,7 @@
             this.About_btn.BackColor = System.Drawing.Color.WhiteSmoke;
             this.About_btn.FlatAppearance.BorderSize = 0;
             this.About_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_btn.Font = new System.Drawing.Font("Carlito", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.About_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.About_btn.Location = new System.Drawing.Point(25, 316);
             this.About_btn.Name = "About_btn";
             this.About_btn.Size = new System.Drawing.Size(165, 40);
@@ -130,7 +130,7 @@
             this.Options_btn.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Options_btn.FlatAppearance.BorderSize = 0;
             this.Options_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Options_btn.Font = new System.Drawing.Font("Carlito", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Options_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Options_btn.Location = new System.Drawing.Point(25, 261);
             this.Options_btn.Name = "Options_btn";
             this.Options_btn.Size = new System.Drawing.Size(165, 40);
@@ -144,7 +144,7 @@
             this.Home_btn.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Home_btn.FlatAppearance.BorderSize = 0;
             this.Home_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Home_btn.Font = new System.Drawing.Font("Carlito", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Home_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Home_btn.Location = new System.Drawing.Point(25, 205);
             this.Home_btn.Name = "Home_btn";
             this.Home_btn.Size = new System.Drawing.Size(165, 40);
@@ -175,7 +175,7 @@
             // 
             this.ControlPanel.BackColor = System.Drawing.Color.Yellow;
             this.ControlPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ControlPanel.Controls.Add(this.label1);
+            this.ControlPanel.Controls.Add(this.versionCode);
             this.ControlPanel.Location = new System.Drawing.Point(0, 0);
             this.ControlPanel.Name = "ControlPanel";
             this.ControlPanel.Size = new System.Drawing.Size(871, 15);
@@ -183,6 +183,18 @@
             this.ControlPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ControlPanel_MouseDown);
             this.ControlPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ControlPanel_MouseMove);
             this.ControlPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ControlPanel_MouseUp);
+            // 
+            // versionCode
+            // 
+            this.versionCode.AutoSize = true;
+            this.versionCode.BackColor = System.Drawing.Color.Yellow;
+            this.versionCode.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionCode.ForeColor = System.Drawing.Color.Maroon;
+            this.versionCode.Location = new System.Drawing.Point(813, 0);
+            this.versionCode.Name = "versionCode";
+            this.versionCode.Size = new System.Drawing.Size(56, 13);
+            this.versionCode.TabIndex = 26;
+            this.versionCode.Text = "2024.10-1";
             // 
             // LogoPanel
             // 
@@ -209,10 +221,10 @@
             // Title
             // 
             this.Title.AutoSize = true;
-            this.Title.Font = new System.Drawing.Font("Carlito", 18.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Title.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Title.Location = new System.Drawing.Point(26, 119);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(90, 31);
+            this.Title.Size = new System.Drawing.Size(91, 30);
             this.Title.TabIndex = 11;
             this.Title.Text = "PASPAS";
             // 
@@ -237,7 +249,7 @@
             this.Analysis.BackColor = System.Drawing.Color.Crimson;
             this.Analysis.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Analysis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Analysis.Font = new System.Drawing.Font("Carlito", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Analysis.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Analysis.ForeColor = System.Drawing.Color.White;
             this.Analysis.Location = new System.Drawing.Point(476, 327);
             this.Analysis.Name = "Analysis";
@@ -260,11 +272,11 @@
             // BasicDesc
             // 
             this.BasicDesc.AutoSize = true;
-            this.BasicDesc.Font = new System.Drawing.Font("Carlito", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BasicDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BasicDesc.ForeColor = System.Drawing.Color.White;
             this.BasicDesc.Location = new System.Drawing.Point(3, 54);
             this.BasicDesc.Name = "BasicDesc";
-            this.BasicDesc.Size = new System.Drawing.Size(162, 52);
+            this.BasicDesc.Size = new System.Drawing.Size(179, 52);
             this.BasicDesc.TabIndex = 9;
             this.BasicDesc.Text = "Permanently deletes clipboard, \r\ntemporary files, temporary \r\ninstallation files," +
     " recents, preview\r\ncache, DNS Cache and logs.";
@@ -273,11 +285,11 @@
             // 
             this.Basic.AutoSize = true;
             this.Basic.BackColor = System.Drawing.Color.BlueViolet;
-            this.Basic.Font = new System.Drawing.Font("Carlito", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Basic.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Basic.ForeColor = System.Drawing.Color.Honeydew;
-            this.Basic.Location = new System.Drawing.Point(57, 4);
+            this.Basic.Location = new System.Drawing.Point(50, 5);
             this.Basic.Name = "Basic";
-            this.Basic.Size = new System.Drawing.Size(64, 29);
+            this.Basic.Size = new System.Drawing.Size(72, 32);
             this.Basic.TabIndex = 5;
             this.Basic.Text = "Basic";
             // 
@@ -294,25 +306,25 @@
             // AdvancedDesc
             // 
             this.AdvancedDesc.AutoSize = true;
-            this.AdvancedDesc.Font = new System.Drawing.Font("Carlito", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AdvancedDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AdvancedDesc.ForeColor = System.Drawing.Color.White;
-            this.AdvancedDesc.Location = new System.Drawing.Point(9, 47);
+            this.AdvancedDesc.Location = new System.Drawing.Point(6, 46);
             this.AdvancedDesc.Name = "AdvancedDesc";
-            this.AdvancedDesc.Size = new System.Drawing.Size(194, 65);
+            this.AdvancedDesc.Size = new System.Drawing.Size(219, 65);
             this.AdvancedDesc.TabIndex = 9;
             this.AdvancedDesc.Text = "It is a more advanced version of the \r\nbasic option. Permanently deletes the\r\nsys" +
-    "tem cache, memory dumps, prefetch\r\n data, cached fonts, and download cache,\r\nin " +
-    "addition to the basic option.";
+    "tem cache, memory dumps, prefetch\r\ndata, cached fonts, and download cache,\r\nin a" +
+    "ddition to the basic option.";
             // 
             // Advanced
             // 
             this.Advanced.AutoSize = true;
             this.Advanced.BackColor = System.Drawing.Color.BlueViolet;
-            this.Advanced.Font = new System.Drawing.Font("Carlito", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Advanced.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Advanced.ForeColor = System.Drawing.Color.Honeydew;
-            this.Advanced.Location = new System.Drawing.Point(57, 4);
+            this.Advanced.Location = new System.Drawing.Point(48, 4);
             this.Advanced.Name = "Advanced";
-            this.Advanced.Size = new System.Drawing.Size(112, 29);
+            this.Advanced.Size = new System.Drawing.Size(127, 32);
             this.Advanced.TabIndex = 6;
             this.Advanced.Text = "Advanced";
             // 
@@ -321,7 +333,7 @@
             this.Start.BackColor = System.Drawing.Color.DarkOrange;
             this.Start.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Start.Font = new System.Drawing.Font("Carlito", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Start.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Start.ForeColor = System.Drawing.Color.White;
             this.Start.Location = new System.Drawing.Point(15, 327);
             this.Start.Name = "Start";
@@ -344,11 +356,11 @@
             // SpecialDesc
             // 
             this.SpecialDesc.AutoSize = true;
-            this.SpecialDesc.Font = new System.Drawing.Font("Carlito", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SpecialDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpecialDesc.ForeColor = System.Drawing.Color.White;
             this.SpecialDesc.Location = new System.Drawing.Point(9, 48);
             this.SpecialDesc.Name = "SpecialDesc";
-            this.SpecialDesc.Size = new System.Drawing.Size(143, 26);
+            this.SpecialDesc.Size = new System.Drawing.Size(161, 26);
             this.SpecialDesc.TabIndex = 10;
             this.SpecialDesc.Text = "Cleans according to the user\'s\r\nselection.";
             // 
@@ -356,11 +368,11 @@
             // 
             this.Special.AutoSize = true;
             this.Special.BackColor = System.Drawing.Color.BlueViolet;
-            this.Special.Font = new System.Drawing.Font("Carlito", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Special.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Special.ForeColor = System.Drawing.Color.Honeydew;
-            this.Special.Location = new System.Drawing.Point(46, 4);
+            this.Special.Location = new System.Drawing.Point(45, 4);
             this.Special.Name = "Special";
-            this.Special.Size = new System.Drawing.Size(83, 29);
+            this.Special.Size = new System.Drawing.Size(94, 32);
             this.Special.TabIndex = 7;
             this.Special.Text = "Special";
             // 
@@ -461,7 +473,7 @@
             this.DarkModeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.DarkModeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DarkModeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DarkModeButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.DarkModeButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.DarkModeButton.ForeColor = System.Drawing.Color.White;
             this.DarkModeButton.Location = new System.Drawing.Point(465, 7);
             this.DarkModeButton.Name = "DarkModeButton";
@@ -476,7 +488,7 @@
             this.ResetButton.BackColor = System.Drawing.Color.Gold;
             this.ResetButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ResetButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ResetButton.Location = new System.Drawing.Point(582, 7);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(74, 38);
@@ -488,10 +500,10 @@
             // SysLogErrorRep_title
             // 
             this.SysLogErrorRep_title.AutoSize = true;
-            this.SysLogErrorRep_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SysLogErrorRep_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.SysLogErrorRep_title.Location = new System.Drawing.Point(316, 411);
             this.SysLogErrorRep_title.Name = "SysLogErrorRep_title";
-            this.SysLogErrorRep_title.Size = new System.Drawing.Size(288, 19);
+            this.SysLogErrorRep_title.Size = new System.Drawing.Size(321, 21);
             this.SysLogErrorRep_title.TabIndex = 30;
             this.SysLogErrorRep_title.Text = "SYSTEM LOCAL/LOGS && ERROR REPORTS:";
             // 
@@ -530,20 +542,20 @@
             // PreviewCache_title
             // 
             this.PreviewCache_title.AutoSize = true;
-            this.PreviewCache_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.PreviewCache_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.PreviewCache_title.Location = new System.Drawing.Point(25, 276);
             this.PreviewCache_title.Name = "PreviewCache_title";
-            this.PreviewCache_title.Size = new System.Drawing.Size(123, 19);
+            this.PreviewCache_title.Size = new System.Drawing.Size(140, 21);
             this.PreviewCache_title.TabIndex = 8;
             this.PreviewCache_title.Text = "PREVIEW CACHE:";
             // 
             // Prefetch_title
             // 
             this.Prefetch_title.AutoSize = true;
-            this.Prefetch_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Prefetch_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Prefetch_title.Location = new System.Drawing.Point(316, 276);
             this.Prefetch_title.Name = "Prefetch_title";
-            this.Prefetch_title.Size = new System.Drawing.Size(80, 19);
+            this.Prefetch_title.Size = new System.Drawing.Size(90, 21);
             this.Prefetch_title.TabIndex = 18;
             this.Prefetch_title.Text = "PREFETCH:";
             // 
@@ -566,10 +578,10 @@
             // DNSCache_title
             // 
             this.DNSCache_title.AutoSize = true;
-            this.DNSCache_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.DNSCache_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.DNSCache_title.Location = new System.Drawing.Point(316, 11);
             this.DNSCache_title.Name = "DNSCache_title";
-            this.DNSCache_title.Size = new System.Drawing.Size(90, 19);
+            this.DNSCache_title.Size = new System.Drawing.Size(104, 21);
             this.DNSCache_title.TabIndex = 10;
             this.DNSCache_title.Text = "DNS CACHE:";
             // 
@@ -592,10 +604,10 @@
             // RecentlyUsed_title
             // 
             this.RecentlyUsed_title.AutoSize = true;
-            this.RecentlyUsed_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.RecentlyUsed_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.RecentlyUsed_title.Location = new System.Drawing.Point(25, 212);
             this.RecentlyUsed_title.Name = "RecentlyUsed_title";
-            this.RecentlyUsed_title.Size = new System.Drawing.Size(119, 19);
+            this.RecentlyUsed_title.Size = new System.Drawing.Size(137, 21);
             this.RecentlyUsed_title.TabIndex = 6;
             this.RecentlyUsed_title.Text = "RECENTLY USED:";
             // 
@@ -650,30 +662,30 @@
             // OldWindows_title
             // 
             this.OldWindows_title.AutoSize = true;
-            this.OldWindows_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.OldWindows_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.OldWindows_title.Location = new System.Drawing.Point(316, 345);
             this.OldWindows_title.Name = "OldWindows_title";
-            this.OldWindows_title.Size = new System.Drawing.Size(220, 19);
+            this.OldWindows_title.Size = new System.Drawing.Size(248, 21);
             this.OldWindows_title.TabIndex = 24;
             this.OldWindows_title.Text = "OLD WINDOWS INSTALLATION:";
             // 
             // MemoryDumps_title
             // 
             this.MemoryDumps_title.AutoSize = true;
-            this.MemoryDumps_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.MemoryDumps_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.MemoryDumps_title.Location = new System.Drawing.Point(316, 213);
             this.MemoryDumps_title.Name = "MemoryDumps_title";
-            this.MemoryDumps_title.Size = new System.Drawing.Size(132, 19);
+            this.MemoryDumps_title.Size = new System.Drawing.Size(147, 21);
             this.MemoryDumps_title.TabIndex = 16;
             this.MemoryDumps_title.Text = "MEMORY DUMPS:";
             // 
             // DownloadedInstallations_title
             // 
             this.DownloadedInstallations_title.AutoSize = true;
-            this.DownloadedInstallations_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.DownloadedInstallations_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.DownloadedInstallations_title.Location = new System.Drawing.Point(25, 145);
             this.DownloadedInstallations_title.Name = "DownloadedInstallations_title";
-            this.DownloadedInstallations_title.Size = new System.Drawing.Size(238, 19);
+            this.DownloadedInstallations_title.Size = new System.Drawing.Size(268, 21);
             this.DownloadedInstallations_title.TabIndex = 4;
             this.DownloadedInstallations_title.Text = "TEMPORARY INSTALLATION FILES:";
             // 
@@ -696,10 +708,10 @@
             // Logs_title
             // 
             this.Logs_title.AutoSize = true;
-            this.Logs_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Logs_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Logs_title.Location = new System.Drawing.Point(316, 78);
             this.Logs_title.Name = "Logs_title";
-            this.Logs_title.Size = new System.Drawing.Size(49, 19);
+            this.Logs_title.Size = new System.Drawing.Size(54, 21);
             this.Logs_title.TabIndex = 12;
             this.Logs_title.Text = "LOGS:";
             // 
@@ -722,10 +734,10 @@
             // DownloadCache_title
             // 
             this.DownloadCache_title.AutoSize = true;
-            this.DownloadCache_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.DownloadCache_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.DownloadCache_title.Location = new System.Drawing.Point(26, 411);
             this.DownloadCache_title.Name = "DownloadCache_title";
-            this.DownloadCache_title.Size = new System.Drawing.Size(146, 19);
+            this.DownloadCache_title.Size = new System.Drawing.Size(166, 21);
             this.DownloadCache_title.TabIndex = 22;
             this.DownloadCache_title.Text = "DOWNLOAD CACHE:";
             // 
@@ -748,10 +760,10 @@
             // TemporaryFiles_title
             // 
             this.TemporaryFiles_title.AutoSize = true;
-            this.TemporaryFiles_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.TemporaryFiles_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.TemporaryFiles_title.Location = new System.Drawing.Point(25, 78);
             this.TemporaryFiles_title.Name = "TemporaryFiles_title";
-            this.TemporaryFiles_title.Size = new System.Drawing.Size(137, 19);
+            this.TemporaryFiles_title.Size = new System.Drawing.Size(153, 21);
             this.TemporaryFiles_title.TabIndex = 2;
             this.TemporaryFiles_title.Text = "TEMPORARY FILES:";
             // 
@@ -806,37 +818,37 @@
             // FontCache_title
             // 
             this.FontCache_title.AutoSize = true;
-            this.FontCache_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.FontCache_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FontCache_title.Location = new System.Drawing.Point(26, 344);
             this.FontCache_title.Name = "FontCache_title";
-            this.FontCache_title.Size = new System.Drawing.Size(98, 19);
+            this.FontCache_title.Size = new System.Drawing.Size(112, 21);
             this.FontCache_title.TabIndex = 20;
             this.FontCache_title.Text = "FONT CACHE:";
             // 
             // SystemCache_title
             // 
             this.SystemCache_title.AutoSize = true;
-            this.SystemCache_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SystemCache_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.SystemCache_title.Location = new System.Drawing.Point(316, 145);
             this.SystemCache_title.Name = "SystemCache_title";
-            this.SystemCache_title.Size = new System.Drawing.Size(115, 19);
+            this.SystemCache_title.Size = new System.Drawing.Size(131, 21);
             this.SystemCache_title.TabIndex = 14;
             this.SystemCache_title.Text = "SYSTEM CACHE:";
             // 
             // Clipboard_title
             // 
             this.Clipboard_title.AutoSize = true;
-            this.Clipboard_title.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Clipboard_title.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Clipboard_title.Location = new System.Drawing.Point(25, 11);
             this.Clipboard_title.Name = "Clipboard_title";
-            this.Clipboard_title.Size = new System.Drawing.Size(90, 19);
+            this.Clipboard_title.Size = new System.Drawing.Size(102, 21);
             this.Clipboard_title.TabIndex = 0;
             this.Clipboard_title.Text = "CLIPBOARD:";
             // 
             // About_panel
             // 
             this.About_panel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.About_panel.Controls.Add(this.promo_spanrc_button);
+            this.About_panel.Controls.Add(this.promo_solidsheets_button);
             this.About_panel.Controls.Add(this.promo_richspan_button);
             this.About_panel.Controls.Add(this.promo_disclaimer);
             this.About_panel.Controls.Add(this.promo_description);
@@ -848,15 +860,15 @@
             this.About_panel.Size = new System.Drawing.Size(680, 385);
             this.About_panel.TabIndex = 24;
             // 
-            // promo_spanrc_button
+            // promo_solidsheets_button
             // 
-            this.promo_spanrc_button.Image = global::PASPAS.Properties.Resources.spanrc;
-            this.promo_spanrc_button.Location = new System.Drawing.Point(201, 185);
-            this.promo_spanrc_button.Name = "promo_spanrc_button";
-            this.promo_spanrc_button.Size = new System.Drawing.Size(157, 127);
-            this.promo_spanrc_button.TabIndex = 6;
-            this.promo_spanrc_button.UseVisualStyleBackColor = true;
-            this.promo_spanrc_button.Click += new System.EventHandler(this.promo_spanrc_button_Click);
+            this.promo_solidsheets_button.Image = global::PASPAS.Properties.Resources.solidsheets;
+            this.promo_solidsheets_button.Location = new System.Drawing.Point(201, 185);
+            this.promo_solidsheets_button.Name = "promo_solidsheets_button";
+            this.promo_solidsheets_button.Size = new System.Drawing.Size(157, 127);
+            this.promo_solidsheets_button.TabIndex = 6;
+            this.promo_solidsheets_button.UseVisualStyleBackColor = true;
+            this.promo_solidsheets_button.Click += new System.EventHandler(this.promo_solidsheets_button_Click);
             // 
             // promo_richspan_button
             // 
@@ -871,36 +883,36 @@
             // promo_disclaimer
             // 
             this.promo_disclaimer.AutoSize = true;
-            this.promo_disclaimer.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.promo_disclaimer.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.promo_disclaimer.Location = new System.Drawing.Point(30, 332);
             this.promo_disclaimer.Name = "promo_disclaimer";
-            this.promo_disclaimer.Size = new System.Drawing.Size(486, 13);
+            this.promo_disclaimer.Size = new System.Drawing.Size(496, 13);
             this.promo_disclaimer.TabIndex = 4;
-            this.promo_disclaimer.Text = "(Includes data from 20.06.2024; name modifications might happen while the project" +
+            this.promo_disclaimer.Text = "(Includes data from 24.10.2024; name modifications might happen while the project" +
     " is being developed.)";
             // 
             // promo_description
             // 
             this.promo_description.AutoSize = true;
-            this.promo_description.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.promo_description.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.promo_description.Location = new System.Drawing.Point(29, 149);
             this.promo_description.Name = "promo_description";
-            this.promo_description.Size = new System.Drawing.Size(535, 19);
+            this.promo_description.Size = new System.Drawing.Size(602, 21);
             this.promo_description.TabIndex = 3;
-            this.promo_description.Text = "Berkay Gediz\'s office suite (RichSpan && SpanRC) works better with your hardware!" +
-    "";
+            this.promo_description.Text = "Berkay Gediz\'s office suite (RichSpan && SolidSheets) works better with your hard" +
+    "ware!";
             // 
             // Github_label
             // 
             this.Github_label.ActiveLinkColor = System.Drawing.Color.Red;
             this.Github_label.AutoSize = true;
             this.Github_label.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.Github_label.Font = new System.Drawing.Font("Carlito", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Github_label.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Github_label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.Github_label.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.Github_label.Location = new System.Drawing.Point(132, 48);
+            this.Github_label.Location = new System.Drawing.Point(151, 50);
             this.Github_label.Name = "Github_label";
-            this.Github_label.Size = new System.Drawing.Size(117, 13);
+            this.Github_label.Size = new System.Drawing.Size(132, 13);
             this.Github_label.TabIndex = 2;
             this.Github_label.TabStop = true;
             this.Github_label.Text = "github.com/berkaygediz";
@@ -909,21 +921,21 @@
             // Author_subtext
             // 
             this.Author_subtext.AutoSize = true;
-            this.Author_subtext.Font = new System.Drawing.Font("Carlito", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Author_subtext.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Author_subtext.ForeColor = System.Drawing.Color.MediumPurple;
             this.Author_subtext.Location = new System.Drawing.Point(35, 45);
             this.Author_subtext.Name = "Author_subtext";
-            this.Author_subtext.Size = new System.Drawing.Size(97, 19);
+            this.Author_subtext.Size = new System.Drawing.Size(109, 21);
             this.Author_subtext.TabIndex = 1;
             this.Author_subtext.Text = "Berkay Gediz";
             // 
             // Author
             // 
             this.Author.AutoSize = true;
-            this.Author.Font = new System.Drawing.Font("Carlito", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Author.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Author.Location = new System.Drawing.Point(34, 15);
             this.Author.Name = "Author";
-            this.Author.Size = new System.Drawing.Size(78, 26);
+            this.Author.Size = new System.Drawing.Size(90, 30);
             this.Author.TabIndex = 0;
             this.Author.Text = "Author:";
             // 
@@ -932,9 +944,9 @@
             this.ProcessPanel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ProcessPanel.Controls.Add(this.Finish);
             this.ProcessPanel.Controls.Add(this.ProcessTitlePanel);
+            this.ProcessPanel.Controls.Add(this.ProcessBox);
             this.ProcessPanel.Controls.Add(this.process_img);
             this.ProcessPanel.Controls.Add(this.finish_img);
-            this.ProcessPanel.Controls.Add(this.ProcessBox);
             this.ProcessPanel.Location = new System.Drawing.Point(190, 168);
             this.ProcessPanel.Name = "ProcessPanel";
             this.ProcessPanel.Size = new System.Drawing.Size(680, 385);
@@ -947,7 +959,7 @@
             this.Finish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Finish.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Finish.ForeColor = System.Drawing.Color.Black;
-            this.Finish.Location = new System.Drawing.Point(51, 318);
+            this.Finish.Location = new System.Drawing.Point(51, 324);
             this.Finish.Name = "Finish";
             this.Finish.Size = new System.Drawing.Size(580, 44);
             this.Finish.TabIndex = 7;
@@ -988,6 +1000,14 @@
             this.Process_count.TabIndex = 4;
             this.Process_count.Text = "0 / 0";
             // 
+            // ProcessBox
+            // 
+            this.ProcessBox.FormattingEnabled = true;
+            this.ProcessBox.Location = new System.Drawing.Point(51, 125);
+            this.ProcessBox.Name = "ProcessBox";
+            this.ProcessBox.Size = new System.Drawing.Size(580, 199);
+            this.ProcessBox.TabIndex = 5;
+            // 
             // process_img
             // 
             this.process_img.BackColor = System.Drawing.Color.Transparent;
@@ -1009,14 +1029,6 @@
             this.finish_img.Size = new System.Drawing.Size(100, 100);
             this.finish_img.TabIndex = 3;
             this.finish_img.TabStop = false;
-            // 
-            // ProcessBox
-            // 
-            this.ProcessBox.FormattingEnabled = true;
-            this.ProcessBox.Location = new System.Drawing.Point(51, 125);
-            this.ProcessBox.Name = "ProcessBox";
-            this.ProcessBox.Size = new System.Drawing.Size(580, 199);
-            this.ProcessBox.TabIndex = 5;
             // 
             // Exit
             // 
@@ -1046,18 +1058,6 @@
             this.Minimize.UseVisualStyleBackColor = false;
             this.Minimize.Click += new System.EventHandler(this.Minimize_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Yellow;
-            this.label1.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Maroon;
-            this.label1.Location = new System.Drawing.Point(813, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "2024.06-1";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1076,9 +1076,9 @@
             this.Controls.Add(this.LogoPanel);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.Home_panel);
-            this.Controls.Add(this.About_panel);
             this.Controls.Add(this.ProcessPanel);
             this.Controls.Add(this.Options_panel);
+            this.Controls.Add(this.About_panel);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1189,8 +1189,8 @@
         private System.Windows.Forms.Label promo_description;
         private System.Windows.Forms.Label promo_disclaimer;
         private System.Windows.Forms.Button promo_richspan_button;
-        private System.Windows.Forms.Button promo_spanrc_button;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button promo_solidsheets_button;
+        private System.Windows.Forms.Label versionCode;
     }
 }
 
