@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="paspas.ico" />
-    <None Include="Resources\spanrc.png" />
+    <None Include="Resources\solidsheets.png" />
     <None Include="Resources\richspan.png" />
     <None Include="Resources\finish.png" />
     <None Include="Resources\process.gif" />

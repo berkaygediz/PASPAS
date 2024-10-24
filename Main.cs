@@ -868,9 +868,9 @@ namespace PASPAS
         {
             Process.Start("https://github.com/berkaygediz/RichSpan");
         }
-        private void promo_spanrc_button_Click(object sender, EventArgs e)
+        private void promo_solidsheets_button_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/berkaygediz/SpanRC");
+            Process.Start("https://github.com/berkaygediz/SolidSheets");
         }
     }
 }
