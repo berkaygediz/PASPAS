@@ -103,9 +103,9 @@ namespace PASPAS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap spanrc {
+        internal static System.Drawing.Bitmap solidsheets {
             get {
-                object obj = ResourceManager.GetObject("spanrc", resourceCulture);
+                object obj = ResourceManager.GetObject("solidsheets", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
