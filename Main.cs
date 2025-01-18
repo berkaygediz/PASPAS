@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Management.Automation;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace PASPAS
 {
+
     public partial class Main : Form
     {
         int MoveCP;
@@ -48,12 +51,260 @@ namespace PASPAS
             { "OldWindows", "/$Windows.old" }
         };
         private readonly string[] temporaryextensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
-
+        private readonly Dictionary<string, string> serviceConfigurations = new Dictionary<string, string>{
+            { "InstallService", "Manual" },
+            { "InventorySvc", "Manual" },
+            { "IpxlatCfgSvc", "Manual" },
+            { "KeyIso", "Automatic" },
+            { "KtmRm", "Manual" },
+            { "LSM", "Automatic" },
+            { "LanmanServer", "Automatic" },
+            { "LanmanWorkstation", "Automatic" },
+            { "LicenseManager", "Manual" },
+            { "LxpSvc", "Manual" },
+            { "MSDTC", "Manual" },
+            { "MSiSCSI", "Manual" },
+            { "MapsBroker", "AutomaticDelayedStart" },
+            { "McpManagementService", "Manual" },
+            { "MessagingService_*", "Manual" },
+            { "MicrosoftEdgeElevationService", "Manual" },
+            { "MixedRealityOpenXRSvc", "Manual" },
+            { "MpsSvc", "Automatic" },
+            { "MsKeyboardFilter", "Manual" },
+            { "NPSMSvc_*", "Manual" },
+            { "NaturalAuthentication", "Manual" },
+            { "NcaSvc", "Manual" },
+            { "NcbService", "Manual" },
+            { "NcdAutoSetup", "Manual" },
+            { "NetSetupSvc", "Manual" },
+            { "NetTcpPortSharing", "Disabled" },
+            { "Netlogon", "Automatic" },
+            { "Netman", "Manual" },
+            { "NgcCtnrSvc", "Manual" },
+            { "NgcSvc", "Manual" },
+            { "NlaSvc", "Manual" },
+            { "OneSyncSvc_*", "Automatic" },
+            { "P9RdrService_*", "Manual" },
+            { "PNRPAutoReg", "Manual" },
+            { "PNRPsvc", "Manual" },
+            { "PcaSvc", "Manual" },
+            { "PeerDistSvc", "Manual" },
+            { "PenService_*", "Manual" },
+            { "PerfHost", "Manual" },
+            { "PhoneSvc", "Manual" },
+            { "PimIndexMaintenanceSvc_*", "Manual" },
+            { "PlugPlay", "Manual" },
+            { "PolicyAgent", "Manual" },
+            { "Power", "Automatic" },
+            { "PrintNotify", "Manual" },
+            { "PrintWorkflowUserSvc_*", "Manual" },
+            { "ProfSvc", "Automatic" },
+            { "PushToInstall", "Manual" },
+            { "QWAVE", "Manual" },
+            { "RasAuto", "Manual" },
+            { "RasMan", "Manual" },
+            { "RemoteAccess", "Disabled" },
+            { "RemoteRegistry", "Disabled" },
+            { "RetailDemo", "Manual" },
+            { "RmSvc", "Manual" },
+            { "RpcEptMapper", "Automatic" },
+            { "RpcLocator", "Manual" },
+            { "RpcSs", "Automatic" },
+            { "SCPolicySvc", "Manual" },
+            { "SCardSvr", "Manual" },
+            { "SDRSVC", "Manual" },
+            { "SEMgrSvc", "Manual" },
+            { "SENS", "Automatic" },
+            { "SNMPTRAP", "Manual" },
+            { "SNMPTrap", "Manual" },
+            { "SSDPSRV", "Manual" },
+            { "SamSs", "Automatic" },
+            { "ScDeviceEnum", "Manual" },
+            { "Schedule", "Automatic" },
+            { "SecurityHealthService", "Manual" },
+            { "Sense", "Manual" },
+            { "SensorDataService", "Manual" },
+            { "SensorService", "Manual" },
+            { "SensrSvc", "Manual" },
+            { "SessionEnv", "Manual" },
+            { "SgrmBroker", "Automatic" },
+            { "SharedAccess", "Manual" },
+            { "SharedRealitySvc", "Manual" },
+            { "ShellHWDetection", "Automatic" },
+            { "SmsRouter", "Manual" },
+            { "Spooler", "Automatic" },
+            { "SstpSvc", "Manual" },
+            { "StateRepository", "Manual" },
+            { "StiSvc", "Manual" },
+            { "StorSvc", "Manual" },
+            { "SysMain", "Automatic" },
+            { "SystemEventsBroker", "Automatic" },
+            { "TabletInputService", "Manual" },
+            { "TapiSrv", "Manual" },
+            { "TermService", "Automatic" },
+            { "TextInputManagementService", "Manual" },
+            { "Themes", "Automatic" },
+            { "TieringEngineService", "Manual" },
+            { "TimeBroker", "Manual" },
+            { "TimeBrokerSvc", "Manual" },
+            { "TokenBroker", "Manual" },
+            { "TrkWks", "Automatic" },
+            { "TroubleshootingSvc", "Manual" },
+            { "TrustedInstaller", "Manual" },
+            { "UI0Detect", "Manual" },
+            { "UdkUserSvc_*", "Manual" },
+            { "UevAgentService", "Disabled" },
+            { "UmRdpService", "Manual" },
+            { "UnistoreSvc_*", "Manual" },
+            { "UserDataSvc_*", "Manual" },
+            { "UserManager", "Automatic" },
+            { "UsoSvc", "Manual" },
+            { "VGAuthService", "Automatic" },
+            { "VMTools", "Automatic" },
+            { "VSS", "Manual" },
+            { "VacSvc", "Manual" },
+            { "VaultSvc", "Automatic" },
+            { "W32Time", "Manual" },
+            { "WEPHOSTSVC", "Manual" },
+            { "WFDSConMgrSvc", "Manual" },
+            { "WMPNetworkSvc", "Manual" },
+            { "WManSvc", "Manual" },
+            { "WPDBusEnum", "Manual" },
+            { "WSService", "Manual" },
+            { "WSearch", "AutomaticDelayedStart" },
+            { "WaaSMedicSvc", "Manual" },
+            { "WalletService", "Manual" },
+            { "WarpJITSvc", "Manual" },
+            { "WbioSrvc", "Manual" },
+            { "Wcmsvc", "Automatic" },
+            { "WcsPlugInService", "Manual" },
+            { "WdNisSvc", "Manual" },
+            { "WdiServiceHost", "Manual" },
+            { "WdiSystemHost", "Manual" },
+            { "WebClient", "Manual" },
+            { "Wecsvc", "Manual" },
+            { "WerSvc", "Manual" },
+            { "WiaRpc", "Manual" },
+            { "WinDefend", "Automatic" },
+            { "WinHttpAutoProxySvc", "Manual" },
+            { "WinRM", "Manual" },
+            { "Winmgmt", "Automatic" },
+            { "WlanSvc", "Automatic" },
+            { "WpcMonSvc", "Manual" },
+            { "WpnService", "Manual" },
+            { "WpnUserService_*", "Automatic" },
+            { "XblAuthManager", "Manual" },
+            { "XblGameSave", "Manual" },
+            { "XboxGipSvc", "Manual" },
+            { "XboxNetApiSvc", "Manual" },
+            { "autotimesvc", "Manual" },
+            { "bthserv", "Manual" },
+            { "camsvc", "Manual" },
+            { "cbdhsvc_*", "Manual" },
+            { "cloudidsvc", "Manual" },
+            { "dcsvc", "Manual" },
+            { "defragsvc", "Manual" },
+            { "diagnosticshub.standardcollector.service", "Manual" },
+            { "diagsvc", "Manual" },
+            { "dmwappushservice", "Manual" },
+            { "dot3svc", "Manual" },
+            { "edgeupdate", "Manual" },
+            { "edgeupdatem", "Manual" },
+            { "embeddedmode", "Manual" },
+            { "fdPHost", "Manual" },
+            { "fhsvc", "Manual" },
+            { "gpsvc", "Automatic" },
+            { "hidserv", "Manual" },
+            { "icssvc", "Manual" },
+            { "iphlpsvc", "Automatic" },
+            { "lfsvc", "Manual" },
+            { "lltdsvc", "Manual" },
+            { "lmhosts", "Manual" },
+            { "mpssvc", "Automatic" },
+            { "msiserver", "Manual" },
+            { "netprofm", "Manual" },
+            { "nsi", "Automatic" },
+            { "p2pimsvc", "Manual" },
+            { "p2psvc", "Manual" },
+            { "perceptionsimulation", "Manual" },
+            { "pla", "Manual" },
+            { "seclogon", "Manual" },
+            { "shpamsvc", "Disabled" },
+            { "smphost", "Manual" },
+            { "spectrum", "Manual" },
+            { "sppsvc", "AutomaticDelayedStart" },
+            { "ssh-agent", "Disabled" },
+            { "svsvc", "Manual" },
+            { "swprv", "Manual" },
+            { "tiledatamodelsvc", "Automatic" },
+            { "tzautoupdate", "Disabled" },
+            { "uhssvc", "Disabled" },
+            { "upnphost", "Manual" },
+            { "vds", "Manual" },
+            { "vm3dservice", "Manual" },
+            { "vmicguestinterface", "Manual" },
+            { "vmicheartbeat", "Manual" },
+            { "vmickvpexchange", "Manual" },
+            { "vmicrdv", "Manual" },
+            { "vmicshutdown", "Manual" },
+            { "vmictimesync", "Manual" },
+            { "vmicvmsession", "Manual" },
+            { "vmicvss", "Manual" },
+            { "vmvss", "Manual" },
+            { "wbengine", "Manual" },
+            { "wcncsvc", "Manual" },
+            { "webthreatdefsvc", "Manual" },
+            { "webthreatdefusersvc_*", "Automatic" },
+            { "wercplsupport", "Manual" },
+            { "wisvc", "Manual" },
+            { "wlidsvc", "Manual" },
+            { "wlpasvc", "Manual" },
+            { "wmiApSrv", "Manual" },
+            { "workfolderssvc", "Manual" },
+            { "wscsvc", "AutomaticDelayedStart" },
+            { "wuauserv", "Manual" },
+            { "wudfsvc", "Manual" }
+        };
+        string[] telemetryCommands = new string[]
+            {
+                "bcdedit /set {current} bootmenupolicy Legacy | Out-Null",
+                "If ((get-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion' -Name CurrentBuild).CurrentBuild -lt 22557) { $taskmgr = Start-Process -WindowStyle Hidden -FilePath taskmgr.exe -PassThru; Do { Start-Sleep -Milliseconds 100; $preferences = Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\TaskManager' -Name 'Preferences' -ErrorAction SilentlyContinue; } Until ($preferences); Stop-Process $taskmgr; $preferences.Preferences[28] = 0; Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\TaskManager' -Name 'Preferences' -Type Binary -Value $preferences.Preferences }",
+                "Remove-Item -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' -Recurse -ErrorAction SilentlyContinue",
+                "If (Test-Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge') { Remove-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Edge' -Recurse -ErrorAction SilentlyContinue }",
+                "$ram = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1kb",
+                "Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control' -Name 'SvcHostSplitThresholdInKB' -Type DWord -Value $ram -Force",
+                "$autoLoggerDir = '$env:PROGRAMDATA\\Microsoft\\Diagnosis\\ETLLogs\\AutoLogger'",
+                "If (Test-Path '$autoLoggerDir\\AutoLogger-Diagtrack-Listener.etl') { Remove-Item '$autoLoggerDir\\AutoLogger-Diagtrack-Listener.etl' }",
+                "icacls $autoLoggerDir /deny SYSTEM:(OI)(CI)F | Out-Null",
+                "Set-MpPreference -SubmitSamplesConsent 2 -ErrorAction SilentlyContinue | Out-Null"
+            };
+        string[] activityHistoryCommands = new string[]
+        {
+                "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'EnableActivityFeed' -Value 0 -Type DWord -Force",
+                "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'PublishUserActivities' -Value 0 -Type DWord -Force",
+                "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'UploadUserActivities' -Value 0 -Type DWord -Force"
+        };
+        private WebView2 webView;
         public Main()
         {
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
+            InitializeWebView2();
         }
+
+        private async void InitializeWebView2()
+        {
+            webView = new WebView2
+            {
+                Dock = DockStyle.Fill
+            };
+
+            Controls.Add(webView);
+            await webView.EnsureCoreWebView2Async(null);
+            webView.CoreWebView2.Navigate(uri: "about:blank");
+            webView.SendToBack();
+            webView.Hide();
+        }
+
         private void PASPAS_Main_Shown(object sender, EventArgs e)
         {
             DarkModeSwitch();
@@ -96,14 +347,8 @@ namespace PASPAS
             OldWindows_select.Checked = Properties.Settings.Default.OldWindows;
             SysLogErrorRep_select.Checked = Properties.Settings.Default.SysLogErrorRep;
         }
-        private void Exit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-        private void Minimize_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
+        private void Exit_Click(object sender, EventArgs e) => Application.Exit();
+        private void Minimize_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
         private void ControlPanel_MouseDown(object sender, MouseEventArgs e)
         {
             MoveCP = 1;
@@ -123,21 +368,43 @@ namespace PASPAS
         }
         private void Home_btn_Click(object sender, EventArgs e)
         {
-            SidePanel.Top = Home_btn.Top;
+            int top = Home_btn.Top;
+            SidePanel.Top = top;
             SidePanel.Height = Home_btn.Height;
             Home_panel.BringToFront();
+            webView.CoreWebView2.Navigate(uri: "about:blank");
+            webView.SendToBack();
+            webView.Hide();
         }
+
+        private void Tweaks_btn_Click(object sender, EventArgs e)
+        {
+            SidePanel.Top = Tweaks_btn.Top;
+            SidePanel.Height = Tweaks_btn.Height;
+            Tweaks_panel.BringToFront();
+            webView.CoreWebView2.Navigate(uri: "about:blank");
+            webView.SendToBack();
+            webView.Hide();
+        }
+
         private void Options_btn_Click(object sender, EventArgs e)
         {
             SidePanel.Top = Options_btn.Top;
             SidePanel.Height = Options_btn.Height;
             Options_panel.BringToFront();
+            webView.CoreWebView2.Navigate(uri: "about:blank");
+            webView.SendToBack();
+            webView.Hide();
         }
         private void About_btn_Click(object sender, EventArgs e)
         {
             SidePanel.Top = About_btn.Top;
             SidePanel.Height = About_btn.Height;
             About_panel.BringToFront();
+            webView.CoreWebView2.Navigate(uri: "about:blank");
+            webView.SendToBack();
+            webView.Hide();
+
         }
         private void CheckboxPropertySave(CheckBox checkbox, bool status, string property)
         {
@@ -475,106 +742,9 @@ namespace PASPAS
         }
         private void ThreadBasic()
         {
-            ClipboardClear();
-            foreach (string extensions in temporaryextensions)
-            {
-                DeleteFiles(folders["WinTemp"], extensions.ToString());
-            }
-            foreach (string extensions in temporaryextensions)
-            {
-                DeleteFiles(folders["WinTemp2"], extensions.ToString());
-            }
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["RecentFiles"], ".lnk");
-            DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-            DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["PreviewCache"], ".db");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DNSCacheRefresh();
-
-            SingleDirectoryDeletion(folders["Logs"]);
-            SingleDirectoryDeletion(folders["Logs2"]);
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            process_img.Visible = false;
-            Finish.Visible = true;
-            finish_img.Visible = true;
-            Start.Enabled = true;
-        }
-        private void ThreadAdvanced()
-        {
-            ClipboardClear();
-            foreach (string extensions in temporaryextensions)
-            {
-                DeleteFiles(folders["WinTemp"], extensions.ToString());
-            }
-            foreach (string extensions in temporaryextensions)
-            {
-                DeleteFiles(folders["WinTemp2"], extensions.ToString());
-            }
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["RecentFiles"], ".lnk");
-            DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-            DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["PreviewCache"], ".db");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DNSCacheRefresh();
-
-            SingleDirectoryDeletion(folders["Logs"]);
-            SingleDirectoryDeletion(folders["Logs2"]);
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["SystemCache"], ".db");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["LiveKernelReports"], ".dmp");
-            DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
-            DeleteFiles(folders["CrashDumps"], ".dmp");
-            DeleteFiles(folders["MiniDumps"], ".dmp");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            DeleteFiles(folders["Prefetch"], ".pf");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            SingleDirectoryDeletion(folders["DownloadCache"]);
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-
-            process_img.Visible = false;
-            Finish.Visible = true;
-            finish_img.Visible = true;
-            Start.Enabled = true;
-        }
-        private void ThreadSpecial()
-        {
-            if (Properties.Settings.Default.Clipboard == true)
+            Action value = () =>
             {
                 ClipboardClear();
-            }
-            if (Properties.Settings.Default.TemporaryFiles == true)
-            {
                 foreach (string extensions in temporaryextensions)
                 {
                     DeleteFiles(folders["WinTemp"], extensions.ToString());
@@ -583,186 +753,299 @@ namespace PASPAS
                 {
                     DeleteFiles(folders["WinTemp2"], extensions.ToString());
                 }
-
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.DownloadedInstallations == true)
-            {
+
                 SingleDirectoryDeletion(folders["DownloadedInstallations"]);
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.RecentlyUsed == true)
-            {
+
                 DeleteFiles(folders["RecentFiles"], ".lnk");
                 DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
                 DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.PreviewCache == true)
-            {
+
                 DeleteFiles(folders["PreviewCache"], ".db");
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.DNSCache == true)
-            {
+
                 DNSCacheRefresh();
-            }
-            if (Properties.Settings.Default.Logs == true)
-            {
+
                 SingleDirectoryDeletion(folders["Logs"]);
                 SingleDirectoryDeletion(folders["Logs2"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
 
                 SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.SystemCache == true)
+
+                process_img.Visible = false;
+                Finish.Visible = true;
+                finish_img.Visible = true;
+                Start.Enabled = true;
+            };
+            Invoke(new Action(value));
+        }
+        private void ThreadAdvanced()
+        {
+            Action value = () =>
             {
-                DeleteFiles(folders["SystemCache"], ".db");
-                DeleteAllFiles(folders["TokenBrokerCache"]);
+                ClipboardClear();
+                foreach (string extensions in temporaryextensions)
+                {
+                    DeleteFiles(folders["WinTemp"], extensions.ToString());
+                }
+                foreach (string extensions in temporaryextensions)
+                {
+                    DeleteFiles(folders["WinTemp2"], extensions.ToString());
+                }
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.MemoryDumps == true)
-            {
+
+                SingleDirectoryDeletion(folders["DownloadedInstallations"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+
+                DeleteFiles(folders["RecentFiles"], ".lnk");
+                DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
+                DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+
+                DeleteFiles(folders["PreviewCache"], ".db");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+
+                DNSCacheRefresh();
+
+                SingleDirectoryDeletion(folders["Logs"]);
+                SingleDirectoryDeletion(folders["Logs2"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+
+                SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+
+                DeleteFiles(folders["SystemCache"], ".db");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+
                 DeleteFiles(folders["LiveKernelReports"], ".dmp");
                 DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
                 DeleteFiles(folders["CrashDumps"], ".dmp");
                 DeleteFiles(folders["MiniDumps"], ".dmp");
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.Prefetch == true)
-            {
+
                 DeleteFiles(folders["Prefetch"], ".pf");
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.FontCache == true)
-            {
+
                 SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.DownloadCache == true)
-            {
+
                 SingleDirectoryDeletion(folders["DownloadCache"]);
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (Properties.Settings.Default.OldWindows == true)
-            {
-                SingleDirectoryDeletion(folders["OldWindows"]);
-            }
-            if (Properties.Settings.Default.SysLogErrorRep == true)
-            {
-                DeleteAllFiles(folders["CryptnetUrlCacheContent"]);
-                DeleteAllFiles(folders["CryptnetUrlCacheMetaData"]);
-                DeleteAllFiles(folders["NetworkServiceTemp"]);
-                DeleteFiles(folders["waasmedicLog"], ".etl");
-                DeleteFiles(folders["NetSetupLog"], ".etl");
-                DeleteAllDirectories(folders["ReportArchive"]);
-                DeleteAllFiles(folders["ReportArchive"]);
-                DeleteAllDirectories(folders["ReportQueue"]);
-                DeleteAllFiles(folders["ReportQueue"]);
-                DeleteAllDirectories(folders["WERTemp"]);
-                DeleteAllFiles(folders["WERTemp"]);
-            }
 
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            process_img.Visible = false;
-            Finish.Visible = true;
-            finish_img.Visible = true;
-            Start.Enabled = true;
+                process_img.Visible = false;
+                Finish.Visible = true;
+                finish_img.Visible = true;
+                Start.Enabled = true;
+            };
+            Invoke(new Action(value));
         }
-        private void ThreadAnalysis()
+        private void ThreadSpecial()
         {
-            FileCount = 0;
-            RejectCount = 0;
-            if (SelectedThread == 1 || SelectedThread == 2 || SelectedThread == 3)
+            Action value = () =>
             {
-                if (Properties.Settings.Default.TemporaryFiles == true || SelectedThread == 1 || SelectedThread == 2)
+                if (Properties.Settings.Default.Clipboard == true)
+                {
+                    ClipboardClear();
+                }
+                if (Properties.Settings.Default.TemporaryFiles == true)
                 {
                     foreach (string extensions in temporaryextensions)
                     {
-                        AnalyzeFiles(folders["WinTemp"], extensions.ToString());
+                        DeleteFiles(folders["WinTemp"], extensions.ToString());
                     }
                     foreach (string extensions in temporaryextensions)
                     {
-                        AnalyzeFiles(folders["WinTemp2"], extensions.ToString());
+                        DeleteFiles(folders["WinTemp2"], extensions.ToString());
                     }
-                }
-                if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 1 || SelectedThread == 2)
-                {
-                    SingleDirectoryAnalyze(folders["DownloadCache"]);
-                }
-                if (Properties.Settings.Default.RecentlyUsed == true || SelectedThread == 1 || SelectedThread == 2)
-                {
-                    AnalyzeFiles(folders["RecentFiles"], ".lnk");
-                    AnalyzeFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-                    AnalyzeFiles(folders["RecentFiles3"], ".customDestinations-ms");
-                }
-                if (Properties.Settings.Default.PreviewCache == true || SelectedThread == 1 || SelectedThread == 2)
-                {
-                    AnalyzeFiles(folders["PreviewCache"], ".db");
-                }
-                if (Properties.Settings.Default.Logs == true || SelectedThread == 1 || SelectedThread == 2)
-                {
-                    SingleDirectoryAnalyze(folders["Logs"]);
-                    SingleDirectoryAnalyze(folders["Logs2"]);
-                    SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
-                }
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            }
-            if (SelectedThread == 2 || SelectedThread == 3)
-            {
-                if (Properties.Settings.Default.SystemCache == true || SelectedThread == 2)
-                {
-                    AnalyzeFiles(folders["SystemCache"], ".db");
-                    AnalyzeAllFiles(folders["TokenBrokerCache"]);
 
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
                 }
-                if (Properties.Settings.Default.MemoryDumps == true || SelectedThread == 2)
+                if (Properties.Settings.Default.DownloadedInstallations == true)
                 {
-                    AnalyzeFiles(folders["LiveKernelReports"], ".dmp");
-                    AnalyzeFiles(folders["LiveKernelNDIS"], ".dmp");
-                    AnalyzeFiles(folders["CrashDumps"], ".dmp");
-                    AnalyzeFiles(folders["MiniDumps"], ".dmp");
+                    SingleDirectoryDeletion(folders["DownloadedInstallations"]);
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
                 }
-                if (Properties.Settings.Default.Prefetch == true || SelectedThread == 2)
+                if (Properties.Settings.Default.RecentlyUsed == true)
                 {
-                    AnalyzeFiles(folders["Prefetch"], ".pf");
+                    DeleteFiles(folders["RecentFiles"], ".lnk");
+                    DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
+                    DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
                 }
-                if (Properties.Settings.Default.FontCache == true || SelectedThread == 2)
+                if (Properties.Settings.Default.PreviewCache == true)
                 {
-                    SingleFileAnalyze(folders["FontCache"], "FNTCACHE.DAT");
+                    DeleteFiles(folders["PreviewCache"], ".db");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
                 }
-                if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 2)
+                if (Properties.Settings.Default.DNSCache == true)
                 {
-                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                    DNSCacheRefresh();
                 }
-            }
-            if (SelectedThread == 3)
-            {
+                if (Properties.Settings.Default.Logs == true)
+                {
+                    SingleDirectoryDeletion(folders["Logs"]);
+                    SingleDirectoryDeletion(folders["Logs2"]);
+
+                    SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                }
+                if (Properties.Settings.Default.SystemCache == true)
+                {
+                    DeleteFiles(folders["SystemCache"], ".db");
+                    DeleteAllFiles(folders["TokenBrokerCache"]);
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                }
+                if (Properties.Settings.Default.MemoryDumps == true)
+                {
+                    DeleteFiles(folders["LiveKernelReports"], ".dmp");
+                    DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
+                    DeleteFiles(folders["CrashDumps"], ".dmp");
+                    DeleteFiles(folders["MiniDumps"], ".dmp");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                }
+                if (Properties.Settings.Default.Prefetch == true)
+                {
+                    DeleteFiles(folders["Prefetch"], ".pf");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                }
+                if (Properties.Settings.Default.FontCache == true)
+                {
+                    SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                }
+                if (Properties.Settings.Default.DownloadCache == true)
+                {
+                    SingleDirectoryDeletion(folders["DownloadCache"]);
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                }
                 if (Properties.Settings.Default.OldWindows == true)
                 {
-                    SingleDirectoryAnalyze(folders["OldWindows"]);
+                    SingleDirectoryDeletion(folders["OldWindows"]);
                 }
                 if (Properties.Settings.Default.SysLogErrorRep == true)
                 {
-                    AnalyzeAllFiles(folders["CryptnetUrlCacheContent"]);
-                    AnalyzeAllFiles(folders["CryptnetUrlCacheMetaData"]);
-                    AnalyzeAllFiles(folders["NetworkServiceTemp"]);
-                    AnalyzeFiles(folders["waasmedicLog"], ".etl");
-                    AnalyzeFiles(folders["NetSetupLog"], ".etl");
-                    AnalyzeAllDirectories(folders["ReportArchive"]);
-                    AnalyzeAllFiles(folders["ReportArchive"]);
-                    AnalyzeAllDirectories(folders["ReportQueue"]);
-                    AnalyzeAllFiles(folders["ReportQueue"]);
-                    AnalyzeAllDirectories(folders["WERTemp"]);
-                    AnalyzeAllFiles(folders["WERTemp"]);
+                    DeleteAllFiles(folders["CryptnetUrlCacheContent"]);
+                    DeleteAllFiles(folders["CryptnetUrlCacheMetaData"]);
+                    DeleteAllFiles(folders["NetworkServiceTemp"]);
+                    DeleteFiles(folders["waasmedicLog"], ".etl");
+                    DeleteFiles(folders["NetSetupLog"], ".etl");
+                    DeleteAllDirectories(folders["ReportArchive"]);
+                    DeleteAllFiles(folders["ReportArchive"]);
+                    DeleteAllDirectories(folders["ReportQueue"]);
+                    DeleteAllFiles(folders["ReportQueue"]);
+                    DeleteAllDirectories(folders["WERTemp"]);
+                    DeleteAllFiles(folders["WERTemp"]);
                 }
-            }
-            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
-            process_img.Visible = false;
-            Finish.Visible = true;
-            finish_img.Visible = true;
-            Start.Enabled = true;
-            Analysis.Enabled = true;
+
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                process_img.Visible = false;
+                Finish.Visible = true;
+                finish_img.Visible = true;
+                Start.Enabled = true;
+            };
+            Invoke(new Action(value));
+        }
+        private void ThreadAnalysis()
+        {
+            Action value = () =>
+                        {
+                            FileCount = 0;
+                            RejectCount = 0;
+                            if (SelectedThread == 1 || SelectedThread == 2 || SelectedThread == 3)
+                            {
+                                if (Properties.Settings.Default.TemporaryFiles == true || SelectedThread == 1 || SelectedThread == 2)
+                                {
+                                    foreach (string extensions in temporaryextensions)
+                                    {
+                                        AnalyzeFiles(folders["WinTemp"], extensions.ToString());
+                                    }
+                                    foreach (string extensions in temporaryextensions)
+                                    {
+                                        AnalyzeFiles(folders["WinTemp2"], extensions.ToString());
+                                    }
+                                }
+                                if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 1 || SelectedThread == 2)
+                                {
+                                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                                }
+                                if (Properties.Settings.Default.RecentlyUsed == true || SelectedThread == 1 || SelectedThread == 2)
+                                {
+                                    AnalyzeFiles(folders["RecentFiles"], ".lnk");
+                                    AnalyzeFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
+                                    AnalyzeFiles(folders["RecentFiles3"], ".customDestinations-ms");
+                                }
+                                if (Properties.Settings.Default.PreviewCache == true || SelectedThread == 1 || SelectedThread == 2)
+                                {
+                                    AnalyzeFiles(folders["PreviewCache"], ".db");
+                                }
+                                if (Properties.Settings.Default.Logs == true || SelectedThread == 1 || SelectedThread == 2)
+                                {
+                                    SingleDirectoryAnalyze(folders["Logs"]);
+                                    SingleDirectoryAnalyze(folders["Logs2"]);
+                                    SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
+                                }
+                                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                            }
+                            if (SelectedThread == 2 || SelectedThread == 3)
+                            {
+                                if (Properties.Settings.Default.SystemCache == true || SelectedThread == 2)
+                                {
+                                    AnalyzeFiles(folders["SystemCache"], ".db");
+                                    AnalyzeAllFiles(folders["TokenBrokerCache"]);
+
+                                }
+                                if (Properties.Settings.Default.MemoryDumps == true || SelectedThread == 2)
+                                {
+                                    AnalyzeFiles(folders["LiveKernelReports"], ".dmp");
+                                    AnalyzeFiles(folders["LiveKernelNDIS"], ".dmp");
+                                    AnalyzeFiles(folders["CrashDumps"], ".dmp");
+                                    AnalyzeFiles(folders["MiniDumps"], ".dmp");
+                                }
+                                if (Properties.Settings.Default.Prefetch == true || SelectedThread == 2)
+                                {
+                                    AnalyzeFiles(folders["Prefetch"], ".pf");
+                                }
+                                if (Properties.Settings.Default.FontCache == true || SelectedThread == 2)
+                                {
+                                    SingleFileAnalyze(folders["FontCache"], "FNTCACHE.DAT");
+                                }
+                                if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 2)
+                                {
+                                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                                }
+                            }
+                            if (SelectedThread == 3)
+                            {
+                                if (Properties.Settings.Default.OldWindows == true)
+                                {
+                                    SingleDirectoryAnalyze(folders["OldWindows"]);
+                                }
+                                if (Properties.Settings.Default.SysLogErrorRep == true)
+                                {
+                                    AnalyzeAllFiles(folders["CryptnetUrlCacheContent"]);
+                                    AnalyzeAllFiles(folders["CryptnetUrlCacheMetaData"]);
+                                    AnalyzeAllFiles(folders["NetworkServiceTemp"]);
+                                    AnalyzeFiles(folders["waasmedicLog"], ".etl");
+                                    AnalyzeFiles(folders["NetSetupLog"], ".etl");
+                                    AnalyzeAllDirectories(folders["ReportArchive"]);
+                                    AnalyzeAllFiles(folders["ReportArchive"]);
+                                    AnalyzeAllDirectories(folders["ReportQueue"]);
+                                    AnalyzeAllFiles(folders["ReportQueue"]);
+                                    AnalyzeAllDirectories(folders["WERTemp"]);
+                                    AnalyzeAllFiles(folders["WERTemp"]);
+                                }
+                            }
+                            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                            process_img.Visible = false;
+                            Finish.Visible = true;
+                            finish_img.Visible = true;
+                            Start.Enabled = true;
+                            Analysis.Enabled = true;
+                        };
+            Invoke(new Action(value));
         }
         private void Start_Click(object sender, EventArgs e)
         {
@@ -862,15 +1145,93 @@ namespace PASPAS
         }
         private void Github_label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/berkaygediz");
+            webView.CoreWebView2.Navigate(uri: "https://github.com/berkaygediz");
+            webView.BringToFront();
+            webView.Show();
         }
         private void promo_richspan_button_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/berkaygediz/RichSpan");
+            webView.CoreWebView2.Navigate(uri: "https://github.com/berkaygediz/RichSpan");
+            webView.BringToFront();
+            webView.Show();
         }
         private void promo_solidsheets_button_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/berkaygediz/SolidSheets");
+            webView.CoreWebView2.Navigate(uri: "https://github.com/berkaygediz/SolidSheets");
+            webView.BringToFront();
+            webView.Show();
+        }
+        static string RunPowerShellCommand(string command)
+        {
+            using (PowerShell powerShell = PowerShell.Create())
+            {
+                powerShell.AddScript(command);
+                var results = powerShell.Invoke();
+
+                return string.Join(Environment.NewLine, results);
+            }
+        }
+        private void SetServicesManual_btn_Click(object sender, EventArgs e)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    foreach (var serviceConfig in serviceConfigurations)
+                    {
+                        string serviceName = serviceConfig.Key;
+                        string startupType = serviceConfig.Value;
+
+                        RunPowerShellCommand($"Set-Service -Name \"{serviceName}\" -StartupType {startupType}");
+                    }
+
+                    MessageBox.Show("OK");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR: " + ex.Message);
+                }
+            });
+        }
+
+        private void DisableTelemetry_btn_Click(object sender, EventArgs e)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    foreach (var command in telemetryCommands)
+                    {
+                        RunPowerShellCommand(command);
+                    }
+
+                    MessageBox.Show("OK");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR: " + ex.Message);
+                }
+            });
+        }
+
+        private void DisableActivity_btn_Click(object sender, EventArgs e)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    foreach (var command in activityHistoryCommands)
+                    {
+                        RunPowerShellCommand(command);
+                    }
+
+                    MessageBox.Show("OK");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR: " + ex.Message);
+                }
+            });
         }
     }
 }
