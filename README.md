@@ -1,17 +1,16 @@
 ﻿# PASPAS
 
-**PASPAS** is a fast and efficient multi-threaded analysis and cleanup tool designed to accelerate system maintenance tasks. It is easy to use, lightweight, and portable, making it accessible for all users. PASPAS operates offline, without the need for telemetry or an internet connection, and includes features to optimize your network performance. It also securely clears sensitive data, ensuring your privacy while offering advanced system tuning capabilities.
+**PASPAS** is a fast and efficient multi-threaded analysis and cleanup tool designed to accelerate system maintenance tasks. It is easy to use, making it accessible for all users. PASPAS operates offline, without the need for telemetry or an internet connection, and includes features to optimize your network performance. It also securely clears sensitive data, ensuring your privacy while offering advanced system tuning capabilities.
 
 ![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_4.png)
 
 ## Features
 
-- ✅ **Blazing-fast multi-threaded analysis and cleanup**: Efficiently scans and cleans your system with minimal resource usage.
-- ✅ **Lightweight and portable**: No installation required, easy to carry and use across multiple devices.
-- ✅ **No telemetry or internet connection required**: Operates completely offline for enhanced privacy.
-- ✅ **Network optimization**: Improves network performance and reduces latency for a smoother browsing experience.
-- ✅ **Securely clears sensitive data**: Ensures your private data is completely erased and cannot be recovered.
-- ✅ **Advanced system tweaks**: Includes several built-in performance tweaks to fine-tune your system:
+- [x] **Blazing-fast multi-threaded analysis and cleanup**: Efficiently scans and cleans your system with minimal resource usage.
+- [x] **No telemetry or internet connection required**: Operates completely offline for enhanced privacy.
+- [x] **Network optimization**: Improves network performance and reduces latency for a smoother browsing experience.
+- [x] **Securely clears sensitive data**: Ensures your private data is completely erased and cannot be recovered.
+- [x] **Advanced system tweaks**: Includes several built-in performance tweaks to fine-tune your system:
   - **Disable telemetry** to prevent data collection.
   - **Clear activity history** (recent documents, clipboard, and run history) to further safeguard your privacy.
   - **Control system services** by setting them to manual startup, optimizing resource usage.
@@ -27,8 +26,8 @@ PASPAS offers the following system tweaks to enhance your privacy and optimize s
 
 ## Requirements
 
-- ✅ **.NET 9.0 or later**: Make sure your system has the required .NET version installed.
-- ✅ **WebView2**: Required for the graphical user interface (GUI) functionality of PASPAS.
+- **.NET 9.0 or later**
+- **WebView2**
 
 ## Usage
 
