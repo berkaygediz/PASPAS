@@ -1,26 +1,46 @@
-# PASPAS
+﻿# PASPAS
 
-PASPAS provides fast and efficient multi-threaded analysis and cleanup, accelerating system maintenance tasks. It is easy to use, lightweight, and portable, making it accessible to all users. It operates without the need for telemetry or an internet connection and includes network optimization features. It securely clears sensitive data to maintain your privacy.
+**PASPAS** is a fast and efficient multi-threaded analysis and cleanup tool designed to accelerate system maintenance tasks. It is easy to use, lightweight, and portable, making it accessible for all users. PASPAS operates offline, without the need for telemetry or an internet connection, and includes features to optimize your network performance. It also securely clears sensitive data, ensuring your privacy while offering advanced system tuning capabilities.
 
-![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_3.png)
+![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_4.png)
 
 ## Features
 
-- Blazing-fast multi-threaded analysis and cleanup.
-- Easy to use, lightweight, and portable.
-- System efficient.
-- No telemetry and internet connection required.
-- Includes network optimizer.
-- Securely clears sensitive data to maintain your privacy.
+- ✅ **Blazing-fast multi-threaded analysis and cleanup**: Efficiently scans and cleans your system with minimal resource usage.
+- ✅ **Lightweight and portable**: No installation required, easy to carry and use across multiple devices.
+- ✅ **No telemetry or internet connection required**: Operates completely offline for enhanced privacy.
+- ✅ **Network optimization**: Improves network performance and reduces latency for a smoother browsing experience.
+- ✅ **Securely clears sensitive data**: Ensures your private data is completely erased and cannot be recovered.
+- ✅ **Advanced system tweaks**: Includes several built-in performance tweaks to fine-tune your system:
+  - **Disable telemetry** to prevent data collection.
+  - **Clear activity history** (recent documents, clipboard, and run history) to further safeguard your privacy.
+  - **Control system services** by setting them to manual startup, optimizing resource usage.
+
+## Tweaks
+
+PASPAS offers the following system tweaks to enhance your privacy and optimize system performance:
+
+- [x] **Disable Telemetry**: Prevents the collection of usage data, ensuring your system remains private.
+- [x] **Disable Activity History**: Clears recent documents, clipboard entries, and run history, improving privacy.
+- [x] **Set System Services to Manual**: Offers control over services, allowing you to set them to manual startup, saving system resources.
+- [x] **Network Optimization**: Optimizes your network connection to improve speed and reduce delays.
+
+## Requirements
+
+- ✅ **.NET 9.0 or later**: Make sure your system has the required .NET version installed.
+- ✅ **WebView2**: Required for the graphical user interface (GUI) functionality of PASPAS.
 
 ## Usage
 
-- Get the [PASPAS](https://github.com/berkaygediz/PASPAS/releases) and start it.
+1. Download the latest release of [PASPAS](https://github.com/berkaygediz/PASPAS/releases).
+2. Extract the contents of the zip file to any location on your system.
+3. Run the `PASPAS.exe` application to begin analyzing and cleaning your system.
+4. Apply the system tweaks to optimize performance and enhance privacy.
 
 ## Contribute
 
-Join our open-source community and contribute to PASPAS. Read our [Contribution Guide](CONTRIBUTING.md) for more details.
+We welcome contributions to PASPAS! If you'd like to help improve the tool, please refer to our [Contribution Guide](CONTRIBUTING.md) for more information on how you can contribute to the project.
 
 ## Contact Us
 
-Have questions or feedback? [Open an issue](https://github.com/berkaygediz/PASPAS/issues) on GitHub.
+If you have any questions or feedback, please [open an issue](https://github.com/berkaygediz/PASPAS/issues) on GitHub. We're happy to assist and improve PASPAS with your input!
