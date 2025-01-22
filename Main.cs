@@ -10,7 +10,6 @@ using Microsoft.Web.WebView2.WinForms;
 
 namespace PASPAS
 {
-
     public partial class Main : Form
     {
         int MoveCP;
@@ -18,9 +17,11 @@ namespace PASPAS
         int MapY;
         int FileCount = 0;
         int RejectCount = 0;
+        int AccessError = 0;
         int SelectedThread;
         readonly string SystemDirectory = Path.GetPathRoot(Environment.SystemDirectory);
-        private readonly Dictionary<string, string> folders = new Dictionary<string, string>{
+        private readonly Dictionary<string, string> folderIndex = new()
+        {
             { "WinTemp", "/Windows/TEMP" },
             { "WinTemp2", "/Users/" + Environment.UserName + "/AppData/Local/Temp" },
             { "DownloadedInstallations", "/Users/" + Environment.UserName + "/AppData/Roaming/Downloaded Installations" },
@@ -50,8 +51,9 @@ namespace PASPAS
             { "FontCache", "/Windows/System32" },
             { "OldWindows", "/$Windows.old" }
         };
-        private readonly string[] temporaryextensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
-        private readonly Dictionary<string, string> serviceConfigurations = new Dictionary<string, string>{
+        private readonly string[] temporaryExtensions = { ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".vmo", ".tmp", ".log", ".txt", ".dat", ".iss", ".exe", ".ini", ".vbs", ".cvr", ".od", ".lnk", ".js", ".5f2", ".jro", ".41u", ".w0y", ".diagsession", ".png", ".jpg", ".jpeg", ".q13", ".2im", ".html", ".rcl", ".5ar", ".xml", ".dll", ".Mtx", ".5f2", ".jro", ".41u", ".w0y" };
+        private readonly Dictionary<string, string> serviceConfigurations = new()
+        {
             { "InstallService", "Manual" },
             { "InventorySvc", "Manual" },
             { "IpxlatCfgSvc", "Manual" },
@@ -265,8 +267,8 @@ namespace PASPAS
             { "wuauserv", "Manual" },
             { "wudfsvc", "Manual" }
         };
-        string[] telemetryCommands = new string[]
-            {
+        string[] telemetryCommands =
+            [
                 "bcdedit /set {current} bootmenupolicy Legacy | Out-Null",
                 "If ((get-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion' -Name CurrentBuild).CurrentBuild -lt 22557) { $taskmgr = Start-Process -WindowStyle Hidden -FilePath taskmgr.exe -PassThru; Do { Start-Sleep -Milliseconds 100; $preferences = Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\TaskManager' -Name 'Preferences' -ErrorAction SilentlyContinue; } Until ($preferences); Stop-Process $taskmgr; $preferences.Preferences[28] = 0; Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\TaskManager' -Name 'Preferences' -Type Binary -Value $preferences.Preferences }",
                 "Remove-Item -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' -Recurse -ErrorAction SilentlyContinue",
@@ -277,13 +279,13 @@ namespace PASPAS
                 "If (Test-Path '$autoLoggerDir\\AutoLogger-Diagtrack-Listener.etl') { Remove-Item '$autoLoggerDir\\AutoLogger-Diagtrack-Listener.etl' }",
                 "icacls $autoLoggerDir /deny SYSTEM:(OI)(CI)F | Out-Null",
                 "Set-MpPreference -SubmitSamplesConsent 2 -ErrorAction SilentlyContinue | Out-Null"
-            };
-        string[] activityHistoryCommands = new string[]
-        {
+            ];
+        string[] activityHistoryCommands =
+        [
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'EnableActivityFeed' -Value 0 -Type DWord -Force",
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'PublishUserActivities' -Value 0 -Type DWord -Force",
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'UploadUserActivities' -Value 0 -Type DWord -Force"
-        };
+        ];
         private WebView2 webView;
         public Main()
         {
@@ -564,216 +566,292 @@ namespace PASPAS
             }
             catch { RejectCount++; }
         }
+
         private void DeleteFiles(string directory, string extension)
         {
             try
             {
                 FileInfo fileinfo;
-                foreach (string file in Directory.GetFiles(SystemDirectory + directory))
+                foreach (string file in Directory.GetFiles(Path.Combine(SystemDirectory, directory)))
                 {
                     fileinfo = new FileInfo(file);
-                    if (fileinfo.Extension == extension.ToUpper() || fileinfo.Extension == extension.ToLower())
+                    if (fileinfo.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase))
                     {
                         fileinfo.Delete();
-                        if (fileinfo.Exists == false)
+                        if (!fileinfo.Exists)
                         {
                             FileCount++;
-                            ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
+                            ProcessBox.Items.Add($"{FileCount} | {fileinfo.FullName}");
                         }
-                        else { RejectCount++; }
+                        else
+                        {
+                            RejectCount++;
+                        }
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void DeleteAllFiles(string directory)
         {
             try
             {
                 FileInfo fileinfo;
-                foreach (string file in Directory.GetFiles(SystemDirectory + directory))
+                foreach (string file in Directory.GetFiles(Path.Combine(SystemDirectory, directory)))
                 {
                     fileinfo = new FileInfo(file);
-
                     fileinfo.Delete();
-                    if (fileinfo.Exists == false)
+                    if (!fileinfo.Exists)
                     {
                         FileCount++;
-                        ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
+                        ProcessBox.Items.Add($"{FileCount} | {fileinfo.FullName}");
                     }
-                    else { RejectCount++; }
-
+                    else
+                    {
+                        RejectCount++;
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void DeleteAllDirectories(string directory)
         {
             try
             {
                 DirectoryInfo dirinfo;
-                foreach (string dir in Directory.GetDirectories(SystemDirectory + directory))
+                foreach (string dir in Directory.GetDirectories(Path.Combine(SystemDirectory, directory)))
                 {
                     dirinfo = new DirectoryInfo(dir);
-
-                    dirinfo.Delete();
-                    if (dirinfo.Exists == false)
+                    dirinfo.Delete(true); // Alt dizinlerle birlikte siler
+                    if (!dirinfo.Exists)
                     {
                         FileCount++;
-                        ProcessBox.Items.Add(FileCount + " | " + dirinfo.ToString());
+                        ProcessBox.Items.Add($"{FileCount} | {dirinfo.FullName}");
                     }
-                    else { RejectCount++; }
-
+                    else
+                    {
+                        RejectCount++;
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void AnalyzeFiles(string directory, string extension)
         {
             try
             {
                 FileInfo fileinfo;
-                foreach (string file in Directory.GetFiles(SystemDirectory + directory))
+                foreach (string file in Directory.GetFiles(Path.Combine(SystemDirectory, directory)))
                 {
                     fileinfo = new FileInfo(file);
-                    if (fileinfo.Extension == extension.ToUpper() || fileinfo.Extension == extension.ToLower())
+                    if (fileinfo.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase))
                     {
                         if (fileinfo.Exists)
                         {
                             FileCount++;
-                            ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
+                            ProcessBox.Items.Add($"{FileCount} | {fileinfo.FullName}");
                         }
-                        else { RejectCount++; }
+                        else
+                        {
+                            RejectCount++;
+                        }
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void AnalyzeAllFiles(string directory)
         {
             try
             {
                 FileInfo fileinfo;
-                foreach (string file in Directory.GetFiles(SystemDirectory + directory))
+                foreach (string file in Directory.GetFiles(Path.Combine(SystemDirectory, directory)))
                 {
                     fileinfo = new FileInfo(file);
-
                     if (fileinfo.Exists)
                     {
                         FileCount++;
-                        ProcessBox.Items.Add(FileCount + " | " + fileinfo.ToString());
+                        ProcessBox.Items.Add($"{FileCount} | {fileinfo.FullName}");
                     }
-                    else { RejectCount++; }
-
+                    else
+                    {
+                        RejectCount++;
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void AnalyzeAllDirectories(string directory)
         {
             try
             {
                 DirectoryInfo dirinfo;
-                foreach (string dir in Directory.GetDirectories(SystemDirectory + directory))
+                foreach (string dir in Directory.GetDirectories(Path.Combine(SystemDirectory, directory)))
                 {
                     dirinfo = new DirectoryInfo(dir);
-
-                    if (dirinfo.Exists == false)
+                    if (dirinfo.Exists)
                     {
                         FileCount++;
-                        ProcessBox.Items.Add(FileCount + " | " + dirinfo.ToString());
+                        ProcessBox.Items.Add($"{FileCount} | {dirinfo.FullName}");
                     }
-                    else { RejectCount++; }
+                    else
+                    {
+                        RejectCount++;
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void SingleDirectoryDeletion(string directory)
         {
             try
             {
-                if (Directory.Exists(directory))
+                string fullPath = Path.Combine(SystemDirectory, directory);
+                if (Directory.Exists(fullPath))
                 {
-                    Directory.Delete(SystemDirectory + directory);
-                    if (Directory.Exists(directory) == false)
+                    Directory.Delete(fullPath, true);
+                    if (!Directory.Exists(fullPath))
                     {
                         FileCount++;
-                        ProcessBox.Items.Add(FileCount + " | " + directory);
+                        ProcessBox.Items.Add($"{FileCount} | {directory}");
                     }
-                    else { RejectCount++; }
+                    else
+                    {
+                        RejectCount++;
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void SingleDirectoryAnalyze(string directory)
         {
-            if (Directory.Exists(directory))
+            try
             {
-                FileCount++;
-                ProcessBox.Items.Add(FileCount + " | " + directory);
+                string fullPath = Path.Combine(SystemDirectory, directory);
+                if (Directory.Exists(fullPath))
+                {
+                    FileCount++;
+                    ProcessBox.Items.Add($"{FileCount} | {directory}");
+                }
+                else
+                {
+                    RejectCount++;
+                }
             }
-            else { RejectCount++; }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void SingleFileDeletion(string directory, string file)
         {
             try
             {
-                if (File.Exists(file))
+                string fullPath = Path.Combine(SystemDirectory, directory, file);
+                if (File.Exists(fullPath))
                 {
-                    File.Delete(SystemDirectory + directory + file);
-                    if (File.Exists(file) == false)
+                    File.Delete(fullPath);
+                    if (!File.Exists(fullPath))
                     {
                         FileCount++;
-                        ProcessBox.Items.Add(FileCount + " | " + directory + file);
+                        ProcessBox.Items.Add($"{FileCount} | {fullPath}");
                     }
-                    else { RejectCount++; }
+                    else
+                    {
+                        RejectCount++;
+                    }
                 }
             }
-            catch { }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void SingleFileAnalyze(string directory, string file)
         {
-            if (File.Exists(file))
+            try
             {
-                FileCount++;
-                ProcessBox.Items.Add(FileCount + " | " + directory + file);
+                string fullPath = Path.Combine(SystemDirectory, directory, file);
+                if (File.Exists(fullPath))
+                {
+                    FileCount++;
+                    ProcessBox.Items.Add($"{FileCount} | {fullPath}");
+                }
+                else
+                {
+                    RejectCount++;
+                }
             }
-            else { RejectCount++; }
+            catch
+            {
+                AccessError++;
+            }
         }
+
         private void ThreadBasic()
         {
             Action value = () =>
             {
                 ClipboardClear();
-                foreach (string extensions in temporaryextensions)
+                foreach (string extensions in temporaryExtensions)
                 {
-                    DeleteFiles(folders["WinTemp"], extensions.ToString());
+                    DeleteFiles(folderIndex["WinTemp"], extensions.ToString());
                 }
-                foreach (string extensions in temporaryextensions)
+                foreach (string extensions in temporaryExtensions)
                 {
-                    DeleteFiles(folders["WinTemp2"], extensions.ToString());
+                    DeleteFiles(folderIndex["WinTemp2"], extensions.ToString());
                 }
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleDirectoryDeletion(folderIndex["DownloadedInstallations"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["RecentFiles"], ".lnk");
-                DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-                DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["RecentFiles"], ".lnk");
+                DeleteFiles(folderIndex["RecentFiles2"], ".automaticDestinations-ms");
+                DeleteFiles(folderIndex["RecentFiles3"], ".customDestinations-ms");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["PreviewCache"], ".db");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["PreviewCache"], ".db");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
                 DNSCacheRefresh();
 
-                SingleDirectoryDeletion(folders["Logs"]);
-                SingleDirectoryDeletion(folders["Logs2"]);
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleDirectoryDeletion(folderIndex["Logs"]);
+                SingleDirectoryDeletion(folderIndex["Logs2"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleFileDeletion(folderIndex["UpdateReport"], "ReportingEvents.log");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
                 process_img.Visible = false;
                 Finish.Visible = true;
@@ -787,53 +865,53 @@ namespace PASPAS
             Action value = () =>
             {
                 ClipboardClear();
-                foreach (string extensions in temporaryextensions)
+                foreach (string extensions in temporaryExtensions)
                 {
-                    DeleteFiles(folders["WinTemp"], extensions.ToString());
+                    DeleteFiles(folderIndex["WinTemp"], extensions.ToString());
                 }
-                foreach (string extensions in temporaryextensions)
+                foreach (string extensions in temporaryExtensions)
                 {
-                    DeleteFiles(folders["WinTemp2"], extensions.ToString());
+                    DeleteFiles(folderIndex["WinTemp2"], extensions.ToString());
                 }
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleDirectoryDeletion(folderIndex["DownloadedInstallations"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["RecentFiles"], ".lnk");
-                DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-                DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["RecentFiles"], ".lnk");
+                DeleteFiles(folderIndex["RecentFiles2"], ".automaticDestinations-ms");
+                DeleteFiles(folderIndex["RecentFiles3"], ".customDestinations-ms");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["PreviewCache"], ".db");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["PreviewCache"], ".db");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
                 DNSCacheRefresh();
 
-                SingleDirectoryDeletion(folders["Logs"]);
-                SingleDirectoryDeletion(folders["Logs2"]);
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleDirectoryDeletion(folderIndex["Logs"]);
+                SingleDirectoryDeletion(folderIndex["Logs2"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleFileDeletion(folderIndex["UpdateReport"], "ReportingEvents.log");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["SystemCache"], ".db");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["SystemCache"], ".db");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["LiveKernelReports"], ".dmp");
-                DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
-                DeleteFiles(folders["CrashDumps"], ".dmp");
-                DeleteFiles(folders["MiniDumps"], ".dmp");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["LiveKernelReports"], ".dmp");
+                DeleteFiles(folderIndex["LiveKernelNDIS"], ".dmp");
+                DeleteFiles(folderIndex["CrashDumps"], ".dmp");
+                DeleteFiles(folderIndex["MiniDumps"], ".dmp");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                DeleteFiles(folders["Prefetch"], ".pf");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                DeleteFiles(folderIndex["Prefetch"], ".pf");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleFileDeletion(folderIndex["FontCache"], "FNTCACHE.DAT");
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
-                SingleDirectoryDeletion(folders["DownloadCache"]);
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                SingleDirectoryDeletion(folderIndex["DownloadCache"]);
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
                 process_img.Visible = false;
                 Finish.Visible = true;
@@ -852,33 +930,34 @@ namespace PASPAS
                 }
                 if (Properties.Settings.Default.TemporaryFiles == true)
                 {
-                    foreach (string extensions in temporaryextensions)
+                    foreach (string extensions in temporaryExtensions)
                     {
-                        DeleteFiles(folders["WinTemp"], extensions.ToString());
+                        DeleteFiles(folderIndex["WinTemp"], extensions.ToString());
                     }
-                    foreach (string extensions in temporaryextensions)
+                    foreach (string extensions in temporaryExtensions)
                     {
-                        DeleteFiles(folders["WinTemp2"], extensions.ToString());
+                        DeleteFiles(folderIndex["WinTemp2"], extensions.ToString());
                     }
 
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.DownloadedInstallations == true)
                 {
-                    SingleDirectoryDeletion(folders["DownloadedInstallations"]);
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    SingleDirectoryDeletion(folderIndex["DownloadedInstallations"]);
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.RecentlyUsed == true)
                 {
-                    DeleteFiles(folders["RecentFiles"], ".lnk");
-                    DeleteFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-                    DeleteFiles(folders["RecentFiles3"], ".customDestinations-ms");
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    DeleteFiles(folderIndex["RecentFiles"], ".lnk");
+                    DeleteFiles(folderIndex["RecentFiles2"], ".automaticDestinations-ms");
+                    DeleteFiles(folderIndex["RecentFiles3"], ".customDestinations-ms");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.PreviewCache == true)
                 {
-                    DeleteFiles(folders["PreviewCache"], ".db");
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    DeleteFiles(folderIndex["PreviewCache"], ".db");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
+
                 }
                 if (Properties.Settings.Default.DNSCache == true)
                 {
@@ -886,61 +965,63 @@ namespace PASPAS
                 }
                 if (Properties.Settings.Default.Logs == true)
                 {
-                    SingleDirectoryDeletion(folders["Logs"]);
-                    SingleDirectoryDeletion(folders["Logs2"]);
+                    SingleDirectoryDeletion(folderIndex["Logs"]);
+                    SingleDirectoryDeletion(folderIndex["Logs2"]);
 
-                    SingleFileDeletion(folders["UpdateReport"], "ReportingEvents.log");
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    SingleFileDeletion(folderIndex["UpdateReport"], "ReportingEvents.log");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
+
                 }
                 if (Properties.Settings.Default.SystemCache == true)
                 {
-                    DeleteFiles(folders["SystemCache"], ".db");
-                    DeleteAllFiles(folders["TokenBrokerCache"]);
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    DeleteFiles(folderIndex["SystemCache"], ".db");
+                    DeleteAllFiles(folderIndex["TokenBrokerCache"]);
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
+
                 }
                 if (Properties.Settings.Default.MemoryDumps == true)
                 {
-                    DeleteFiles(folders["LiveKernelReports"], ".dmp");
-                    DeleteFiles(folders["LiveKernelNDIS"], ".dmp");
-                    DeleteFiles(folders["CrashDumps"], ".dmp");
-                    DeleteFiles(folders["MiniDumps"], ".dmp");
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    DeleteFiles(folderIndex["LiveKernelReports"], ".dmp");
+                    DeleteFiles(folderIndex["LiveKernelNDIS"], ".dmp");
+                    DeleteFiles(folderIndex["CrashDumps"], ".dmp");
+                    DeleteFiles(folderIndex["MiniDumps"], ".dmp");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.Prefetch == true)
                 {
-                    DeleteFiles(folders["Prefetch"], ".pf");
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    DeleteFiles(folderIndex["Prefetch"], ".pf");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.FontCache == true)
                 {
-                    SingleFileDeletion(folders["FontCache"], "FNTCACHE.DAT");
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    SingleFileDeletion(folderIndex["FontCache"], "FNTCACHE.DAT");
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.DownloadCache == true)
                 {
-                    SingleDirectoryDeletion(folders["DownloadCache"]);
-                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                    SingleDirectoryDeletion(folderIndex["DownloadCache"]);
+                    Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 }
                 if (Properties.Settings.Default.OldWindows == true)
                 {
-                    SingleDirectoryDeletion(folders["OldWindows"]);
+                    SingleDirectoryDeletion(folderIndex["OldWindows"]);
                 }
                 if (Properties.Settings.Default.SysLogErrorRep == true)
                 {
-                    DeleteAllFiles(folders["CryptnetUrlCacheContent"]);
-                    DeleteAllFiles(folders["CryptnetUrlCacheMetaData"]);
-                    DeleteAllFiles(folders["NetworkServiceTemp"]);
-                    DeleteFiles(folders["waasmedicLog"], ".etl");
-                    DeleteFiles(folders["NetSetupLog"], ".etl");
-                    DeleteAllDirectories(folders["ReportArchive"]);
-                    DeleteAllFiles(folders["ReportArchive"]);
-                    DeleteAllDirectories(folders["ReportQueue"]);
-                    DeleteAllFiles(folders["ReportQueue"]);
-                    DeleteAllDirectories(folders["WERTemp"]);
-                    DeleteAllFiles(folders["WERTemp"]);
+                    DeleteAllFiles(folderIndex["CryptnetUrlCacheContent"]);
+                    DeleteAllFiles(folderIndex["CryptnetUrlCacheMetaData"]);
+                    DeleteAllFiles(folderIndex["NetworkServiceTemp"]);
+                    DeleteFiles(folderIndex["waasmedicLog"], ".etl");
+                    DeleteFiles(folderIndex["NetSetupLog"], ".etl");
+                    DeleteAllDirectories(folderIndex["ReportArchive"]);
+                    DeleteAllFiles(folderIndex["ReportArchive"]);
+                    DeleteAllDirectories(folderIndex["ReportQueue"]);
+                    DeleteAllFiles(folderIndex["ReportQueue"]);
+                    DeleteAllDirectories(folderIndex["WERTemp"]);
+                    DeleteAllFiles(folderIndex["WERTemp"]);
                 }
 
-                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                 process_img.Visible = false;
                 Finish.Visible = true;
                 finish_img.Visible = true;
@@ -954,91 +1035,92 @@ namespace PASPAS
                         {
                             FileCount = 0;
                             RejectCount = 0;
+                            AccessError = 0;
                             if (SelectedThread == 1 || SelectedThread == 2 || SelectedThread == 3)
                             {
                                 if (Properties.Settings.Default.TemporaryFiles == true || SelectedThread == 1 || SelectedThread == 2)
                                 {
-                                    foreach (string extensions in temporaryextensions)
+                                    foreach (string extensions in temporaryExtensions)
                                     {
-                                        AnalyzeFiles(folders["WinTemp"], extensions.ToString());
+                                        AnalyzeFiles(folderIndex["WinTemp"], extensions.ToString());
                                     }
-                                    foreach (string extensions in temporaryextensions)
+                                    foreach (string extensions in temporaryExtensions)
                                     {
-                                        AnalyzeFiles(folders["WinTemp2"], extensions.ToString());
+                                        AnalyzeFiles(folderIndex["WinTemp2"], extensions.ToString());
                                     }
                                 }
                                 if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 1 || SelectedThread == 2)
                                 {
-                                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                                    SingleDirectoryAnalyze(folderIndex["DownloadCache"]);
                                 }
                                 if (Properties.Settings.Default.RecentlyUsed == true || SelectedThread == 1 || SelectedThread == 2)
                                 {
-                                    AnalyzeFiles(folders["RecentFiles"], ".lnk");
-                                    AnalyzeFiles(folders["RecentFiles2"], ".automaticDestinations-ms");
-                                    AnalyzeFiles(folders["RecentFiles3"], ".customDestinations-ms");
+                                    AnalyzeFiles(folderIndex["RecentFiles"], ".lnk");
+                                    AnalyzeFiles(folderIndex["RecentFiles2"], ".automaticDestinations-ms");
+                                    AnalyzeFiles(folderIndex["RecentFiles3"], ".customDestinations-ms");
                                 }
                                 if (Properties.Settings.Default.PreviewCache == true || SelectedThread == 1 || SelectedThread == 2)
                                 {
-                                    AnalyzeFiles(folders["PreviewCache"], ".db");
+                                    AnalyzeFiles(folderIndex["PreviewCache"], ".db");
                                 }
                                 if (Properties.Settings.Default.Logs == true || SelectedThread == 1 || SelectedThread == 2)
                                 {
-                                    SingleDirectoryAnalyze(folders["Logs"]);
-                                    SingleDirectoryAnalyze(folders["Logs2"]);
-                                    SingleFileAnalyze(folders["UpdateReport"], "ReportingEvents.log");
+                                    SingleDirectoryAnalyze(folderIndex["Logs"]);
+                                    SingleDirectoryAnalyze(folderIndex["Logs2"]);
+                                    SingleFileAnalyze(folderIndex["UpdateReport"], "ReportingEvents.log");
                                 }
-                                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                                Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                             }
                             if (SelectedThread == 2 || SelectedThread == 3)
                             {
                                 if (Properties.Settings.Default.SystemCache == true || SelectedThread == 2)
                                 {
-                                    AnalyzeFiles(folders["SystemCache"], ".db");
-                                    AnalyzeAllFiles(folders["TokenBrokerCache"]);
+                                    AnalyzeFiles(folderIndex["SystemCache"], ".db");
+                                    AnalyzeAllFiles(folderIndex["TokenBrokerCache"]);
 
                                 }
                                 if (Properties.Settings.Default.MemoryDumps == true || SelectedThread == 2)
                                 {
-                                    AnalyzeFiles(folders["LiveKernelReports"], ".dmp");
-                                    AnalyzeFiles(folders["LiveKernelNDIS"], ".dmp");
-                                    AnalyzeFiles(folders["CrashDumps"], ".dmp");
-                                    AnalyzeFiles(folders["MiniDumps"], ".dmp");
+                                    AnalyzeFiles(folderIndex["LiveKernelReports"], ".dmp");
+                                    AnalyzeFiles(folderIndex["LiveKernelNDIS"], ".dmp");
+                                    AnalyzeFiles(folderIndex["CrashDumps"], ".dmp");
+                                    AnalyzeFiles(folderIndex["MiniDumps"], ".dmp");
                                 }
                                 if (Properties.Settings.Default.Prefetch == true || SelectedThread == 2)
                                 {
-                                    AnalyzeFiles(folders["Prefetch"], ".pf");
+                                    AnalyzeFiles(folderIndex["Prefetch"], ".pf");
                                 }
                                 if (Properties.Settings.Default.FontCache == true || SelectedThread == 2)
                                 {
-                                    SingleFileAnalyze(folders["FontCache"], "FNTCACHE.DAT");
+                                    SingleFileAnalyze(folderIndex["FontCache"], "FNTCACHE.DAT");
                                 }
                                 if (Properties.Settings.Default.DownloadCache == true || SelectedThread == 2)
                                 {
-                                    SingleDirectoryAnalyze(folders["DownloadCache"]);
+                                    SingleDirectoryAnalyze(folderIndex["DownloadCache"]);
                                 }
                             }
                             if (SelectedThread == 3)
                             {
                                 if (Properties.Settings.Default.OldWindows == true)
                                 {
-                                    SingleDirectoryAnalyze(folders["OldWindows"]);
+                                    SingleDirectoryAnalyze(folderIndex["OldWindows"]);
                                 }
                                 if (Properties.Settings.Default.SysLogErrorRep == true)
                                 {
-                                    AnalyzeAllFiles(folders["CryptnetUrlCacheContent"]);
-                                    AnalyzeAllFiles(folders["CryptnetUrlCacheMetaData"]);
-                                    AnalyzeAllFiles(folders["NetworkServiceTemp"]);
-                                    AnalyzeFiles(folders["waasmedicLog"], ".etl");
-                                    AnalyzeFiles(folders["NetSetupLog"], ".etl");
-                                    AnalyzeAllDirectories(folders["ReportArchive"]);
-                                    AnalyzeAllFiles(folders["ReportArchive"]);
-                                    AnalyzeAllDirectories(folders["ReportQueue"]);
-                                    AnalyzeAllFiles(folders["ReportQueue"]);
-                                    AnalyzeAllDirectories(folders["WERTemp"]);
-                                    AnalyzeAllFiles(folders["WERTemp"]);
+                                    AnalyzeAllFiles(folderIndex["CryptnetUrlCacheContent"]);
+                                    AnalyzeAllFiles(folderIndex["CryptnetUrlCacheMetaData"]);
+                                    AnalyzeAllFiles(folderIndex["NetworkServiceTemp"]);
+                                    AnalyzeFiles(folderIndex["waasmedicLog"], ".etl");
+                                    AnalyzeFiles(folderIndex["NetSetupLog"], ".etl");
+                                    AnalyzeAllDirectories(folderIndex["ReportArchive"]);
+                                    AnalyzeAllFiles(folderIndex["ReportArchive"]);
+                                    AnalyzeAllDirectories(folderIndex["ReportQueue"]);
+                                    AnalyzeAllFiles(folderIndex["ReportQueue"]);
+                                    AnalyzeAllDirectories(folderIndex["WERTemp"]);
+                                    AnalyzeAllFiles(folderIndex["WERTemp"]);
                                 }
                             }
-                            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString();
+                            Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
                             process_img.Visible = false;
                             Finish.Visible = true;
                             finish_img.Visible = true;
@@ -1051,6 +1133,7 @@ namespace PASPAS
         {
             FileCount = 0;
             RejectCount = 0;
+            AccessError = 0;
             if (SelectedThread == 1)
             {
                 new Thread(ThreadBasic).Start();
@@ -1086,7 +1169,7 @@ namespace PASPAS
         private void Finish_Click(object sender, EventArgs e)
         {
             ProcessBox.Items.Clear();
-            Process_count.Text = "0 / 0";
+            Process_count.Text = "0 / 0 / 0";
             Home_panel.BringToFront();
         }
         private void DarkModeSwitch()

@@ -204,7 +204,7 @@
             versionCode.Name = "versionCode";
             versionCode.Size = new System.Drawing.Size(87, 13);
             versionCode.TabIndex = 26;
-            versionCode.Text = "Omni 2025.01-1";
+            versionCode.Text = "Omni 2025.01-2";
             // 
             // LogoPanel
             // 
@@ -992,9 +992,9 @@
             Process_count_subtext.ForeColor = System.Drawing.Color.White;
             Process_count_subtext.Location = new System.Drawing.Point(17, 52);
             Process_count_subtext.Name = "Process_count_subtext";
-            Process_count_subtext.Size = new System.Drawing.Size(100, 17);
+            Process_count_subtext.Size = new System.Drawing.Size(143, 17);
             Process_count_subtext.TabIndex = 5;
-            Process_count_subtext.Text = "Item / Rejected";
+            Process_count_subtext.Text = "Item / Rejected / Error";
             // 
             // Process_count
             // 
@@ -1003,9 +1003,9 @@
             Process_count.ForeColor = System.Drawing.Color.White;
             Process_count.Location = new System.Drawing.Point(10, 1);
             Process_count.Name = "Process_count";
-            Process_count.Size = new System.Drawing.Size(96, 47);
+            Process_count.Size = new System.Drawing.Size(152, 47);
             Process_count.TabIndex = 4;
-            Process_count.Text = "0 / 0";
+            Process_count.Text = "0 / 0 / 0";
             // 
             // ProcessBox
             // 
