@@ -204,7 +204,7 @@
             versionCode.Name = "versionCode";
             versionCode.Size = new System.Drawing.Size(87, 13);
             versionCode.TabIndex = 26;
-            versionCode.Text = "Omni 2025.01-2";
+            versionCode.Text = "Omni 2025.01-3";
             // 
             // LogoPanel
             // 
@@ -871,23 +871,31 @@
             // 
             // promo_solidsheets_button
             // 
+            promo_solidsheets_button.BackColor = System.Drawing.Color.Transparent;
+            promo_solidsheets_button.FlatAppearance.BorderSize = 0;
+            promo_solidsheets_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            promo_solidsheets_button.ForeColor = System.Drawing.Color.Transparent;
             promo_solidsheets_button.Image = Properties.Resources.solidsheets;
             promo_solidsheets_button.Location = new System.Drawing.Point(201, 185);
             promo_solidsheets_button.Name = "promo_solidsheets_button";
             promo_solidsheets_button.Size = new System.Drawing.Size(157, 127);
             promo_solidsheets_button.TabIndex = 6;
-            promo_solidsheets_button.UseVisualStyleBackColor = true;
-            promo_solidsheets_button.Click += promo_solidsheets_button_Click;
+            promo_solidsheets_button.UseVisualStyleBackColor = false;
+            promo_solidsheets_button.Click += Promo_solidsheets_button_Click;
             // 
             // promo_richspan_button
             // 
+            promo_richspan_button.BackColor = System.Drawing.Color.Transparent;
+            promo_richspan_button.FlatAppearance.BorderSize = 0;
+            promo_richspan_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            promo_richspan_button.ForeColor = System.Drawing.Color.Transparent;
             promo_richspan_button.Image = Properties.Resources.richspan;
             promo_richspan_button.Location = new System.Drawing.Point(32, 185);
             promo_richspan_button.Name = "promo_richspan_button";
             promo_richspan_button.Size = new System.Drawing.Size(157, 127);
             promo_richspan_button.TabIndex = 5;
-            promo_richspan_button.UseVisualStyleBackColor = true;
-            promo_richspan_button.Click += promo_richspan_button_Click;
+            promo_richspan_button.UseVisualStyleBackColor = false;
+            promo_richspan_button.Click += Promo_richspan_button_Click;
             // 
             // promo_disclaimer
             // 
@@ -1188,11 +1196,11 @@
             Controls.Add(ControlPanel);
             Controls.Add(LogoPanel);
             Controls.Add(Exit);
+            Controls.Add(About_panel);
+            Controls.Add(Tweaks_panel);
             Controls.Add(Home_panel);
             Controls.Add(ProcessPanel);
             Controls.Add(Options_panel);
-            Controls.Add(About_panel);
-            Controls.Add(Tweaks_panel);
             Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             ForeColor = System.Drawing.Color.Black;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

@@ -14,7 +14,8 @@
 		<UpdateRequired>false</UpdateRequired>
 		<MapFileExtensions>true</MapFileExtensions>
 		<ApplicationRevision>0</ApplicationRevision>
-		<ApplicationVersion>1.0.5.%2a</ApplicationVersion>
+		<ApplicationVersion>1.0.5.1</ApplicationVersion>
+		<Version>1.0.5.1</Version>
 		<UseApplicationTrust>false</UseApplicationTrust>
 		<BootstrapperEnabled>true</BootstrapperEnabled>
 		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
@@ -90,9 +91,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.6" />
+		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.0" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
-		<PackageReference Include="System.Management.Automation" Version="7.4.6" />
+		<PackageReference Include="System.Management.Automation" Version="7.5.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">
