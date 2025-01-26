@@ -1196,11 +1196,11 @@
             Controls.Add(ControlPanel);
             Controls.Add(LogoPanel);
             Controls.Add(Exit);
-            Controls.Add(About_panel);
-            Controls.Add(Tweaks_panel);
             Controls.Add(Home_panel);
             Controls.Add(ProcessPanel);
             Controls.Add(Options_panel);
+            Controls.Add(About_panel);
+            Controls.Add(Tweaks_panel);
             Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             ForeColor = System.Drawing.Color.Black;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
