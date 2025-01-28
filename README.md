@@ -14,6 +14,7 @@
   - **Disable telemetry** to prevent data collection.
   - **Clear activity history** (recent documents, clipboard, and run history) to further safeguard your privacy.
   - **Control system services** by setting them to manual startup, optimizing resource usage.
+- [x] **Program Uninstaller**
 
 ## Tweaks
 
