@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Management;
 using System.Management.Automation;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.WinForms;
 
@@ -267,7 +271,7 @@ namespace PASPAS
             { "wuauserv", "Manual" },
             { "wudfsvc", "Manual" }
         };
-        readonly string[] telemetryCommands =
+        private readonly string[] telemetryCommands =
             [
                 "bcdedit /set {current} bootmenupolicy Legacy | Out-Null",
                 "If ((get-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion' -Name CurrentBuild).CurrentBuild -lt 22557) { $taskmgr = Start-Process -WindowStyle Hidden -FilePath taskmgr.exe -PassThru; Do { Start-Sleep -Milliseconds 100; $preferences = Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\TaskManager' -Name 'Preferences' -ErrorAction SilentlyContinue; } Until ($preferences); Stop-Process $taskmgr; $preferences.Preferences[28] = 0; Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\TaskManager' -Name 'Preferences' -Type Binary -Value $preferences.Preferences }",
@@ -280,7 +284,7 @@ namespace PASPAS
                 "icacls $autoLoggerDir /deny SYSTEM:(OI)(CI)F | Out-Null",
                 "Set-MpPreference -SubmitSamplesConsent 2 -ErrorAction SilentlyContinue | Out-Null"
             ];
-        readonly string[] activityHistoryCommands =
+        private readonly string[] activityHistoryCommands =
         [
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'EnableActivityFeed' -Value 0 -Type DWord -Force",
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'PublishUserActivities' -Value 0 -Type DWord -Force",
@@ -373,6 +377,16 @@ namespace PASPAS
             webView.Hide();
         }
 
+        private void Options_btn_Click(object sender, EventArgs e)
+        {
+            SidePanel.Top = Options_btn.Top;
+            SidePanel.Height = Options_btn.Height;
+            Options_panel.BringToFront();
+            webView.CoreWebView2.Navigate(uri: "about:blank");
+            webView.SendToBack();
+            webView.Hide();
+        }
+
         private void Tweaks_btn_Click(object sender, EventArgs e)
         {
             SidePanel.Top = Tweaks_btn.Top;
@@ -382,12 +396,11 @@ namespace PASPAS
             webView.SendToBack();
             webView.Hide();
         }
-
-        private void Options_btn_Click(object sender, EventArgs e)
+        private void UninstallMenu_btn_Click(object sender, EventArgs e)
         {
-            SidePanel.Top = Options_btn.Top;
-            SidePanel.Height = Options_btn.Height;
-            Options_panel.BringToFront();
+            SidePanel.Top = UninstallMenu_btn.Top;
+            SidePanel.Height = UninstallMenu_btn.Height;
+            Programs_panel.BringToFront();
             webView.CoreWebView2.Navigate(uri: "about:blank");
             webView.SendToBack();
             webView.Hide();
@@ -400,8 +413,9 @@ namespace PASPAS
             webView.CoreWebView2.Navigate(uri: "about:blank");
             webView.SendToBack();
             webView.Hide();
-
         }
+
+
         private static void CheckboxPropertySave(CheckBox checkbox, bool status, string property)
         {
             try
@@ -522,6 +536,7 @@ namespace PASPAS
             SidePanel.Height = Options_btn.Height;
             Options_panel.BringToFront();
         }
+
         private void ClipboardClear()
         {
             try
@@ -1296,5 +1311,156 @@ namespace PASPAS
                                                                                                MessageBox.Show("ERROR: " + ex.Message);
                                                                                            }
                                                                                        });
+
+        private async void Uninstall_btn_Click(object sender, EventArgs e)
+        {
+            Uninstall_btn.Enabled = false;
+            Refresh_btn.Enabled = false;
+
+            UninstallLog_List.Items.Clear();
+            var selectedPrograms = Programs_CheckedList.CheckedItems.Cast<string>().ToList();
+            await Task.Run(() => UninstallProgram(selectedPrograms));
+
+            Uninstall_btn.Enabled = true;
+            Refresh_btn.Enabled = true;
+        }
+
+        private void UninstallProgram(List<string> selectedPrograms)
+        {
+            foreach (var programInfo in selectedPrograms)
+            {
+                string programName = programInfo.Split(" - ")[0];
+
+                Invoke(() =>
+                {
+                    UninstallLog_List.Items.Add($"STARTED: {programName}");
+                    UninstallLog_List.SelectedIndex = UninstallLog_List.Items.Count - 1;
+                });
+
+                if (TryUninstallProgram(programName))
+                {
+                    Invoke(() =>
+                    {
+                        UninstallLog_List.Items.Add($"UNINSTALLED: {programName}");
+                        UninstallLog_List.SelectedIndex = UninstallLog_List.Items.Count - 1;
+                    });
+                }
+                else
+                {
+                    Invoke(() =>
+                    {
+                        UninstallLog_List.Items.Add($"FAILED: {programName}");
+                        UninstallLog_List.SelectedIndex = UninstallLog_List.Items.Count - 1;
+                    });
+                }
+
+                Thread.Sleep(500);
+            }
+        }
+
+        private bool TryUninstallProgram(string programName)
+        {
+            try
+            {
+                ManagementObjectSearcher searcher = new(
+                    $"SELECT * FROM Win32_Product WHERE Name = '{programName}'");
+
+                ManagementObjectCollection queryCollection = searcher.Get();
+
+                foreach (ManagementObject obj in queryCollection.Cast<ManagementObject>())
+                {
+                    string uninstallString = obj["UninstallString"]?.ToString();
+
+                    if (!string.IsNullOrEmpty(uninstallString))
+                    {
+                        Process uninstallProcess = new()
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = uninstallString,
+                            }
+                        };
+                        uninstallProcess.Start();
+                        uninstallProcess.WaitForExit();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Invoke(() =>
+                {
+                    UninstallLog_List.Items.Add($"ERROR | {programName} : {ex.Message}");
+                    UninstallLog_List.SelectedIndex = UninstallLog_List.Items.Count - 1;
+                });
+                return false;
+            }
+        }
+
+        private async void Refresh_btn_Click(object sender, EventArgs e)
+        {
+            Programs_CheckedList.Items.Clear();
+            UninstallLog_List.Items.Clear();
+            Uninstall_btn.Enabled = false;
+            Refresh_btn.Enabled = false;
+            Refresh_btn.Text = "...";
+
+            await Task.Run(LoadPrograms);
+        }
+        public record ProgramInfo(string Name, DateTime InstallDate);
+        private void LoadPrograms()
+        {
+            ManagementObjectSearcher searcher = new(@"SELECT * FROM Win32_Product");
+            ManagementObjectCollection queryCollection = searcher.Get();
+
+            List<ProgramInfo> programs = [];
+
+            foreach (ManagementObject obj in queryCollection.Cast<ManagementObject>())
+            {
+                string programName = obj["Name"]?.ToString();
+                string installDateStr = obj["InstallDate"]?.ToString();
+
+                if (!string.IsNullOrEmpty(programName) && !string.IsNullOrEmpty(installDateStr))
+                {
+                    if (DateTime.TryParseExact(installDateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime installDate))
+                    {
+                        programs.Add(new ProgramInfo(programName, installDate));
+                    }
+                }
+            }
+
+            var sortedPrograms = programs.OrderByDescending(p => p.InstallDate).ToList();
+
+            Invoke(() =>
+            {
+                Programs_CheckedList.Items.Clear();
+            });
+
+            int totalCount = sortedPrograms.Count;
+            int processedCount = 0;
+
+            foreach (var program in sortedPrograms)
+            {
+                Invoke(() =>
+                {
+                    Programs_CheckedList.Items.Add($"{program.Name} - {program.InstallDate:yyyy-MM-dd}");
+                });
+
+                processedCount++;
+                string progressText = $"{processedCount} / {totalCount}";
+                Invoke(() =>
+                {
+                    Refresh_btn.Text = progressText;
+                });
+            }
+
+            Invoke(() =>
+            {
+                Refresh_btn.Text = $"{processedCount} / {totalCount}";
+                Uninstall_btn.Enabled = true;
+                Refresh_btn.Enabled = true;
+            });
+        }
     }
 }
