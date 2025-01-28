@@ -104,6 +104,15 @@
             DisclaimerText_label = new System.Windows.Forms.Label();
             Disclaimer_label = new System.Windows.Forms.Label();
             SetServicesManual_btn = new System.Windows.Forms.Button();
+            Programs_panel = new System.Windows.Forms.Panel();
+            Refresh_btn = new System.Windows.Forms.Button();
+            UninstallLog_List = new System.Windows.Forms.ListBox();
+            Programs_CheckedList = new System.Windows.Forms.CheckedListBox();
+            ProgramsRisk_panel = new System.Windows.Forms.Panel();
+            ProgramsRiskText_label = new System.Windows.Forms.Label();
+            ProgramsRisk_title = new System.Windows.Forms.Label();
+            Uninstall_btn = new System.Windows.Forms.Button();
+            UninstallMenu_btn = new System.Windows.Forms.Button();
             ControlPanel.SuspendLayout();
             LogoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
@@ -119,6 +128,8 @@
             ((System.ComponentModel.ISupportInitialize)finish_img).BeginInit();
             Tweaks_panel.SuspendLayout();
             TweaksDisclaimer_panel.SuspendLayout();
+            Programs_panel.SuspendLayout();
+            ProgramsRisk_panel.SuspendLayout();
             SuspendLayout();
             // 
             // About_btn
@@ -127,7 +138,7 @@
             About_btn.FlatAppearance.BorderSize = 0;
             About_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             About_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
-            About_btn.Location = new System.Drawing.Point(25, 336);
+            About_btn.Location = new System.Drawing.Point(25, 384);
             About_btn.Name = "About_btn";
             About_btn.Size = new System.Drawing.Size(165, 40);
             About_btn.TabIndex = 22;
@@ -141,7 +152,7 @@
             Options_btn.FlatAppearance.BorderSize = 0;
             Options_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             Options_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
-            Options_btn.Location = new System.Drawing.Point(25, 226);
+            Options_btn.Location = new System.Drawing.Point(25, 217);
             Options_btn.Name = "Options_btn";
             Options_btn.Size = new System.Drawing.Size(165, 40);
             Options_btn.TabIndex = 21;
@@ -155,7 +166,7 @@
             Home_btn.FlatAppearance.BorderSize = 0;
             Home_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             Home_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
-            Home_btn.Location = new System.Drawing.Point(25, 171);
+            Home_btn.Location = new System.Drawing.Point(25, 161);
             Home_btn.Name = "Home_btn";
             Home_btn.Size = new System.Drawing.Size(165, 40);
             Home_btn.TabIndex = 20;
@@ -166,7 +177,7 @@
             // SidePanel
             // 
             SidePanel.BackColor = System.Drawing.Color.Crimson;
-            SidePanel.Location = new System.Drawing.Point(10, 171);
+            SidePanel.Location = new System.Drawing.Point(10, 161);
             SidePanel.Name = "SidePanel";
             SidePanel.Size = new System.Drawing.Size(15, 40);
             SidePanel.TabIndex = 19;
@@ -204,7 +215,7 @@
             versionCode.Name = "versionCode";
             versionCode.Size = new System.Drawing.Size(87, 13);
             versionCode.TabIndex = 26;
-            versionCode.Text = "Omni 2025.01-3";
+            versionCode.Text = "Omni 2025.01-4";
             // 
             // LogoPanel
             // 
@@ -1079,7 +1090,7 @@
             Tweaks_btn.FlatAppearance.BorderSize = 0;
             Tweaks_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             Tweaks_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
-            Tweaks_btn.Location = new System.Drawing.Point(25, 280);
+            Tweaks_btn.Location = new System.Drawing.Point(25, 274);
             Tweaks_btn.Name = "Tweaks_btn";
             Tweaks_btn.Size = new System.Drawing.Size(165, 40);
             Tweaks_btn.TabIndex = 26;
@@ -1178,6 +1189,116 @@
             SetServicesManual_btn.UseVisualStyleBackColor = false;
             SetServicesManual_btn.Click += SetServicesManual_btn_Click;
             // 
+            // Programs_panel
+            // 
+            Programs_panel.BackColor = System.Drawing.Color.WhiteSmoke;
+            Programs_panel.Controls.Add(Refresh_btn);
+            Programs_panel.Controls.Add(UninstallLog_List);
+            Programs_panel.Controls.Add(Programs_CheckedList);
+            Programs_panel.Controls.Add(ProgramsRisk_panel);
+            Programs_panel.Controls.Add(Uninstall_btn);
+            Programs_panel.Location = new System.Drawing.Point(191, 120);
+            Programs_panel.Name = "Programs_panel";
+            Programs_panel.Size = new System.Drawing.Size(680, 432);
+            Programs_panel.TabIndex = 25;
+            // 
+            // Refresh_btn
+            // 
+            Refresh_btn.BackColor = System.Drawing.Color.Lime;
+            Refresh_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            Refresh_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            Refresh_btn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            Refresh_btn.ForeColor = System.Drawing.Color.Black;
+            Refresh_btn.Location = new System.Drawing.Point(574, 47);
+            Refresh_btn.Name = "Refresh_btn";
+            Refresh_btn.Size = new System.Drawing.Size(94, 34);
+            Refresh_btn.TabIndex = 19;
+            Refresh_btn.Text = "Refresh";
+            Refresh_btn.UseVisualStyleBackColor = false;
+            Refresh_btn.Click += Refresh_btn_Click;
+            // 
+            // UninstallLog_List
+            // 
+            UninstallLog_List.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            UninstallLog_List.FormattingEnabled = true;
+            UninstallLog_List.Location = new System.Drawing.Point(18, 326);
+            UninstallLog_List.Name = "UninstallLog_List";
+            UninstallLog_List.Size = new System.Drawing.Size(642, 93);
+            UninstallLog_List.TabIndex = 18;
+            // 
+            // Programs_CheckedList
+            // 
+            Programs_CheckedList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            Programs_CheckedList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
+            Programs_CheckedList.FormattingEnabled = true;
+            Programs_CheckedList.Location = new System.Drawing.Point(18, 84);
+            Programs_CheckedList.Name = "Programs_CheckedList";
+            Programs_CheckedList.Size = new System.Drawing.Size(642, 223);
+            Programs_CheckedList.TabIndex = 17;
+            // 
+            // ProgramsRisk_panel
+            // 
+            ProgramsRisk_panel.BackColor = System.Drawing.Color.MediumBlue;
+            ProgramsRisk_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ProgramsRisk_panel.Controls.Add(ProgramsRiskText_label);
+            ProgramsRisk_panel.Controls.Add(ProgramsRisk_title);
+            ProgramsRisk_panel.Location = new System.Drawing.Point(18, 17);
+            ProgramsRisk_panel.Name = "ProgramsRisk_panel";
+            ProgramsRisk_panel.Size = new System.Drawing.Size(545, 56);
+            ProgramsRisk_panel.TabIndex = 13;
+            // 
+            // ProgramsRiskText_label
+            // 
+            ProgramsRiskText_label.AutoSize = true;
+            ProgramsRiskText_label.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            ProgramsRiskText_label.ForeColor = System.Drawing.Color.White;
+            ProgramsRiskText_label.Location = new System.Drawing.Point(92, 7);
+            ProgramsRiskText_label.Name = "ProgramsRiskText_label";
+            ProgramsRiskText_label.Size = new System.Drawing.Size(437, 39);
+            ProgramsRiskText_label.TabIndex = 9;
+            ProgramsRiskText_label.Text = resources.GetString("ProgramsRiskText_label.Text");
+            // 
+            // ProgramsRisk_title
+            // 
+            ProgramsRisk_title.AutoSize = true;
+            ProgramsRisk_title.BackColor = System.Drawing.Color.MediumBlue;
+            ProgramsRisk_title.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
+            ProgramsRisk_title.ForeColor = System.Drawing.Color.Honeydew;
+            ProgramsRisk_title.Location = new System.Drawing.Point(19, 12);
+            ProgramsRisk_title.Name = "ProgramsRisk_title";
+            ProgramsRisk_title.Size = new System.Drawing.Size(67, 32);
+            ProgramsRisk_title.TabIndex = 5;
+            ProgramsRisk_title.Text = "RISK";
+            // 
+            // Uninstall_btn
+            // 
+            Uninstall_btn.BackColor = System.Drawing.Color.Crimson;
+            Uninstall_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            Uninstall_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            Uninstall_btn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            Uninstall_btn.ForeColor = System.Drawing.Color.White;
+            Uninstall_btn.Location = new System.Drawing.Point(574, 10);
+            Uninstall_btn.Name = "Uninstall_btn";
+            Uninstall_btn.Size = new System.Drawing.Size(94, 34);
+            Uninstall_btn.TabIndex = 16;
+            Uninstall_btn.Text = "Uninstall";
+            Uninstall_btn.UseVisualStyleBackColor = false;
+            Uninstall_btn.Click += Uninstall_btn_Click;
+            // 
+            // UninstallMenu_btn
+            // 
+            UninstallMenu_btn.BackColor = System.Drawing.Color.WhiteSmoke;
+            UninstallMenu_btn.FlatAppearance.BorderSize = 0;
+            UninstallMenu_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            UninstallMenu_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
+            UninstallMenu_btn.Location = new System.Drawing.Point(25, 329);
+            UninstallMenu_btn.Name = "UninstallMenu_btn";
+            UninstallMenu_btn.Size = new System.Drawing.Size(165, 40);
+            UninstallMenu_btn.TabIndex = 27;
+            UninstallMenu_btn.Text = "Uninstall";
+            UninstallMenu_btn.UseVisualStyleBackColor = false;
+            UninstallMenu_btn.Click += UninstallMenu_btn_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1186,6 +1307,7 @@
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             ClientSize = new System.Drawing.Size(870, 553);
             ControlBox = false;
+            Controls.Add(UninstallMenu_btn);
             Controls.Add(Tweaks_btn);
             Controls.Add(Minimize);
             Controls.Add(About_btn);
@@ -1200,6 +1322,7 @@
             Controls.Add(ProcessPanel);
             Controls.Add(Options_panel);
             Controls.Add(About_panel);
+            Controls.Add(Programs_panel);
             Controls.Add(Tweaks_panel);
             Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             ForeColor = System.Drawing.Color.Black;
@@ -1236,6 +1359,9 @@
             Tweaks_panel.ResumeLayout(false);
             TweaksDisclaimer_panel.ResumeLayout(false);
             TweaksDisclaimer_panel.PerformLayout();
+            Programs_panel.ResumeLayout(false);
+            ProgramsRisk_panel.ResumeLayout(false);
+            ProgramsRisk_panel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1323,6 +1449,15 @@
         private System.Windows.Forms.Button SetServicesManual_btn;
         private System.Windows.Forms.Button DisableTelemetry_btn;
         private System.Windows.Forms.Button DisableActivity_btn;
+        private System.Windows.Forms.Panel Programs_panel;
+        private System.Windows.Forms.Panel ProgramsRisk_panel;
+        private System.Windows.Forms.Label ProgramsRiskText_label;
+        private System.Windows.Forms.Label ProgramsRisk_title;
+        private System.Windows.Forms.Button Uninstall_btn;
+        private System.Windows.Forms.CheckedListBox Programs_CheckedList;
+        private System.Windows.Forms.ListBox UninstallLog_List;
+        private System.Windows.Forms.Button Refresh_btn;
+        private System.Windows.Forms.Button UninstallMenu_btn;
     }
 }
 
