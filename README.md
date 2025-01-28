@@ -2,7 +2,7 @@
 
 **PASPAS** is a fast and efficient multi-threaded analysis and cleanup tool designed to accelerate system maintenance tasks. It is easy to use, making it accessible for all users. PASPAS operates offline, without the need for telemetry or an internet connection, and includes features to optimize your network performance. It also securely clears sensitive data, ensuring your privacy while offering advanced system tuning capabilities.
 
-![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_4.png)
+![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_5.png)
 
 ## Features
 
