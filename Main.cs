@@ -10,7 +10,6 @@ using System.Management.Automation;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Web.WebView2.WinForms;
 
 namespace PASPAS
 {
@@ -290,25 +289,9 @@ namespace PASPAS
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'PublishUserActivities' -Value 0 -Type DWord -Force",
                 "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System' -Name 'UploadUserActivities' -Value 0 -Type DWord -Force"
         ];
-        private WebView2 webView;
         public Main()
         {
             InitializeComponent();
-            InitializeWebView2();
-        }
-
-        private async void InitializeWebView2()
-        {
-            webView = new WebView2
-            {
-                Dock = DockStyle.Fill
-            };
-
-            Controls.Add(webView);
-            await webView.EnsureCoreWebView2Async(null);
-            webView.CoreWebView2.Navigate(uri: "about:blank");
-            webView.SendToBack();
-            webView.Hide();
         }
 
         private void PASPAS_Main_Shown(object sender, EventArgs e) => DarkModeSwitch();
@@ -372,9 +355,6 @@ namespace PASPAS
             SidePanel.Top = top;
             SidePanel.Height = Home_btn.Height;
             Home_panel.BringToFront();
-            webView.CoreWebView2.Navigate(uri: "about:blank");
-            webView.SendToBack();
-            webView.Hide();
         }
 
         private void Options_btn_Click(object sender, EventArgs e)
@@ -382,9 +362,6 @@ namespace PASPAS
             SidePanel.Top = Options_btn.Top;
             SidePanel.Height = Options_btn.Height;
             Options_panel.BringToFront();
-            webView.CoreWebView2.Navigate(uri: "about:blank");
-            webView.SendToBack();
-            webView.Hide();
         }
 
         private void Tweaks_btn_Click(object sender, EventArgs e)
@@ -392,27 +369,18 @@ namespace PASPAS
             SidePanel.Top = Tweaks_btn.Top;
             SidePanel.Height = Tweaks_btn.Height;
             Tweaks_panel.BringToFront();
-            webView.CoreWebView2.Navigate(uri: "about:blank");
-            webView.SendToBack();
-            webView.Hide();
         }
         private void UninstallMenu_btn_Click(object sender, EventArgs e)
         {
             SidePanel.Top = UninstallMenu_btn.Top;
             SidePanel.Height = UninstallMenu_btn.Height;
             Programs_panel.BringToFront();
-            webView.CoreWebView2.Navigate(uri: "about:blank");
-            webView.SendToBack();
-            webView.Hide();
         }
         private void About_btn_Click(object sender, EventArgs e)
         {
             SidePanel.Top = About_btn.Top;
             SidePanel.Height = About_btn.Height;
             About_panel.BringToFront();
-            webView.CoreWebView2.Navigate(uri: "about:blank");
-            webView.SendToBack();
-            webView.Hide();
         }
 
 
@@ -1230,24 +1198,6 @@ namespace PASPAS
                 }
             }
             DarkModeSwitch();
-        }
-        private void Github_label_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            webView.CoreWebView2.Navigate(uri: "https://github.com/berkaygediz");
-            webView.BringToFront();
-            webView.Show();
-        }
-        private void Promo_richspan_button_Click(object sender, EventArgs e)
-        {
-            webView.CoreWebView2.Navigate(uri: "https://github.com/berkaygediz/RichSpan");
-            webView.BringToFront();
-            webView.Show();
-        }
-        private void Promo_solidsheets_button_Click(object sender, EventArgs e)
-        {
-            webView.CoreWebView2.Navigate(uri: "https://github.com/berkaygediz/SolidSheets");
-            webView.BringToFront();
-            webView.Show();
         }
 
         private static string RunPowerShellCommand(string command)
