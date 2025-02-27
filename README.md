@@ -28,8 +28,7 @@ PASPAS offers the following system tweaks to enhance your privacy and optimize s
 ## Requirements
 
 - **.NET 9.0 or later**
-- **WebView2**
-
+  
 ## Usage
 
 1. Download the latest release of [PASPAS](https://github.com/berkaygediz/PASPAS/releases).
