@@ -79,8 +79,8 @@
             SystemCache_title = new System.Windows.Forms.Label();
             Clipboard_title = new System.Windows.Forms.Label();
             About_panel = new System.Windows.Forms.Panel();
-            promo_solidsheets_button = new System.Windows.Forms.Button();
-            promo_richspan_button = new System.Windows.Forms.Button();
+            promo_2_button = new System.Windows.Forms.Button();
+            promo_1_button = new System.Windows.Forms.Button();
             promo_disclaimer = new System.Windows.Forms.Label();
             promo_description = new System.Windows.Forms.Label();
             Github_label = new System.Windows.Forms.LinkLabel();
@@ -215,7 +215,7 @@
             versionCode.Name = "versionCode";
             versionCode.Size = new System.Drawing.Size(87, 13);
             versionCode.TabIndex = 26;
-            versionCode.Text = "Omni 2025.01-4";
+            versionCode.Text = "Omni 2025.02-1";
             // 
             // LogoPanel
             // 
@@ -868,8 +868,8 @@
             // About_panel
             // 
             About_panel.BackColor = System.Drawing.Color.WhiteSmoke;
-            About_panel.Controls.Add(promo_solidsheets_button);
-            About_panel.Controls.Add(promo_richspan_button);
+            About_panel.Controls.Add(promo_2_button);
+            About_panel.Controls.Add(promo_1_button);
             About_panel.Controls.Add(promo_disclaimer);
             About_panel.Controls.Add(promo_description);
             About_panel.Controls.Add(Github_label);
@@ -880,33 +880,31 @@
             About_panel.Size = new System.Drawing.Size(680, 429);
             About_panel.TabIndex = 24;
             // 
-            // promo_solidsheets_button
+            // promo_2_button
             // 
-            promo_solidsheets_button.BackColor = System.Drawing.Color.Transparent;
-            promo_solidsheets_button.FlatAppearance.BorderSize = 0;
-            promo_solidsheets_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            promo_solidsheets_button.ForeColor = System.Drawing.Color.Transparent;
-            promo_solidsheets_button.Image = Properties.Resources.solidsheets;
-            promo_solidsheets_button.Location = new System.Drawing.Point(201, 185);
-            promo_solidsheets_button.Name = "promo_solidsheets_button";
-            promo_solidsheets_button.Size = new System.Drawing.Size(157, 127);
-            promo_solidsheets_button.TabIndex = 6;
-            promo_solidsheets_button.UseVisualStyleBackColor = false;
-            promo_solidsheets_button.Click += Promo_solidsheets_button_Click;
+            promo_2_button.BackColor = System.Drawing.Color.Transparent;
+            promo_2_button.FlatAppearance.BorderSize = 0;
+            promo_2_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            promo_2_button.ForeColor = System.Drawing.Color.Transparent;
+            promo_2_button.Image = Properties.Resources.solidsheets;
+            promo_2_button.Location = new System.Drawing.Point(201, 185);
+            promo_2_button.Name = "promo_2_button";
+            promo_2_button.Size = new System.Drawing.Size(157, 127);
+            promo_2_button.TabIndex = 6;
+            promo_2_button.UseVisualStyleBackColor = false;
             // 
-            // promo_richspan_button
+            // promo_1_button
             // 
-            promo_richspan_button.BackColor = System.Drawing.Color.Transparent;
-            promo_richspan_button.FlatAppearance.BorderSize = 0;
-            promo_richspan_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            promo_richspan_button.ForeColor = System.Drawing.Color.Transparent;
-            promo_richspan_button.Image = Properties.Resources.richspan;
-            promo_richspan_button.Location = new System.Drawing.Point(32, 185);
-            promo_richspan_button.Name = "promo_richspan_button";
-            promo_richspan_button.Size = new System.Drawing.Size(157, 127);
-            promo_richspan_button.TabIndex = 5;
-            promo_richspan_button.UseVisualStyleBackColor = false;
-            promo_richspan_button.Click += Promo_richspan_button_Click;
+            promo_1_button.BackColor = System.Drawing.Color.Transparent;
+            promo_1_button.FlatAppearance.BorderSize = 0;
+            promo_1_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            promo_1_button.ForeColor = System.Drawing.Color.Transparent;
+            promo_1_button.Image = Properties.Resources.solidwriting;
+            promo_1_button.Location = new System.Drawing.Point(32, 185);
+            promo_1_button.Name = "promo_1_button";
+            promo_1_button.Size = new System.Drawing.Size(157, 127);
+            promo_1_button.TabIndex = 5;
+            promo_1_button.UseVisualStyleBackColor = false;
             // 
             // promo_disclaimer
             // 
@@ -916,7 +914,7 @@
             promo_disclaimer.Name = "promo_disclaimer";
             promo_disclaimer.Size = new System.Drawing.Size(496, 13);
             promo_disclaimer.TabIndex = 4;
-            promo_disclaimer.Text = "(Includes data from 24.10.2024; name modifications might happen while the project is being developed.)";
+            promo_disclaimer.Text = "(Includes data from 28.02.2025; name modifications might happen while the project is being developed.)";
             // 
             // promo_description
             // 
@@ -924,9 +922,9 @@
             promo_description.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, 162);
             promo_description.Location = new System.Drawing.Point(29, 149);
             promo_description.Name = "promo_description";
-            promo_description.Size = new System.Drawing.Size(602, 21);
+            promo_description.Size = new System.Drawing.Size(624, 21);
             promo_description.TabIndex = 3;
-            promo_description.Text = "Berkay Gediz's office suite (RichSpan && SolidSheets) works better with your hardware!";
+            promo_description.Text = "Berkay Gediz's office suite (SolidWriting && SolidSheets) works better with your hardware!";
             // 
             // Github_label
             // 
@@ -942,7 +940,6 @@
             Github_label.TabIndex = 2;
             Github_label.TabStop = true;
             Github_label.Text = "github.com/berkaygediz";
-            Github_label.LinkClicked += Github_label_LinkClicked;
             // 
             // Author_subtext
             // 
@@ -1321,9 +1318,9 @@
             Controls.Add(Home_panel);
             Controls.Add(ProcessPanel);
             Controls.Add(Options_panel);
-            Controls.Add(About_panel);
             Controls.Add(Programs_panel);
             Controls.Add(Tweaks_panel);
+            Controls.Add(About_panel);
             Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             ForeColor = System.Drawing.Color.Black;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1438,8 +1435,8 @@
         private System.Windows.Forms.Label SysLogErrorRep_title;
         private System.Windows.Forms.Label promo_description;
         private System.Windows.Forms.Label promo_disclaimer;
-        private System.Windows.Forms.Button promo_richspan_button;
-        private System.Windows.Forms.Button promo_solidsheets_button;
+        private System.Windows.Forms.Button promo_1_button;
+        private System.Windows.Forms.Button promo_2_button;
         private System.Windows.Forms.Label versionCode;
         private System.Windows.Forms.Button Tweaks_btn;
         private System.Windows.Forms.Panel Tweaks_panel;

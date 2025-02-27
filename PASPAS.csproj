@@ -14,14 +14,13 @@
 		<UpdateRequired>false</UpdateRequired>
 		<MapFileExtensions>true</MapFileExtensions>
 		<ApplicationRevision>0</ApplicationRevision>
-		<ApplicationVersion>1.0.6.0</ApplicationVersion>
-		<Version>1.0.6.0</Version>
+		<ApplicationVersion>1.0.6.1</ApplicationVersion>
+		<Version>1.0.6.1</Version>
 		<UseApplicationTrust>false</UseApplicationTrust>
 		<BootstrapperEnabled>true</BootstrapperEnabled>
 		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<Optimize>true</Optimize>
@@ -30,9 +29,7 @@
 	<PropertyGroup>
 		<StartupObject>PASPAS.Program</StartupObject>
 	</PropertyGroup>
-	<PropertyGroup>
-		<ApplicationIcon>paspas.ico</ApplicationIcon>
-	</PropertyGroup>
+	<PropertyGroup />
 	<PropertyGroup>
 		<TargetZone>LocalIntranet</TargetZone>
 	</PropertyGroup>
@@ -43,8 +40,8 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/berkaygediz/PASPAS</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.6.0</AssemblyVersion>
-		<FileVersion>1.0.6.0</FileVersion>
+		<AssemblyVersion>1.0.6.1</AssemblyVersion>
+		<FileVersion>1.0.6.1</FileVersion>
 		<Copyright>Berkay Gediz © 2025</Copyright>
 		<Description>Blazing-fast, all-in-one system optimizer. Improve your computer's efficiency with powerful cleaning and tuning tools.</Description>
 		<PackageIcon>paspas.png</PackageIcon>
@@ -54,6 +51,8 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageProjectUrl>https://github.com/berkaygediz/PASPAS</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<ApplicationIcon>paspas.ico</ApplicationIcon>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<DebugType>embedded</DebugType>
@@ -91,8 +90,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.0" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
 		<PackageReference Include="System.Management.Automation" Version="7.5.0" />
 	</ItemGroup>
 	<ItemGroup>
