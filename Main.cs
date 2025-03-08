@@ -803,6 +803,7 @@ namespace PASPAS
                 foreach (string extensions in temporaryExtensions)
                 {
                     DeleteFiles(folderIndex["WinTemp2"], extensions.ToString());
+                    DeleteAllDirectories(folderIndex["WinTemp2"]);
                 }
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
@@ -845,6 +846,7 @@ namespace PASPAS
                 foreach (string extensions in temporaryExtensions)
                 {
                     DeleteFiles(folderIndex["WinTemp2"], extensions.ToString());
+                    DeleteAllDirectories(folderIndex["WinTemp2"]);
                 }
                 Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
 
@@ -910,6 +912,7 @@ namespace PASPAS
                     foreach (string extensions in temporaryExtensions)
                     {
                         DeleteFiles(folderIndex["WinTemp2"], extensions.ToString());
+                        DeleteAllDirectories(folderIndex["WinTemp2"]);
                     }
 
                     Process_count.Text = FileCount.ToString() + " / " + RejectCount.ToString() + " / " + AccessError.ToString();
