@@ -36,6 +36,12 @@ PASPAS offers the following system tweaks to enhance your privacy and optimize s
 3. Run the `PASPAS.exe` application to begin analyzing and cleaning your system.
 4. Apply the system tweaks to optimize performance and enhance privacy.
 
+## Build
+
+```bash
+dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ".\bin\publish\PASPAS-win-x64\"
+```
+
 ## Contribute
 
 We welcome contributions to PASPAS! If you'd like to help improve the tool, please refer to our [Contribution Guide](CONTRIBUTING.md) for more information on how you can contribute to the project.
