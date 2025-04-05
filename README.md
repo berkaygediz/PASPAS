@@ -49,3 +49,13 @@ We welcome contributions to PASPAS! If you'd like to help improve the tool, plea
 ## Contact Us
 
 If you have any questions or feedback, please [open an issue](https://github.com/berkaygediz/PASPAS/issues) on GitHub. We're happy to assist and improve PASPAS with your input!
+
+## Press and Publications
+
+- [Comment Ça Marche](https://www.commentcamarche.net/telecharger/utilitaires/29641-paspas-un-nettoyeur-de-pc-gratuit-et-sans-installation/) (Téo Marciano - 01/12/23 19:53)
+- [JustGeek](https://www.justgeek.fr/paspas-logiciel-nettoyage-pc-simple-et-gratuit-111141/) (Benjamin - 11.08.2023)
+- [Softpedia](https://www.softpedia.com/get/Tweak/System-Tweak/PASPAS.shtml) (Robert Condorache ⭐ 4.0 / Users ⭐ 4.7)
+- [Softaro](https://softaro.jp/paspas/) (2025/02/28 09:28)
+- [PlanetaSofta](https://planetasofta.ru/windows/system-tweak/paspas)
+- [AlternativeTo](https://alternativeto.net/software/berkaygediz-paspas/about/) (Users ⭐ 4.9)
+- [YouTube - Actualia tech](https://www.youtube.com/watch?v=Il3TOGORYoM) (24.08.2023)
