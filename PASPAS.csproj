@@ -12,11 +12,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Version>2.0.0.0</Version>
-		<AssemblyVersion>2.0.0.0</AssemblyVersion>
-		<FileVersion>2.0.0.0</FileVersion>
+		<Version>2.0.1.1</Version>
+		<AssemblyVersion>2.0.1.1</AssemblyVersion>
+		<FileVersion>2.0.1.1</FileVersion>
 		<Copyright>Berkay Gediz © 2026</Copyright>
-		<Description>Blazing-fast, all-in-one system optimizer. Improve your computer's efficiency with powerful cleaning and tuning tools.</Description>
+		<Description>All-in-one system utility to clean temporary files, review registry entries, uninstall programs, and tweak Windows performance.</Description>
 		<Title>PASPAS</Title>
 	</PropertyGroup>
 

@@ -69,7 +69,7 @@ namespace PASPAS
                 new EcoProject { Name = "OpenLapis Connect", Desc = "Cross-platform data bridge linking browser extensions, desktop & mobile apps.", Url = "https://github.com/berkaygediz/openlapis-connect", ColorHex = "#40e0d0" },
                 new EcoProject { Name = "SolidWriting", Desc = "A modern word processor with AI integration, supporting real-time computing and advanced formatting.", Url = "https://github.com/berkaygediz/SolidWriting", ColorHex = "#3f5ebd" },
                 new EcoProject { Name = "SolidSheets", Desc = "A modern spreadsheet editor with ML integration, supporting real-time graphs and formulas.", Url = "https://github.com/berkaygediz/SolidSheets", ColorHex = "#419c62" },
-                new EcoProject { Name = "PASPAS", Desc = "Blazing-fast, all-in-one system optimizer.", Url = "https://github.com/berkaygediz/PASPAS", ColorHex = "#9e9e24" },
+                new EcoProject { Name = "PASPAS", Desc = "All-in-one system utility to clean temporary files, review registry entries, uninstall programs, and tweak Windows performance.", Url = "https://github.com/berkaygediz/PASPAS", ColorHex = "#9e9e24" },
                 new EcoProject { Name = "uKick", Desc = "All-in-one extension to block, boost and tweak everything on Kick.", Url = "https://github.com/berkaygediz/uKick", ColorHex = "#1a7e4c" },
                 new EcoProject { Name = "uDittor", Desc = "All-in-one extension to block and tweak everything on Reddit.", Url = "https://github.com/berkaygediz/uDittor", ColorHex = "#c4502a" },
                 new EcoProject { Name = "uSozluk", Desc = "All-in-one extension to block and tweak everything on Ekşi Sözlük.", Url = "https://github.com/berkaygediz/uSozluk", ColorHex = "#d4a90a" },
