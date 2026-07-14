@@ -3,11 +3,13 @@ name: Release PASPAS
 on:
   push:
     tags:
-      - '[0-9]+.*' # version: 2.0.1.0
+      - '[0-9]+.*' # version: 2.x.x.x
 
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         arch: [win-x64, win-x86, win-arm64]
