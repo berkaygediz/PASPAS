@@ -12,14 +12,14 @@ AppPublisher=Berkay Gediz
 AppPublisherURL=https://github.com/berkaygediz/PASPAS
 AppSupportURL=https://github.com/berkaygediz/PASPAS/issues
 AppUpdatesURL=https://github.com/berkaygediz/PASPAS/releases
-DefaultDirName={autopf}\PASPAS
+DefaultDirName={localappdata}\Programs\PASPAS
 DefaultGroupName=PASPAS
 UninstallDisplayIcon={app}\PASPAS.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=.
 OutputBaseFilename=PASPAS-{#MyVersion}-Setup-{#MyArch}
-PrivilegesRequired=admin
+PrivilegesRequired=lowest
 ArchitecturesAllowed=x86 x64 arm64
 ArchitecturesInstallIn64BitMode=x64 arm64
 
