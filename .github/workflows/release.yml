@@ -3,7 +3,7 @@ name: Release PASPAS
 on:
   push:
     tags:
-      - '[0-9]+.*' # version: 2.x.x.x
+      - '[0-9]+.*' # version: 2.0.1.0
 
 jobs:
   build:
@@ -25,14 +25,22 @@ jobs:
     - name: Publish Single File Executable
       run: dotnet publish PASPAS.csproj -c Release -r ${{ matrix.arch }} -p:PublishSingleFile=true -p:SelfContained=true -p:ReadyToRun=false -p:PublishTrimmed=false --output ./publish
 
-    - name: Zip the published file
-      run: Compress-Archive -Path ./publish/PASPAS.exe -DestinationPath ./PASPAS-${{ matrix.arch }}.zip
+    - name: Create Portable Zip
+      run: Compress-Archive -Path ./publish/PASPAS.exe -DestinationPath ./PASPAS-${{ github.ref_name }}-${{ matrix.arch }}-portable.zip
 
-    - name: Upload artifact
+    - name: Install Inno Setup
+      run: choco install innosetup -y --no-progress
+
+    - name: Create Installer (Setup.exe)
+      run: iscc installer.iss /DMyArch=${{ matrix.arch }} /DMyVersion=${{ github.ref_name }}
+
+    - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: PASPAS-${{ matrix.arch }}
-        path: ./PASPAS-${{ matrix.arch }}.zip
+        path: |
+          ./PASPAS-${{ github.ref_name }}-${{ matrix.arch }}-portable.zip
+          ./PASPAS-${{ github.ref_name }}-Setup-${{ matrix.arch }}.exe
 
   release:
     needs: build
@@ -46,10 +54,10 @@ jobs:
         path: artifacts
         merge-multiple: true
 
-    - name: Create Release
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: artifacts/*.zip
+        files: artifacts/*
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
