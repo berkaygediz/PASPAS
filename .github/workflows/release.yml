@@ -1,0 +1,55 @@
+name: Release PASPAS
+
+on:
+  push:
+    tags:
+      - '[0-9]+.*' # version: 2.x.x.x
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [win-x64, win-x86, win-arm64]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        allow-prerelease: true
+
+    - name: Publish Single File Executable
+      run: dotnet publish PASPAS.csproj -c Release -r ${{ matrix.arch }} -p:PublishSingleFile=true -p:SelfContained=true -p:ReadyToRun=false -p:PublishTrimmed=false --output ./publish
+
+    - name: Zip the published file
+      run: Compress-Archive -Path ./publish/PASPAS.exe -DestinationPath ./PASPAS-${{ matrix.arch }}.zip
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PASPAS-${{ matrix.arch }}
+        path: ./PASPAS-${{ matrix.arch }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        merge-multiple: true
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: artifacts/*.zip
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
