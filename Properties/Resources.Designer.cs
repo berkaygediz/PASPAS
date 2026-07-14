@@ -72,59 +72,11 @@ namespace PASPAS.Properties
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap finish
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("finish", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap paspas
         {
             get
             {
                 object obj = ResourceManager.GetObject("paspas", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap process
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("process", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap solidwriting
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("solidwriting", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap solidsheets
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("solidsheets", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -6,12 +6,15 @@ namespace PASPAS
     static class Program
     {
         /// <summary>
-        /// Uygulamanın ana girdi noktası.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new Main());
         }
     }

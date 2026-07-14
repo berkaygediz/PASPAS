@@ -1,51 +1,91 @@
-﻿# PASPAS
+﻿<p align="center">
+  <img src="Assets/paspas.png" alt="PASPAS" width="128">
+</p>
 
-**PASPAS** is a fast and efficient multi-threaded analysis and cleanup tool designed to accelerate system maintenance tasks. It is easy to use, making it accessible for all users. PASPAS operates offline, without the need for telemetry or an internet connection, and includes features to optimize your network performance. It also securely clears sensitive data, ensuring your privacy while offering advanced system tuning capabilities.
+# PASPAS
 
-![PASPAS Banner](https://github.com/berkaygediz/PASPAS/blob/master/paspas_banner_5.png)
+All-in-one system utility to clean temporary files, review registry entries, uninstall programs, and tweak Windows performance.
 
 ## Features
 
-- [x] **Blazing-fast multi-threaded analysis and cleanup**: Efficiently scans and cleans your system with minimal resource usage.
-- [x] **No telemetry or internet connection required**: Operates completely offline for enhanced privacy.
-- [x] **Network optimization**: Improves network performance and reduces latency for a smoother browsing experience.
-- [x] **Securely clears sensitive data**: Ensures your private data is completely erased and cannot be recovered.
-- [x] **Advanced system tweaks**: Includes several built-in performance tweaks to fine-tune your system:
-  - **Disable telemetry** to prevent data collection.
-  - **Clear activity history** (recent documents, clipboard, and run history) to further safeguard your privacy.
-  - **Control system services** by setting them to manual startup, optimizing resource usage.
-- [x] **Program Uninstaller**
+- **System Cleanup:** Scans and deletes temporary files, system logs, memory dumps, and prefetch data. Includes Basic, Advanced, and Custom modes.
+- **Registry Scanner:** Scans 9 specific registry categories for orphaned entries and invalid file paths. You stay in control: scan first, review manually, and delete only what you choose. It safely excludes critical OS files and hardware vendor entries (Microsoft, Windows, Intel, NVIDIA, Realtek, etc.) to protect system stability and help clear forensically sensitive data.
+- **Program Uninstaller:** Quickly detects installed software (32-bit and 64-bit) and allows batch uninstallation.
+- **System Tweaks:** Applies registry and service modifications to enhance privacy and performance:
+  - Disable Windows telemetry and Defender sample submission.
+  - Clear user activity history.
+  - Set unnecessary background services to manual startup.
+- **Multitasking:** Built on .NET 10 with direct system calls and minimal dependencies. Tasks run in the background, allowing you to clean, review the registry, apply tweaks, and uninstall programs simultaneously without freezing the UI.
 
-## Tweaks
+## Installation
 
-PASPAS offers the following system tweaks to enhance your privacy and optimize system performance:
+Download the latest release from one of the following sources:
 
-- [x] **Disable Telemetry**: Prevents the collection of usage data, ensuring your system remains private.
-- [x] **Disable Activity History**: Clears recent documents, clipboard entries, and run history, improving privacy.
-- [x] **Set System Services to Manual**: Offers control over services, allowing you to set them to manual startup, saving system resources.
-- [x] **Network Optimization**: Optimizes your network connection to improve speed and reduce delays.
+- **GitHub Releases:** [Download](https://github.com/berkaygediz/PASPAS)
+- **Microsoft Store:** [Install](ms-windows-store://pdp/?productid=PASPAS)
+
+### Package Managers
+
+You can also install PASPAS using your preferred package manager:
+
+**Winget:**
+
+```bash
+winget install berkaygediz.PASPAS
+```
+
+**Chocolatey:**
+
+```bash
+choco install paspas
+```
+
+## Screenshots
+
+<p align="center">
+<table>
+  <tr>
+    <td><img src="Assets/banner/paspas_2000_home_dark.png" alt="Dark Mode" width="100%"></td>
+    <td><img src="Assets/banner/paspas_2000_home_light.png" alt="Light Mode" width="100%"></td>
+  </tr>
+</table>
+</p>
 
 ## Requirements
 
-- **.NET 9.0 or later**
-  
-## Usage
-
-1. Download the latest release of [PASPAS](https://github.com/berkaygediz/PASPAS/releases).
-2. Extract the contents of the zip file to any location on your system.
-3. Run the `PASPAS.exe` application to begin analyzing and cleaning your system.
-4. Apply the system tweaks to optimize performance and enhance privacy.
+- Windows 10 (17763+) or Windows 11
+- Administrator privileges
 
 ## Build
 
+Clone the repository and run using .NET 10 SDK:
+
 ```bash
-dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ".\bin\publish\PASPAS-win-x64\"
+git clone https://github.com/berkaygediz/PASPAS.git
+cd PASPAS
+dotnet run -c Release
 ```
 
-## Contribute
+To publish a single-file executable:
 
-We welcome contributions to PASPAS! If you'd like to help improve the tool, please refer to our [Contribution Guide](CONTRIBUTING.md) for more information on how you can contribute to the project.
+```bash
+dotnet publish PASPAS.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true -p:PublishTrimmed=false
+```
 
-## Contact Us
+## Notes
 
-If you have any questions or feedback, please [open an issue](https://github.com/berkaygediz/PASPAS/issues) on GitHub. We're happy to assist and improve PASPAS with your input!
+PASPAS has been in development for quite some time. The initial source code was created back in 2017, going through many phases and complete rewrites. The project officially became open-source starting June 22, 2023 ([first commit](https://github.com/berkaygediz/PASPAS/commit/5f5ee834c56785c14f1c48e663b4118f6d3f8f1a)). If you are looking for older versions, historical source codes, or just want to say hi, feel free to reach out.
+
+## Press
+
+- [Comment Ça Marche](https://www.commentcamarche.net/telecharger/utilitaires/29641-paspas-un-nettoyeur-de-pc-gratuit-et-sans-installation/) (Téo Marciano - 01/12/23 19:53)
+- [JustGeek](https://www.justgeek.fr/paspas-logiciel-nettoyage-pc-simple-et-gratuit-111141/) (Benjamin - 11.08.2023)
+- [Softpedia](https://www.softpedia.com/get/Tweak/System-Tweak/PASPAS.shtml) (Robert Condorache ⭐ 4.0 / Users ⭐ 4.7)
+- [Softaro](https://softaro.jp/paspas/) (2025/02/28 09:28)
+- [PlanetaSofta](https://planetasofta.ru/windows/system-tweak/paspas)
+- [AlternativeTo](https://alternativeto.net/software/berkaygediz-paspas/about/) (Users ⭐ 4.9)
+- [YouTube - Actualia tech](https://www.youtube.com/watch?v=Il3TOGORYoM) (24.08.2023)
+
+## License
+
+Licensed under the Apache License, 2.0. See the [LICENSE](LICENSE) file.

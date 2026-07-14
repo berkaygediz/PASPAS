@@ -1,41 +1,30 @@
 # Contributing to PASPAS
 
-Thank you for your interest in contributing to the PASPAS project! Your contributions are valuable in improving this cleaning application. Please follow the guidelines below to get started:
+Thanks for your interest in PASPAS. Whether it's a bug fix, a new feature, or a translation, contributions are welcome.
 
-## Getting Started
+## Setup
 
-1. Fork the repository on GitHub by clicking the "Fork" button.
-
-2. Clone your fork of the repository to your local machine:
-
-   ```shell
-   git clone https://github.com/berkaygediz/PASPAS.git
+1. Fork the repository.
+2. Clone your fork to your local machine:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/PASPAS.git
    ```
+3. Make sure you have the .NET 10 SDK installed.
+4. Open the solution in Visual Studio, VS Code, or Rider.
 
-3. Open the project using your preferred C# IDE (e.g., Visual Studio).
+## Pull Requests
 
-4. Make your desired changes or improvements to the code.
-
-## Making Changes
-
-1. Please maintain a clean and consistent coding style that aligns with the existing codebase.
-
-2. Test your changes thoroughly to ensure they work as expected and do not introduce any new bugs.
-
-3. Keep your changes focused and concise. If you plan to add new features, create separate branches for each feature.
-
-4. Document your code to make it understandable for other contributors.
-
-## Submitting Pull Requests
-
-1. Once you're satisfied with your changes, create a new pull request (PR) on the original PASPAS repository.
-
-2. Provide a clear and descriptive title for your PR.
-
-3. In the PR description, explain the purpose of your changes, including any relevant details.
-
-4. Be prepared to collaborate with reviewers and address any feedback or suggestions they provide.
+1. Create a new branch for your changes (`git checkout -b fix/my-bug-fix`).
+2. Keep your changes focused. If you are fixing a bug, only fix that bug.
+3. Test your changes on Windows 10 or 11 to ensure nothing is broken.
+4. Commit your changes and push to your fork.
+5. Open a Pull Request. Explain what you changed and why.
 
 ## Reporting Issues
 
-If you find any issues or bugs in the project, please report them through the project's issue tracker on GitHub. Include detailed information about the issue, steps to reproduce it, and any relevant screenshots.
+If you find a bug, please open an issue. Include the following details:
+
+- Your Windows version.
+- Steps to reproduce the bug.
+- What you expected to happen vs. what actually happened.
+- Screenshots, if applicable.

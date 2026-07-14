@@ -2,20 +2,24 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Only the latest releases receive security updates. Older versions are no longer maintained.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version   | Supported          |
+| --------- | ------------------ |
+| 2.0.x.x   | :white_check_mark: |
+| 1.0.6.x   | :x:                |
+| < 1.0.6.x | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you find a security vulnerability, please do not open a public issue.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Instead, report it privately via [GitHub's Security Advisory](https://github.com/berkaygediz/PASPAS/security/advisories/new) feature.
+
+Please include:
+
+- A clear description of the vulnerability.
+- Steps to reproduce the issue.
+- Potential impact.
+
+You can expect an initial response within 72 hours. If the vulnerability is accepted, a patch will be prioritized and released as soon as possible.
