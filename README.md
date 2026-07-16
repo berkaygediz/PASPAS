@@ -22,7 +22,10 @@ All-in-one system utility to clean temporary files, review registry entries, uni
 Download the latest release from one of the following sources:
 
 - **GitHub Releases:** [Download](https://github.com/berkaygediz/PASPAS)
-- **Microsoft Store:** [Install](ms-windows-store://pdp/?productid=PASPAS)
+- **Microsoft Store:**
+<a href="https://apps.microsoft.com/detail/9pbvt4sppm8d?referrer=appbadge&mode=full" target="_blank"  rel="noopener noreferrer">
+	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
+</a>
 
 ### Package Managers
 
@@ -31,7 +34,7 @@ You can also install PASPAS using your preferred package manager:
 **Winget:**
 
 ```bash
-winget install berkaygediz.PASPAS
+winget install -e --id berkaygediz.PASPAS
 ```
 
 **Chocolatey:**
@@ -83,7 +86,7 @@ PASPAS has been in development for quite some time. The initial source code was 
 - [Softpedia](https://www.softpedia.com/get/Tweak/System-Tweak/PASPAS.shtml) (Robert Condorache ⭐ 4.0 / Users ⭐ 4.7)
 - [Softaro](https://softaro.jp/paspas/) (2025/02/28 09:28)
 - [PlanetaSofta](https://planetasofta.ru/windows/system-tweak/paspas)
-- [AlternativeTo](https://alternativeto.net/software/berkaygediz-paspas/about/) (Users ⭐ 4.9)
+- [AlternativeTo](https://alternativeto.net/software/berkaygediz-paspas/about/) (Users ⭐ 5.0)
 - [YouTube - Actualia tech](https://www.youtube.com/watch?v=Il3TOGORYoM) (24.08.2023)
 
 ## License
